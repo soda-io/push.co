@@ -1,0 +1,23 @@
+{
+  "name": "soda-track",
+  "version": "0.0.1",
+  "description": "Трекер легкий в использовании ",
+  "main": "index.coffee",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/soda-io/soda-track.git"
+  },
+  "keywords": [
+    "soda",
+    "tracker",
+    "console",
+    "todo"
+  ],
+  "author": "@selead, @SherozKarimov",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "7392860899042ac66879e8388f976fffe24e0aa0"
+}
