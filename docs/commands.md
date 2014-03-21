@@ -6,7 +6,7 @@
 |`g`|group/командный todo                       |
 |`i`|info/информация                            |
 |`e`|edit/изменить                              |
-|`@`|(@todo, @question) type of task/тип задачи |
+|`!`|(!todo, !question) type of task/тип задачи |
 |`#`|hashtag (#task)/хэштег                     |
 |`sr`|search/поиск                              |
 |`c`|comment/комментарий                        |
