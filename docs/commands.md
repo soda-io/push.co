@@ -16,7 +16,7 @@
 |`p`|pause/приостановить                        |
 |`dt`|date/дата                                 |
 |`r`|reminder/напоминание                       |
-|`f`|folder/папки                               |
+|`fl`|folder/папки                              |
 |`ps`|personal/личные                           |
 |`f`|family/семейные                            | 
 |`w`|working/рабочие                            |
