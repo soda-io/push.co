@@ -21,6 +21,7 @@
 |`cal`|calender/календарь                       |
 |`i`|important/важная                           |
 |`cf`|config options/варианты конфигурации      |
+|`fr`|freeze/Замарозить                         |
                              
 
 
