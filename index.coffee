@@ -9,6 +9,8 @@ require "colors"
 docData = require "#{__dirname}/docs.RU"
 commands = require "./commands"
 
+util = require "./util"
+
 
 #
 # Собрать имена команд из справки
@@ -25,6 +27,9 @@ for k,v of docData.commands
 getCommandName = (name) ->
   procs[name] or null
 
+
+[cf, err] = util.loadConfig()
+console.log "cf = #{JSON.stringify cf, null, 2}"
 
 cmd =  getCommandName process.argv[2]
 if cmd?
