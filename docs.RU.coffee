@@ -3,7 +3,7 @@ module.exports =
     add:
       doc      : "добавить новую задачу"
       eg       : ["`s add todo послушать радио после обеда`"]
-      params   : {}
+      params   : []
       alias    : ["add", "a", "cr"]
       procName : "addTask"
     remove:
