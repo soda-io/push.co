@@ -54,3 +54,4 @@ module.exports =
       params: []
       alias: ["upf", "update-folder"]
       procName: "updateFolder"
+
