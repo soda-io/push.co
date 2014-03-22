@@ -7,8 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-      "cson": "1.4"
-    , "colors": "*"
+    "colors": "*"
   },
   "repository": {
     "type": "git",
@@ -20,7 +19,7 @@
     "console",
     "todo"
   ],
-  "author": "@selead, @SherozKarimov",
+  "author": "SODA",
   "license": "MIT",
   "readmeFilename": "README.md",
   "gitHead": "7392860899042ac66879e8388f976fffe24e0aa0"

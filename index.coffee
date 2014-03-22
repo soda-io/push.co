@@ -30,8 +30,7 @@ cmd =  getCommandName process.argv[2]
 if cmd?
   commands[cmd].call @, process.argv[3..], docData.commands
 else
-  console.log "unknown command: #{cmd}"
-
+  commands.help.call @, [], docData.commands
 
 
 
