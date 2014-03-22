@@ -31,32 +31,32 @@ module.exports =
       alias    : ["h", "help"]
       procName : "help"
     listFolders:
-      doc: "список каталогов"
-      eg: ["`s folders`"]
-      params: []
-      alias: ["fl", "folders"]
-      procName: "foldersList"
+      doc      : "список каталогов"
+      eg       : ["`s folders`"]
+      params   : []
+      alias    : ["fl", "folders"]
+      procName : "foldersList"
     newFolder:
-      doc: "создать каталог"
-      eg: ["`s nf myfolder`"]
-      params: [{name: "имя каталога"}]
-      alias: ["nf", "new-folder"]
-      procName: "newFolder"
+      doc      : "создать каталог"
+      eg       : ["`s nf myfolder`"]
+      params   : [{name: "имя каталога"}]
+      alias    : ["nf", "new-folder"]
+      procName : "newFolder"
     rmFolder:
-      doc: "удалить каталог"
-      eg: ["`s rf folder`"]
-      params: []
-      alias: ["rf", "rmf", "remove-folder"]
-      procName: "rmFolder"
+      doc      : "удалить каталог"
+      eg       : ["`s rf folder`"]
+      params   : []
+      alias    : ["rf", "rmf", "remove-folder"]
+      procName : "rmFolder"
     updateFolder:
-      doc: "обновить каталог"
-      eg: ["`s up oldname newname`"]
-      params: []
-      alias: ["upf", "update-folder"]
-      procName: "updateFolder"
+      doc      : "обновить каталог"
+      eg       : ["`s up oldname newname`"]
+      params   : []
+      alias    : ["upf", "update-folder"]
+      procName : "updateFolder"
     showStatistics:
-      doc: "показать статистику"
-      eg: ["`s ss`"]
-      params: []
-      alias: ["ss", "swstatistics", "sws"]
-      procName: "showStatistics"
+      doc      : "показать статистику"
+      eg       : ["`s ss`"]
+      params   : []
+      alias    : ["ss", "show-stat"]
+      procName : "folderStat"
