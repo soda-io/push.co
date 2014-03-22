@@ -68,7 +68,13 @@ exports.lsTasks = (tags) ->
 #
 #
 exports.mvTask = (tags) ->
-  console.log "move task"
+  console.log "переместить задачу в другой каталог"
+
+#
+# Public: Показать статистику
+#
+exports.ssTask = (tags) ->
+  console.log "показать статистику задач"
 
 # --------------------------------------------------
 # Помощь

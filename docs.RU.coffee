@@ -54,4 +54,9 @@ module.exports =
       params: []
       alias: ["upf", "update-folder"]
       procName: "updateFolder"
-
+    showStatistics:
+      doc: "показать статистику"
+      eg: ["`s ss`"]
+      params: []
+      alias: ["ss", "swstatistics", "sws"]
+      procName: "showStatistics"
