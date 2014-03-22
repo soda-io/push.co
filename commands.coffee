@@ -66,3 +66,4 @@ exports.help = (tags, commands) ->
   for k,v of commands
     s.push " - #{v.alias[0].bold} #{v.doc}"
   console.log s.join "\n"
+
