@@ -21,7 +21,7 @@ module.exports =
     move:
       doc      : "переместить задачу в другой каталог"
       eg       : ["`s mv 0 home to work`", "`s mv b0a work to home`"]
-      params   : [{id: "id/hash задачи"}, {from: "имя каталога-источнка "}, {to:"to"}, {dest: "имя каталога-назначения"}]
+      params   : [{id: "id/hash задачи"}, {from: "имя каталога-источнка"}, {to:"to"}, {dest: "имя каталога-назначения"}]
       alias    : ["mv", "move"]
       procName : "mvTask"
     help:
