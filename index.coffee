@@ -28,14 +28,16 @@ getCommandName = (name) ->
   procs[name] or null
 
 
-[cf, err] = util.loadConfig()
-console.log "cf = #{JSON.stringify cf, null, 2}"
+#
+# Загрузить конфиг
+#
+util.loadConfig (err, cf) ->
 
-cmd =  getCommandName process.argv[2]
-if cmd?
-  commands[cmd].call @, process.argv[3..], docData.commands
-else
-  commands.help.call @, [], docData.commands
+  cmd = getCommandName process.argv[2]
+  if cmd?
+    commands[cmd].call @, process.argv[3..], docData.commands
+  else
+    commands.help.call @, [], docData.commands
 
 
 
