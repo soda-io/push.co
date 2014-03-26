@@ -32,12 +32,15 @@ getCommandName = (name) ->
 # Загрузить конфиг
 #
 util.loadConfig (err, cf) ->
-
   cmd = getCommandName process.argv[2]
-  if cmd?
+  if cmd in ["help", "h"]
     commands[cmd].call @, process.argv[3..], docData.commands
   else
-    commands.help.call @, [], docData.commands
+    util.loadData cf, (err, data) ->
+      if cmd?
+        commands[cmd].call @, process.argv[3..], docData.commands
+      else
+        commands.help.call @, [], docData.commands
 
 
 
