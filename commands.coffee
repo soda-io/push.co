@@ -1,12 +1,22 @@
 #
 # Реализация команд трекера
 #
+require "colors"
 
 # --------------------------------------------------
 # Каталоги
 # --------------------------------------------------
-exports.listFolders = ->
-  console.log "показать каталоги"
+exports.foldersList = (tags, commands, data) ->
+  fldrs = []
+  for h, f of data.folders
+    if h is data.defaultFolder.hash
+      fldrs.push ["* #{f.name}".bold.magenta, f.order]
+    else
+      fldrs.push ["  #{f.name}", f.order]
+  fldrs = (fldrs.sort (a,b) -> a[1] > b[1]).map (a) -> a[0]
+  for f in fldrs
+    console.log f
+
 
 #
 # Public: Новый каталог
@@ -26,11 +36,6 @@ exports.updateFolder = (tags) ->
 exports.rmFolder = (tags) ->
   console.log "Удалить каталог"
 
-#
-# Public: cписок каталогов
-#
-exports.foldersList = (tags) ->
-  console.log "cписок каталогов"
 
 #
 # Public: Показать статистику
