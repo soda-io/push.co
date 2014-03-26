@@ -38,7 +38,7 @@ util.loadConfig (err, cf) ->
   else
     util.loadData cf, (err, data) ->
       if cmd?
-        commands[cmd].call @, process.argv[3..], docData.commands
+        commands[cmd].call @, process.argv[3..], docData.commands, data, cf
       else
         commands.help.call @, [], docData.commands
 
