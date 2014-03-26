@@ -24,13 +24,13 @@ exports.updateFolder = (tags) ->
 # Public: Удалить каталог
 #
 exports.rmFolder = (tags) ->
-  consle.log "Удалить каталог"
+  console.log "Удалить каталог"
 
 #
-# Public: Список каталогов
+# Public: cписок каталогов
 #
-exports.listFolders = (tags) ->
-  consle.log "Список каталогов"
+exports.foldersList = (tags) ->
+  console.log "cписок каталогов"
 
 #
 # Public: Показать статистику
