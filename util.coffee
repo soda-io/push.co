@@ -21,7 +21,7 @@ exports.createHash = createHash = (str, secret="soda labs") ->
 #
 # Настройки по умолчанию
 #
-defaultSettings = ->
+_defaultSettings = ->
   user:
     name      : null
     avatar    : null
@@ -34,7 +34,6 @@ defaultSettings = ->
   daysForTodo : 7
 
 
-
 #
 # Считать минимальные настройки
 #
@@ -44,7 +43,7 @@ defaultSettings = ->
 #   :err - ошибка
 #   :cf  - измененный конфиг
 #
-readData = (cf, fn) ->
+_readConfigData = (cf, fn) ->
   if cf.user.name is null
     cf.user.name = process.env.USER
 
@@ -60,12 +59,32 @@ readData = (cf, fn) ->
 exports.loadConfig = (fn) ->
   try
     cf = JSON.parse fs.readFileSync home, "utf-8"
-    readData cf, fn
+    _readConfigData cf, fn
   catch e
     cf = defaultSettings()
-    readData cf, (err, cf) ->
+    _readConfigData cf, (err, cf) ->
       unless err
         fs.writeFileSync home, JSON.stringify(cf)
       fn err, cf
 
 
+#
+# Public: Создать объект с задачами
+#
+#
+_defaultDataFile = ->
+  folders: {}
+  tasks: {}
+
+
+#
+# Public: Загрузить данные из файла 
+#
+#
+exports.loadData = (cf, fn) ->
+  try
+    userData = JSON.parse fs.readFileSync cf.dataFile, "utf-8"
+    fn null, userData    
+  catch e
+    # создать новый файл
+    userData = _defaultDataFile()        
