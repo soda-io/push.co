@@ -61,7 +61,7 @@ exports.loadConfig = (fn) ->
     cf = JSON.parse fs.readFileSync home, "utf-8"
     _readConfigData cf, fn
   catch e
-    cf = defaultSettings()
+    cf = _defaultSettings()
     _readConfigData cf, (err, cf) ->
       unless err
         fs.writeFileSync home, JSON.stringify(cf)
@@ -72,9 +72,21 @@ exports.loadConfig = (fn) ->
 # Public: Создать объект с задачами
 #
 #
-_defaultDataFile = ->
-  folders: {}
-  tasks: {}
+_defaultDataFile = (cf) ->
+  data = folders: {}, tasks: {}
+  now = Date.now()
+  for f,i in ["personal", "family", "work"]
+    f =
+      hash       : createHash f
+      created_at : now
+      updated_at : now
+      owner_name : cf.user.name
+      name       : f
+      order      : i
+      can_remove : no
+      stat       : {}
+    data.folders[f.hash] = f
+  data
 
 
 #
@@ -87,4 +99,6 @@ exports.loadData = (cf, fn) ->
     fn null, userData    
   catch e
     # создать новый файл
-    userData = _defaultDataFile()        
+    userData = _defaultDataFile cf
+    fs.writeFileSync cf.dataFile, JSON.stringify userData, null, 2
+    fn null, userData
