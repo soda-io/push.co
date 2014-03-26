@@ -46,7 +46,6 @@ _defaultSettings = ->
 _readConfigData = (cf, fn) ->
   if cf.user.name is null
     cf.user.name = process.env.USER
-
   #cf.user.email ?
   fn null, cf
 
@@ -86,9 +85,14 @@ _defaultDataFile = (cf) ->
       can_remove : no
       stat       : {}
     data.folders[f.hash] = f
+    if 0 is i
+      data.defaultFolder =
+        hash: f.hash
+        name: f.name
   data
 
 
+#
 #
 # Public: Загрузить данные из файла 
 #
