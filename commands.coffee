@@ -64,8 +64,18 @@ exports.updateFolder = (tags) ->
 #
 # Public: Удалить каталог
 #
-exports.rmFolder = (tags) ->
-  console.log "Удалить каталог"
+exports.rmFolder = (tags, commands, data, cf) ->
+  if /^[A-F\d]+$/ig.test tags[0]
+    folder = hash: tags[0]
+  else
+    folder = name: tags[0]
+  util.removeFolder cf, data, folder, (err) ->
+    if err
+      console.error err.msg.red
+    else
+      util.storeData cf, data
+      foldersList [], commands, data
+
 
 
 #

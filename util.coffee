@@ -79,7 +79,7 @@ _createFolder = (user_name, name, is_public, order, can_remove=yes) ->
   owner_name : user_name
   name       : name
   order      : order
-  can_remove : yes
+  can_remove : can_remove
   is_public  : is_public
 
 
@@ -113,9 +113,33 @@ exports.createFolder = (cf, data, folder, fn=->) ->
   data.folders[f.hash] = f
   fn null, data, f
 
+
+#
+# Public: Удалить каталог
+#
+exports.removeFolder = (cf, data, folder, fn=->) ->
+  rmByHash = (data, hash) ->
+    if data.folders[hash].can_remove 
+      delete data.folders[hash]
+      fn null, data
+    else
+      fn msg: "каталог защищен от удаления"
+
+  for k,v of data.folders
+    if folder.name?
+
+      if v.name.toLowerCase() is folder.name.toLowerCase()
+        return rmByHash data, k
+        
+    else if folder.hash?
+      if 0 is v.hash.indexOf folder.hash
+        return rmByHash data, k
+    else
+      return fn msg: "хеш или имя не указаны", null
+  fn msg: "каталог не найден"
+
 #
 # Public: Сохранить данные
-#
 #
 exports.storeData = (cf, data) ->
   fs.writeFileSync cf.dataFile, JSON.stringify data, null, 2
