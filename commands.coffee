@@ -6,7 +6,7 @@ require "colors"
 # --------------------------------------------------
 # Каталоги
 # --------------------------------------------------
-exports.foldersList = (tags, commands, data) ->
+exports.foldersList = foldersList = (tags, commands, data) ->
   fldrs = []
   for h, f of data.folders
     if h is data.defaultFolder.hash
@@ -16,6 +16,26 @@ exports.foldersList = (tags, commands, data) ->
   fldrs = (fldrs.sort (a,b) -> a[1] > b[1]).map (a) -> a[0]
   for f in fldrs
     console.log f
+
+#
+# Public: Переключить активный каталог
+#
+#
+exports.switchFolder = (tags, commands, data) ->
+  if tags[0]?
+    fname = tags[0]
+    found = no
+    for h, f of data.folders
+      if fname is f.name
+        data.defaultFolder = hash: f.hash, name: f.name
+        found = yes
+    if found
+      foldersList [], commands, data
+    else
+      console.error "каталог '#{fname}' не найден".red
+  else
+    console.err "укажите имя каталога".red
+
 
 
 #
