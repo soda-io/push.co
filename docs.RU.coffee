@@ -54,6 +54,12 @@ module.exports =
       params   : []
       alias    : ["upf", "update-folder"]
       procName : "updateFolder"
+    switchFolder:
+      doc      : "переключиться на другой каталог"
+      eg       : ["`s sf folder-name"]
+      params   : [{name: "имя каталога"}]
+      alias    : ["sf", "switch-folder"]
+      procName : "switchFolder"
     showStatistics:
       doc      : "показать статистику"
       eg       : ["`s ss`"]
