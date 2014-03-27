@@ -23,12 +23,12 @@ exports.foldersList = foldersList = (tags, commands, data) ->
 #
 #
 exports.switchFolder = (tags, commands, data, cf) ->
-  if tags[0]?
+  if tags[0]
     fname = tags[0]
     found = no
     for h, f of data.folders
       if fname is f.name
-        data.defaultFolder = hash: f.hash, name: f.name
+        data.defaultFolder = hash: f.hash; name: f.name
         found = yes
     if found
       util.storeData cf, data
@@ -36,7 +36,7 @@ exports.switchFolder = (tags, commands, data, cf) ->
     else
       console.error "каталог '#{fname}' не найден".red
   else
-    console.err "укажите имя каталога".red
+    console.error "укажите имя каталога".red
 
 
 
