@@ -1,4 +1,4 @@
-soda-track
+SODA-track
 ==========
 
-soda console tracker
+[**SODA**](http://gihub.com:soda-io) **console** **tracker**
