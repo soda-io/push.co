@@ -43,8 +43,17 @@ exports.switchFolder = (tags, commands, data, cf) ->
 #
 # Public: Новый каталог
 #
-exports.newFolder = (tags) ->
-  console.log "новый каталог"
+exports.newFolder = (tags, commands, data, cf) ->
+  [name, is_public] = tags
+  is_public = is_public in ["yes", "on"] or no
+  util.createFolder cf, data, {name: name, is_public: is_public}, (err, data, folder) ->
+    if err
+      console.error err.msg.red
+    else
+      util.storeData cf, data
+      foldersList [], commands, data
+
+
 
 #
 # Public: Обновить каталог

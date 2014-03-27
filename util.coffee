@@ -68,28 +68,50 @@ exports.loadConfig = (fn) ->
 
 
 #
-# Public: Создать объект с задачами
+# Internal: Создать новый каталог
+#
+#
+_createFolder = (user_name, name, is_public, order, can_remove=yes) ->
+  now = Date.now()
+  hash       : createHash name
+  created_at : now
+  updated_at : now
+  owner_name : user_name
+  name       : name
+  order      : order
+  can_remove : yes
+  is_public  : is_public
+
+
+#
+# Internal: Создать объект с задачами
 #
 #
 _defaultDataFile = (cf) ->
   data = folders: {}, tasks: {}
   now = Date.now()
   for f,i in ["personal", "family", "work"]
-    f =
-      hash       : createHash f
-      created_at : now
-      updated_at : now
-      owner_name : cf.user.name
-      name       : f
-      order      : i
-      can_remove : no
-      stat       : {}
+    f = _createFolder cf.user.name, f, no, i, no
     data.folders[f.hash] = f
     if 0 is i
       data.defaultFolder =
         hash: f.hash
         name: f.name
   data
+
+#
+# Public: Создать каталог
+#
+exports.createFolder = (cf, data, folder, fn=->) ->
+  lastOrder = 0
+  for k,v of data.folders
+    if v.order > lastOrder
+      lastOrder = v.order
+    if v.name.toLowerCase() is folder.name.toLowerCase()
+      return fn msg: "каталог существует", null
+  f = _createFolder cf.user.name, folder.name, folder.is_public, lastOrder+1
+  data.folders[f.hash] = f
+  fn null, data, f
 
 #
 # Public: Сохранить данные
@@ -99,9 +121,7 @@ exports.storeData = (cf, data) ->
   fs.writeFileSync cf.dataFile, JSON.stringify data, null, 2
 
 #
-#
 # Public: Загрузить данные из файла 
-#
 #
 exports.loadData = (cf, fn) ->
   try
