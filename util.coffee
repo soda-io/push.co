@@ -7,6 +7,7 @@ crypto    = require "crypto"
 home      = process.env.HOME + "/.push.in.co"
 uData     = process.env.HOME + "/.push.in.co+data"
 fs        = require "fs"
+_         = require "underscore"
 require "colors"
 
 
@@ -66,10 +67,12 @@ exports.loadConfig = (fn) ->
         fs.writeFileSync home, JSON.stringify(cf)
       fn err, cf
 
+# ----------------------------------------
+# Вызовы каталогов
+# ----------------------------------------
 
 #
 # Internal: Создать новый каталог
-#
 #
 _createFolder = (user_name, name, is_public, order, can_remove=yes) ->
   now = Date.now()
@@ -85,7 +88,6 @@ _createFolder = (user_name, name, is_public, order, can_remove=yes) ->
 
 #
 # Internal: Создать объект с задачами
-#
 #
 _defaultDataFile = (cf) ->
   data = folders: {}, tasks: {}
@@ -137,6 +139,94 @@ exports.removeFolder = (cf, data, folder, fn=->) ->
     else
       return fn msg: "хеш или имя не указаны", null
   fn msg: "каталог не найден"
+
+# конец вызовов для каталогов
+# ----------------------------------------
+
+
+# ----------------------------------------
+# Вызовы для задач
+# ----------------------------------------
+
+
+_getAtTime = (text) ->
+  null
+
+
+
+#
+# Internal: Получить упоминания
+#
+# Упоминание в тексте по имени через @UserName
+# 
+# 
+_getMentions = (text) ->
+  matches = text.match /(\s|[^-+_a-z])\@[-_a-z]+/ig
+  if null is matches 
+    []
+  else
+    _.unique matches.map (x) -> x.trim()
+
+#
+# Internal: Получить приоритетность задачи
+#
+# По умолчанию приоритет 0. Задается как `p:1`, `p:2`, ...
+#
+_getTaskPriority = (text) ->
+  p = text.match /\sp:-?\d/gi
+  if null is p
+    0
+  else
+    parseInt text[0].trim()[2..]
+
+
+#
+# Internal: Кому делегирована
+#
+#
+_delegatedTo = (text) ->
+  null
+
+_getState = (text) ->
+  "todo"
+
+_getHashTags = (text) ->
+  []
+
+_getUrls = (text) ->
+  []
+
+_initTask = (taskBulk) ->
+  now = Date.now()
+  text = taskBulk.text
+  hash         : createHash text
+  folder_hash  : taskBulk.folder_hash
+  owner_name   : taskBulk.owner
+  delegated_to : taskBulk.delegated_to or null
+  created_at   : now
+  updated_at   : now
+  text         : text
+  at           : _getAtTime text
+  hashtags     : _getHashTags text
+  urls         : _getUrls text
+  p            : _getTaskPriority text
+  times        : []
+  state        : _getState text
+  mention      : _getMentions text
+  time_limit   : Date.now()
+
+
+#
+# Public: Добавить новую задачу
+#
+exports.addTask = (cf, data) ->
+  # получить активный каталог
+  # сгенерировать задачу
+
+
+# конец вызовов для задач
+# ----------------------------------------
+
 
 #
 # Public: Сохранить данные
