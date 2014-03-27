@@ -91,6 +91,12 @@ _defaultDataFile = (cf) ->
         name: f.name
   data
 
+#
+# Public: Сохранить данные
+#
+#
+exports.storeData = (cf, data) ->
+  fs.writeFileSync cf.dataFile, JSON.stringify data, null, 2
 
 #
 #

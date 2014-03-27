@@ -2,6 +2,7 @@
 # Реализация команд трекера
 #
 require "colors"
+util = require "./util"
 
 # --------------------------------------------------
 # Каталоги
@@ -21,7 +22,7 @@ exports.foldersList = foldersList = (tags, commands, data) ->
 # Public: Переключить активный каталог
 #
 #
-exports.switchFolder = (tags, commands, data) ->
+exports.switchFolder = (tags, commands, data, cf) ->
   if tags[0]?
     fname = tags[0]
     found = no
@@ -30,6 +31,7 @@ exports.switchFolder = (tags, commands, data) ->
         data.defaultFolder = hash: f.hash, name: f.name
         found = yes
     if found
+      util.storeData cf, data
       foldersList [], commands, data
     else
       console.error "каталог '#{fname}' не найден".red
