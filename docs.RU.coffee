@@ -58,7 +58,7 @@ module.exports =
       doc      : "переключиться на другой каталог"
       eg       : ["`s sf folder-name"]
       params   : [{name: "имя каталога"}]
-      alias    : ["sf", "switch-folder"]
+      alias    : ["sf", "co", "switch-folder"]
       procName : "switchFolder"
     showStatistics:
       doc      : "показать статистику"
