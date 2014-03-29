@@ -66,4 +66,10 @@ module.exports =
       params   : []
       alias    : ["ss", "show-stat"]
       procName : "folderStat"
+    showCalendar:
+      doc      : "показать календарь"
+      eg       : ["`s cal`"]
+      params   : [{"selection: cal"}]
+      alias    : ["sc", "show-cal", "cal"]
+      procName : "showCal"
 
