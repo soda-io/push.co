@@ -115,17 +115,22 @@ exports.addTask = (tags, commands, data, cf) ->
 #
 #
 exports.rmTask = (tags, commands, data, cf) ->
-  num = tags[0]                 # num or hash
-  if /^\d+$/.test num
-    opts = num: parseInt num
-  else
-    opts = hash: num
-  util.removeTask opts, cf, data, (err) ->
+  util.removeTask tags, cf, data, (err) ->
     if err
       console.error err.msg.red
-    else
+    else 
       util.storeData cf, data
 
+#
+# Public: Изменить состояние задачи
+#
+#
+exports.updateTask = (tags, commands, data, cf) ->
+  util.updateTask tags, cf, data, (err, task) ->  
+    if err
+      console.error err.msg.red
+    else 
+      util.storeData cf, data
 
 
 #
