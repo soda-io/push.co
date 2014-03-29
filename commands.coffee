@@ -98,8 +98,10 @@ exports.updateConfig = (tags, commands) ->
 #
 # Public: Создать новую задачу
 #
-exports.addTask = (tags) ->
-  console.log "создать задачу"
+exports.addTask = (tags, commands, data, cf) ->
+  if 0 is tags.length
+    return help ["add"], commands
+  console.log "создать задачу #{tags}"
 
 #
 # Public: Удалить задачу
@@ -131,9 +133,18 @@ exports.mvTask = (tags) ->
 # Public: Показать справку
 #
 #
-exports.help = (tags, commands) ->
-  s = []
-  for k,v of commands
-    s.push " - #{v.alias[0].bold} #{v.doc}"
-  console.log s.join "\n"
+exports.help = help = (tags, commands) ->
+  if 0 is tags.length 
+    s = []
+    for k,v of commands
+      s.push " - #{v.alias[0].bold} #{v.doc}"
+    console.log s.join "\n"
+  else                          # показать справку по команде
+    for k,v of commands
+      if tags[0] in v.alias
+        console.log v.doc
+        console.log "----------------------------------------"
+        console.log (v.eg.map (x) -> "    " + x[1...-1]).join "\n"
+        return
+
 

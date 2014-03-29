@@ -148,9 +148,27 @@ exports.removeFolder = (cf, data, folder, fn=->) ->
 # Вызовы для задач
 # ----------------------------------------
 
+#
+# Internal: Найти шаблон 
+#
+#
+_findAndRemove = (tags, pattern) ->
+  result = []
+  tag = null
+  for t in tags
+    if pattern.test t
+      tag = t
+    else
+      result.push t
+  [tag, result]
 
-_getAtTime = (text) ->
-  null
+
+#
+# Internal: Найти шаблон `at:12.23.12-12:30`
+#
+#
+_getAtTime = (tags) ->
+  [at, tags] = _findAndRemove tags, /^at:[-\d\.\:]+$/
 
 
 
