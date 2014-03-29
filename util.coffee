@@ -90,7 +90,7 @@ _createFolder = (user_name, name, is_public, order, can_remove=yes) ->
 # Internal: Создать объект с задачами
 #
 _defaultDataFile = (cf) ->
-  data = folders: {}, tasks: {}
+  data = folders: {}, tasks: {} # hash - folder hash, tasks in array
   now = Date.now()
   for f,i in ["personal", "family", "work"]
     f = _createFolder cf.user.name, f, no, i, no
@@ -149,7 +149,7 @@ exports.removeFolder = (cf, data, folder, fn=->) ->
 # ----------------------------------------
 
 #
-# Internal: Найти шаблон 
+# Internal: Найти шаблон и удалить из исходного массива
 #
 #
 _findAndRemove = (tags, pattern) ->
@@ -164,83 +164,185 @@ _findAndRemove = (tags, pattern) ->
 
 
 #
-# Internal: Найти шаблон `at:12.23.12-12:30`
+# Internal: Найти шаблон
+#
+#
+_find = (tags, pattern) ->
+  result = []
+  for t in tags
+    result.push t if pattern.test t
+  [result, tags]
+
+#
+# Internal: Найти шаблон `at:12.03.12-12:30`
+#
+# ВАРИАНТЫ
+# at:12.03.10-12:30:50     # число, месяц, год, час, минута и секунда
+# at:12.03.10-12:30        # число, месяц, год, час и минута
+# at:12.03.10-12           # число, месяц, год и час
+# at:12.03.10              # число, месяц и год
+# at:12.03                 # число и месяц 
+# at:12                    # число этого или след. месяца
 #
 #
 _getAtTime = (tags) ->
   [at, tags] = _findAndRemove tags, /^at:[-\d\.\:]+$/
-
+  if at?
+    at = at[3..]
+    [at, tags]
+    # этот код - просто заглушка
+    # if /^\d\d$/.test at                     # число
+    #   at = ...
+    # else if /^\d\d\.\d\d$/.test at          # число и месяц
+    #   at = ...
+    # else if /^\d\d\.\d\d\.\d{2,4}$/.test at # число, месяц и год
+    #   at = ...
+    # else if /^\d\d\.\d\d\.\d{2,4}-\d\d$/.test at # число, месяц, год и час
+    #   at = ...
+    # else if /^\d\d\.\d\d\.\d{2,4}-\d\d\:\d\d$/.test at # число, месяц, год, час и минута
+    #   at = ...
+    # else if /^\d\d\.\d\d\.\d{2,4}-\d\d\:\d\d\:\d\d$/.test at # число, месяц, год, час, минута и секунда
+    #   at = ...
+    # else
+    #   [null, tags]
+  else
+    [null, tags]
 
 
 #
 # Internal: Получить упоминания
 #
 # Упоминание в тексте по имени через @UserName
+# Упоминание не удаляется
 # 
-# 
-_getMentions = (text) ->
-  matches = text.match /(\s|[^-+_a-z])\@[-_a-z]+/ig
-  if null is matches 
-    []
-  else
-    _.unique matches.map (x) -> x.trim()
+_getMentions = (tags) ->
+  [mentions, tags] = _find tags, /\@[-_a-z]+/ig
+  [_.unique(mentions), tags]
 
 #
 # Internal: Получить приоритетность задачи
 #
 # По умолчанию приоритет 0. Задается как `p:1`, `p:2`, ...
 #
-_getTaskPriority = (text) ->
-  p = text.match /\sp:-?\d/gi
-  if null is p
-    0
+_getTaskPriority = (tags) ->
+  [pr, tags] = _findAndRemove tags, /^p:-?\d$/gi
+  if pr?
+    [parseInt(pr[2..]), tags]
   else
-    parseInt text[0].trim()[2..]
-
+    [0, tags]
 
 #
 # Internal: Кому делегирована
 #
 #
-_delegatedTo = (text) ->
+_delegatedTo = (tags) ->
+  # to:@UserName
   null
 
-_getState = (text) ->
-  "todo"
+#
+# Internal: Получить состояние задачи
+#
+#
+_getState = (tags) ->
+  [state, tags] = _findAndRemove tags, /^::[a-z]+$/gi
+  if state?
+    [state[2..], tags]
+  else
+    ["todo", tags]
 
-_getHashTags = (text) ->
-  []
+#
+# Internal: Получить хеш-теги
+#
+#
+_getHashTags = (tags, splitter="+") ->
+  re = new RegExp "^\\#{splitter}[a-zа-я]+[-a-zа-я\d]+$", "gi"
+  _find tags, re
 
-_getUrls = (text) ->
-  []
+#
+# Internal: Получить адреса url
+#
+_getUrls = (tags) ->
+  _find tags, /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/
 
-_initTask = (taskBulk) ->
+#
+# Internal: initialize tags
+#
+_initTask = (task) ->
   now = Date.now()
-  text = taskBulk.text
-  hash         : createHash text
-  folder_hash  : taskBulk.folder_hash
-  owner_name   : taskBulk.owner
-  delegated_to : taskBulk.delegated_to or null
-  created_at   : now
-  updated_at   : now
-  text         : text
-  at           : _getAtTime text
-  hashtags     : _getHashTags text
-  urls         : _getUrls text
-  p            : _getTaskPriority text
-  times        : []
-  state        : _getState text
-  mention      : _getMentions text
-  time_limit   : Date.now()
+  task.hash = createHash task.text
+  task.delegated_to ||= null
+  task.created_at = now
+  task.updated_at   = now
+  task.times = []
 
+
+#
+# Internal: Проверить уникальность задачи
+#
+#
+_ensureUnique = (tasks, task) ->
+  for t in tasks
+    if t.hash is task.hash or t.text is task.text
+      return no
+  yes
 
 #
 # Public: Добавить новую задачу
 #
-exports.addTask = (cf, data) ->
-  # получить активный каталог
-  # сгенерировать задачу
+exports.addTask = (tags, cf, userData, fn=->) ->
+  taskData =
+    folder_hash: userData.defaultFolder.hash
+    owner_name: cf.user.name
+      
+  [taskData.at,       tags]  = _getAtTime       tags
+  [taskData.hashtags, tags]  = _getHashTags     tags
+  [taskData.urls,     tags]  = _getUrls         tags
+  [taskData.priority, tags]  = _getTaskPriority tags
+  [taskData.state,    tags]  = _getState        tags
+  [taskData.mention,  tags]  = _getMentions     tags
+  taskData.text              = tags.join " "
+    #  todo add time_limit
+  _initTask taskData
+  userData.tasks[taskData.folder_hash] ||= []
+  if _ensureUnique userData.tasks[taskData.folder_hash], taskData
+    userData.tasks[taskData.folder_hash].push taskData
+    # todo sort
+    fn null, taskData
+  else
+    fn msg: "задача дублируется"
+  console.log "задача\n#{JSON.stringify taskData, null, 2}"
 
+
+#
+# Public: Удалить задачу
+#
+#
+exports.removeTask = (opts, cf, userData, fn=->) ->
+  console.log "opts = #{JSON.stringify opts, null, 2}"
+  tasks = userData.tasks[userData.defaultFolder.hash] or []
+  found = no
+  i = 0
+  if "number" is typeof opts.num and tasks[opts.num]?
+    tasks.splice opts.num, 1
+    return fn null
+  # todo обработка хеша
+  fn msg: "задача не найдена"
+
+#
+# Public: Показать список задач
+#
+exports.listTasks = (tags, cf, userData, fn=->) ->
+  tasks = userData.tasks[userData.defaultFolder.hash] or []
+  maxVal = if "-a" in [tags] then 1000000 else 20
+  for t,i in tasks
+    if i < maxVal
+      printTask t, index:i
+
+#
+# Public: Вывести задачу в консоль
+#
+exports.printTask = printTask = (task, opts={}) ->
+  console.log "#{opts.index or '0'}\t#{task.text.yellow}"
 
 # конец вызовов для задач
 # ----------------------------------------

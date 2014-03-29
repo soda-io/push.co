@@ -11,9 +11,9 @@ exports.foldersList = foldersList = (tags, commands, data) ->
   fldrs = []
   for h, f of data.folders
     if h is data.defaultFolder.hash
-      fldrs.push ["* #{f.name}".bold.magenta, f.order]
+      fldrs.push ["* #{f.name}\t #{f.hash}".bold.magenta, f.order]
     else
-      fldrs.push ["  #{f.name}", f.order]
+      fldrs.push ["  #{f.name}\t #{f.hash}", f.order]
   fldrs = (fldrs.sort (a,b) -> a[1] > b[1]).map (a) -> a[0]
   for f in fldrs
     console.log f
@@ -101,21 +101,38 @@ exports.updateConfig = (tags, commands) ->
 exports.addTask = (tags, commands, data, cf) ->
   if 0 is tags.length
     return help ["add"], commands
-  console.log "создать задачу #{tags}"
+  util.addTask tags, cf, data, (err, task) ->
+    if err
+      console.error err.msg.red
+    else
+      util.storeData cf, data
+      util.printTask task
+    # show list of tasks?
+
 
 #
 # Public: Удалить задачу
 #
 #
-exports.rmTask = (tags) ->
-  console.log "удалить задачу"
+exports.rmTask = (tags, commands, data, cf) ->
+  num = tags[0]                 # num or hash
+  if /^\d+$/.test num
+    opts = num: parseInt num
+  else
+    opts = hash: num
+  util.removeTask opts, cf, data, (err) ->
+    if err
+      console.error err.msg.red
+    else
+      util.storeData cf, data
+
 
 
 #
 # Public: Показать задачи
 #
-exports.lsTasks = (tags) ->
-  console.log "показать задачи"
+exports.lsTasks = (tags, commands, data, cf) ->
+  util.listTasks tags, cf, data
 
 #
 # Public: Переместить задачу
