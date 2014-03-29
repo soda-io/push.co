@@ -38,9 +38,9 @@ module.exports =
       procName : "help"
     listFolders:
       doc      : "список каталогов"
-      eg       : ["`s folders`"]
+      eg       : ["`s fl`"]
       params   : []
-      alias    : ["fl", "folders"]
+      alias    : ["fl", "b", "folders"]
       procName : "foldersList"
     newFolder:
       doc      : "создать каталог"
