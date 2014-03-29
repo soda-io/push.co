@@ -3,7 +3,7 @@ module.exports =
     add:
       doc      : "добавить новую задачу"
       eg       : ["`s add todo послушать радио после обеда`"]
-      params   : []
+      params   : [{words: "список слов-флагов и/или текст задачи"}]
       alias    : ["a", "add", "cr"]
       procName : "addTask"
     remove:
@@ -18,6 +18,12 @@ module.exports =
       params   : [{word: "ключевое слово/состояние/хеш-тег"}]
       alias    : ["l", "log", "ls"]
       procName : "lsTasks"
+    update:
+      doc      : "изменить состояние задачи"
+      eq       : ["`s u ::done`", "`s u p:1`"]
+      params   : [{words: "список слов-флагов и/или текст задачи"}]
+      alias    : ["u", "up", "update-task"]
+      procName : "updateTask"
     move:
       doc      : "переместить задачу в другой каталог"
       eg       : ["`s mv 0 home to work`", "`s mv b0a work to home`"]
