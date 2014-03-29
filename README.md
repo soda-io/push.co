@@ -1,7 +1,7 @@
 Push.in.co
 ====================================================================================================================
 
-## Консольный трекер разработанный командой [**SODA LABS**](https://github.com/soda-io)
+## Консольный трекер разработанный командой ![](https://avatars3.githubusercontent.com/u/4658189?s=30) [**SODA LABS**](https://github.com/soda-io)
 ![](https://github.com/SherozKarimov/soda-track/blob/master/docs/%D1%81%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82%20%D0%B4%D0%BB%D1%8F%20%D0%B7%D0%B0%D0%B4%D0%B0%D1%87.png?raw=true)
 
 ## Цель
