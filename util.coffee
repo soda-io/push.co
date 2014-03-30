@@ -34,6 +34,22 @@ _defaultSettings = ->
   outFormat   : "H:6|T:40"
   daysForTodo : 7
 
+#
+# Internal: Символы для отображения в консоли
+#
+#
+statusSymbols =
+  "todo"     : symbol: "☐", color: "red", final: no
+  "frozen"   : symbol: "❄", color: "blue", final: no
+  "question" : symbol: "¿", color: "yellow", final: no
+  "idea"     : symbol: "⚗", color: "magenta", final: no
+  "bug"      : symbol: "⚒", color: "red", final: no
+  "done"     : symbol: "☑", color: "green", final: yes
+  "closed"   : symbol: "☒", color: "grey", final: yes
+  "wontfix"  : symbol: "⚔", color: "grey", final: yes
+  "fixed"    : symbol: "✪", color: "green", final: yes
+  "merged"   : symbol: "⚭", color: "magenta", final: yes
+  "pushed"   : symbol: "↦", color: "cyan", final: yes
 
 #
 # Считать минимальные настройки
@@ -419,7 +435,18 @@ exports.listTasks = (tags, cf, userData, fn=->) ->
 # Public: Вывести задачу в консоль
 #
 exports.printTask = printTask = (task, opts={}) ->
-  console.log "#{opts.index or '0'}\t#{task.text.yellow}"
+  r = []
+  if statusSymbols[task.state]?
+    r.push "#{statusSymbols[task.state].symbol[statusSymbols[task.state].color]} "
+  else
+    r.push "☉ "
+  unless "undefined" is typeof opts.index
+    r.push "#{opts.index}\t"
+  else
+    r.push " \t"
+
+  r.push task.text
+  console.log r.join ""
 
 # конец вызовов для задач
 # ----------------------------------------
