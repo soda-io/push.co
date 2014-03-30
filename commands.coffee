@@ -127,21 +127,6 @@ exports.mvTask = (tags) ->
 # Помощь
 # --------------------------------------------------
 
-#
-# Public: Показать календарь
-#
-#
-exports.showCal = (tags, commands) ->
-  console.log "          КАЛЕНДАРЬ"
-  console.log "         АПРЕЛЬ 2014"
-  console.log "============================="
-  console.log "|Пн |Вт |Ср |Чт |Пт |Сб |Вс |"
-  console.log "    | 1 | 2 | 3 | 4 | 5 | 6 |"
-  console.log "| 7 | 8 | 9 |10 |11 |12 |13 |"
-  console.log "|14 |15 |16 |17 |18 |19 |20 |"
-  console.log "|21 |22 |23 |24 |25 |26 |27 |"
-  console.log "|28 |29 |30 |"
-  
 
 #
 # Public: Показать справку
