@@ -1,6 +1,6 @@
 {
   "name": "soda-track",
-  "version": "0.1",
+  "version": "0.2",
   "description": "Трекер легкий в использовании ",
   "main": "index.coffee",
   "scripts": {
