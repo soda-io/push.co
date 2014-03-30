@@ -1,4 +1,4 @@
-![](https://avatars3.githubusercontent.com/u/4658189?s=22) [push.co | консольный трекер](https://github.com/soda-io/push.co) 
+![](https://avatars3.githubusercontent.com/u/4658189?s=29)   [  push.co | консольный трекер](https://github.com/soda-io/push.co) 
 ===
 
 ## == ЦЕЛЬ ==
