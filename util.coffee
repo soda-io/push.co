@@ -83,6 +83,12 @@ exports.loadConfig = (fn) ->
         fs.writeFileSync home, JSON.stringify(cf)
       fn err, cf
 
+#
+# Public: Сохранить конфигурацию
+#
+exports.saveConfig = (cf) ->
+  fs.writeFileSync home, JSON.stringify cf
+
 # ----------------------------------------
 # Вызовы каталогов
 # ----------------------------------------

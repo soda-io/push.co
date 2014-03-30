@@ -51,7 +51,7 @@ module.exports =
     rmFolder:
       doc      : "удалить каталог"
       eg       : ["`s rf folder`"]
-      params   : []
+      params   : [{id: "id/hash задачи"}]
       alias    : ["rf", "rmf", "remove-folder"]
       procName : "rmFolder"
     updateFolder:
@@ -60,6 +60,12 @@ module.exports =
       params   : []
       alias    : ["upf", "update-folder"]
       procName : "updateFolder"
+    updateConfig:
+      doc      : "обновнить/посмотреть конфигурацию"
+      eg       : ["`s cf`", "`s cf user.name`"]
+      params   : [{name: "название настройки", value: "значение настройки"}]
+      alias    : ["cf", "config"]
+      procName : "updateConfig"
     switchFolder:
       doc      : "переключиться на другой каталог"
       eg       : ["`s sf folder-name"]

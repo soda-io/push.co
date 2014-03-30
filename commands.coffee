@@ -87,8 +87,46 @@ exports.folderStat = (tags) ->
 # --------------------------------------------------
 # Конфигурация
 # --------------------------------------------------
-exports.updateConfig = (tags, commands) ->
-  console.log "обновить конфиг"
+exports.updateConfig = (tags, commands, data, cf) ->
+  if 0 is tags.length
+    console.log "#{JSON.stringify cf, null, 2}"
+  else if 1 is tags.length
+    keys = tags[0].split "."
+    data = cf
+    for k in keys
+      data[k] ||= {}
+      data = data[k]
+    console.log "#{JSON.stringify data, null, 2}"
+    
+  else
+    keys = tags[0].split "."
+    if tags[1..].length > 1
+      val = tags[1..].join " "
+    else
+      val = tags[1]
+      if val in ["yes", "on", "true"]
+        val = yes
+      else if val in ["no", "off", "false"]
+        val = no
+      else if /^-?\d+\.\d+$/.test val
+        val = parseFloat val
+      else if /^-?\d+$/.test val
+        val = parseInt val
+    switch keys.length
+      when 1
+        cf[keys[0]] = val
+      when 2
+        cf[keys[0]] ||= {}
+        cf[keys[0]][keys[1]] = val
+      when 3
+        cf[keys[0]] ||= {}
+        cf[keys[0]][keys[1]] ||= {}
+        cf[keys[0]][keys[1]][keys[2]] = val
+      else
+        return console.error "слишком углублённая опция".red
+    util.saveConfig cf
+    console.log "#{keys.join('.').bold}: #{val}"
+
 
 
 # --------------------------------------------------
