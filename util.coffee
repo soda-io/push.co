@@ -137,7 +137,6 @@ exports.createFolder = (cf, data, folder, fn=->) ->
   data.folders[f.hash] = f
   fn null, data, f
 
-
 #
 # Public: Удалить каталог
 #
@@ -151,7 +150,6 @@ exports.removeFolder = (cf, data, folder, fn=->) ->
 
   for k,v of data.folders
     if folder.name?
-
       if v.name.toLowerCase() is folder.name.toLowerCase()
         return rmByHash data, k
         

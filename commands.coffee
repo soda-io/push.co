@@ -45,6 +45,9 @@ exports.switchFolder = (tags, commands, data, cf) ->
 #
 exports.newFolder = (tags, commands, data, cf) ->
   [name, is_public] = tags
+  if not name
+    return console.error "укажите имя каталога"
+
   is_public = is_public in ["yes", "on"] or no
   util.createFolder cf, data, {name: name, is_public: is_public}, (err, data, folder) ->
     if err
