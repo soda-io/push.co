@@ -192,7 +192,8 @@ _findAndRemove = (tags, pattern) ->
 _find = (tags, pattern) ->
   result = []
   for t in tags
-    result.push t if pattern.test t
+    if pattern.test t
+      result.push t 
   [result, tags]
 
 #
@@ -248,7 +249,7 @@ _getMentions = (tags) ->
 # По умолчанию приоритет 0. Задается как `p:1`, `p:2`, ...
 #
 _getTaskPriority = (tags) ->
-  [pr, tags] = _findAndRemove tags, /^p:-?\d$/gi
+  [pr, tags] = _findAndRemove tags, /^p:-?\d$/i
   if pr?
     [parseInt(pr[2..]), tags, yes]
   else
@@ -265,6 +266,23 @@ _fetchTaskIndex = (tags) ->
     opts = hash: num
   [opts, tags]
 
+#
+# Internal: Проверить есть ли совпадения элементов
+# из `source` в `dest`
+#
+# :source - исходный массив
+# :dest   - массив-назначение
+# :fullText - полный поиск по тексту
+#
+_matchInArray = (source, dest, fullText=no) ->
+  for s in source
+    if fullText
+      if 0 <= dest.join(" ").toLowerCase().indexOf s.toLowerCase()
+        return yes
+    else if s in dest
+      return yes
+  no
+
 
 #
 # Internal: Кому делегирована
@@ -279,9 +297,9 @@ _delegatedTo = (tags) ->
 #
 #
 _getState = (tags) ->
-  [state, tags] = _findAndRemove tags, /^::[a-z]+$/gi
+  [state, tags] = _findAndRemove tags, /^::[a-z]+$/i
   if state?
-    [state[2..], tags, yes]
+    [state[2..].toLowerCase(), tags, yes]
   else
     ["todo", tags, no]
 
@@ -290,8 +308,16 @@ _getState = (tags) ->
 #
 #
 _getHashTags = (tags, splitter="+") ->
-  re = new RegExp "^\\#{splitter}[a-zа-я]+[-a-zа-я\d]+$", "gi"
-  _find tags, re
+  re = new RegExp "^\\#{splitter}[a-zа-я]+[-a-zа-я\d]+$", "i"
+  ht = []
+  new_tags = []
+  for t in tags
+    if re.test t
+      ht.push "##{t[1..]}"
+      new_tags.push "##{t[1..]}"
+    else
+      new_tags.push t
+  [ht, new_tags]
 
 #
 # Internal: Получить адреса url
@@ -432,10 +458,65 @@ exports.updateTask = (tags, cf, userData, fn=-> ) ->
 #
 exports.listTasks = (tags, cf, userData, fn=->) ->
   tasks = userData.tasks[userData.defaultFolder.hash] or []
-  maxVal = if "-a" in [tags] then 1000000 else 20
+  #maxVal = if "-a" in [tags] then 1000000 else 20
+  search = null
+  for t in tags
+    if /^::[a-z]+$/i.test t
+      search ||={}
+      search.states ||= []
+      search.states.push t.toLowerCase()[2..]
+    else if /^\+[a-zа-я]+[-a-zа-я\d]+$/i.test t
+      search ||={}
+      search.hashtags ||= []
+      search.hashtags.push "##{t[1..]}"
+    else                         # filter options
+      search ||={}
+      search.words ||= []
+      search.words.push t      
+
+
   for t,i in tasks
-    if i < maxVal
+    if search is null and i < 20
       printTask t, index:i
+    else
+      try
+        if search.states? and  t.state in search.states
+          printTask t, index: i
+        else if search.hashtags? and _matchInArray search.hashtags, t.hashtags
+          printTask t, index: i, words: [[search.hashtags, "red"]]   # пометить совпадение
+        else if search.words? and _matchInArray search.words, t.text.split(" "), yes
+          printTask t, index: i, words: [[search.words, "red"]]   # пометить совпадение
+      catch e
+        "skip this step"
+
+#
+# Internal: Подсветить текст
+#
+# :text - исходный текст
+# :words[] - массив совпадений, элементы - слова и цвет :  [words, color]
+#
+_colorizeText = (text, words=[]) ->
+  result = []
+  for word in text.split " "
+    found = no
+    for words_array in words
+      break if found
+      for w in words_array[0] or []
+        ind = word.toLowerCase().indexOf w.toLowerCase()
+        if 0 <= ind
+
+          wrd = word.substring ind, ind+w.length
+          wrd = w.bold[words_array[1]]
+          if 0 is ind
+            result.push "#{wrd}#{word.substring w.length}"
+          else
+            _word = "#{word.substring 0, ind}#{wrd}#{word.substring ind + w.length}"
+            result.push _word
+          found = yes
+          break
+    result.push word unless found      
+  result.join " "
+
 
 #
 # Public: Вывести задачу в консоль
@@ -451,7 +532,10 @@ exports.printTask = printTask = (task, opts={}) ->
   else
     r.push " \t"
 
-  r.push task.text
+  # color opts
+  opts.words ||= []
+  opts.words.unshift [task.hashtags, "magenta"] # add urls too?
+  r.push _colorizeText task.text, opts.words
   console.log r.join ""
 
 # конец вызовов для задач
