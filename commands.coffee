@@ -11,9 +11,9 @@ exports.foldersList = foldersList = (tags, commands, data) ->
   fldrs = []
   for h, f of data.folders
     if h is data.defaultFolder.hash
-      fldrs.push ["* #{f.name}\t #{f.hash}".bold.magenta, f.order]
+      fldrs.push ["* #{f.name}\t".bold.magenta, f.order]
     else
-      fldrs.push ["  #{f.name}\t #{f.hash}", f.order]
+      fldrs.push ["  #{f.name}\t", f.order]
   fldrs = (fldrs.sort (a,b) -> a[1] > b[1]).map (a) -> a[0]
   for f in fldrs
     console.log f
