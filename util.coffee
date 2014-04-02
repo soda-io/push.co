@@ -138,6 +138,23 @@ exports.createFolder = (cf, data, folder, fn=->) ->
   fn null, data, f
 
 #
+# Public: Переименовать каталог
+#
+# :target  - целевые данные
+#   :old_name  - старое имя каталога
+#   :new_name  - новое имя каталога
+#
+exports.renameFolder = (cf, data, target, fn=->) ->
+  for k,v of data.folders
+    if v.name.toLowerCase() is target.old_name.toLowerCase()
+      v.name = target.new_name
+      if data.defaultFolder.hash is k
+        data.defaultFolder.name = v.name
+      return fn null
+  fn msg:"исходный каталог не найден"
+
+
+#
 # Public: Удалить каталог
 #
 exports.removeFolder = (cf, data, folder, fn=->) ->

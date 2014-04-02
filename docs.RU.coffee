@@ -56,9 +56,9 @@ module.exports =
       procName : "rmFolder"
     updateFolder:
       doc      : "обновить каталог"
-      eg       : ["`s up oldname newname`"]
-      params   : []
-      alias    : ["upf", "update-folder"]
+      eg       : ["`s uf oldname newname`"]
+      params   : [{oldname:"старое имя каталога"}, {newname: "новое имя каталога"}]
+      alias    : ["uf", "upf", "update-folder"]
       procName : "updateFolder"
     updateConfig:
       doc      : "обновнить/посмотреть конфигурацию"

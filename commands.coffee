@@ -38,15 +38,13 @@ exports.switchFolder = (tags, commands, data, cf) ->
   else
     console.error "укажите имя каталога".red
 
-
-
 #
 # Public: Новый каталог
 #
 exports.newFolder = (tags, commands, data, cf) ->
   [name, is_public] = tags
   if not name
-    return console.error "укажите имя каталога"
+    return console.error "укажите имя каталога".red
 
   is_public = is_public in ["yes", "on"] or no
   util.createFolder cf, data, {name: name, is_public: is_public}, (err, data, folder) ->
@@ -61,8 +59,18 @@ exports.newFolder = (tags, commands, data, cf) ->
 #
 # Public: Обновить каталог
 #
-exports.updateFolder = (tags) ->
-  console.log "Обновить каталог"
+exports.updateFolder = (tags, commands, data, cf) ->
+  unless 2 is tags.length
+    return console.error "нужно указать 2 параметра".red
+
+  [old_name, new_name] = tags
+  util.renameFolder cf, data, old_name: old_name, new_name: new_name, (err) ->
+    if err
+      console.error err.msg.red
+    else
+      util.storeData cf, data
+      foldersList [], commands, data
+
 
 #
 # Public: Удалить каталог
