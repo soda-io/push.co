@@ -34,6 +34,104 @@ _defaultSettings = ->
   outFormat   : "H:6|T:40"
   daysForTodo : 7
 
+
+# ----------------------------------------
+# СТРОКИ
+# ----------------------------------------
+
+#
+# Public: Центрировать строку 
+#
+#
+_centerString = (str, len) ->
+  r = "#{str}"
+  if r.length < len
+    delta = parseInt (len - r.length) / 2
+    "#{([1..delta].map (_x) -> ' ').join ''}#{r}"
+  else
+    r
+
+#
+# Public: Индекс месяца в имя
+#
+#
+_getMonthName = (ind) ->
+  "январь:февраль:март:апрель:май:июнь:июль:август:сентябрь:октябрь:ноябрь:декабрь".split(":")[ind] or "???"
+
+#
+# Public: Шапка календаря
+#
+_getCalHead = ->
+  "| пн | вт | ср | чт | пт | сб | вс |"
+
+#
+# Public: День недели
+#
+_dayOfWeek = (date) ->
+  _wd = date.getDay()
+  if _wd is 0
+    return 6
+  return _wd - 1
+
+
+#
+# Public: Получить день недели первого числа месяца
+#
+_firstDayOfMonth = (date) ->
+  day = new Date date
+  day.setDate 1
+  _dayOfWeek day
+  
+
+#
+# Public: Получить последний день месяца
+#
+# http://learn.javascript.ru/task/poslednij-den-mesyaca
+_getMaxDay = (date) ->
+  day = new Date date.getFullYear(), date.getMonth()+1, 0
+  day.getDate()
+
+#
+# Public: Return calendar cell
+#
+#
+_calendarCell = (day, is_today) ->
+  day = if day > 9 then "#{day}" else " #{day}"
+  day = "#{day.magenta.bold}" if is_today
+  " #{day} |"
+
+#
+# Public: Отрисовать календарь в консоли
+#
+#
+_drawCalendar = (d) ->
+  cal_str = ["\n"]
+  cal_str.push _centerString "#{_getMonthName d.getMonth()} #{d.getFullYear()}", 40 #
+  cal_str.push _getCalHead()
+  first_day = _firstDayOfMonth d
+  today = d.getDate()
+  s = ["|"]
+  for j in [0...first_day]
+    s.push _calendarCell " "
+  _day = 1
+  for j in [first_day...7]
+    s.push _calendarCell _day, _day++ is today
+  cal_str.push s.join ""
+
+  max_day = _getMaxDay d
+
+  while _day <= max_day
+    s = ["|"]
+    for j in [0...7]
+      if _day <= max_day
+        s.push _calendarCell _day, _day++ is today
+      else
+        s.push _calendarCell " "
+    cal_str.push s.join ""
+  cal_str.push "\n"
+  console.log cal_str.join "\n"
+
+
 #
 # Internal: Символы для отображения в консоли
 #
@@ -468,6 +566,23 @@ exports.updateTask = (tags, cf, userData, fn=-> ) ->
   fn null, task
 
 
+
+
+
+#
+# Public: Вывести календарь
+#
+#
+exports.showCalendar = (tags, cf, userData, fn=->) ->
+  d = new Date 2014, 2, 5
+  d = new Date 
+  if tags.length is 0
+    _drawCalendar new Date
+  else
+    if /^\d\d?$/.test tags[0]   # month
+      d = new Date
+      d.setMonth parseInt(tags[0]) - 1
+      _drawCalendar d
 #
 # Public: Показать список задач
 #

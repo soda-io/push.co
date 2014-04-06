@@ -204,8 +204,11 @@ exports.mvTask = (tags) ->
 # Public: Показать календарь
 #
 #
-exports.showCal = (tags, commands) ->
-  d = new Date
+exports.showCal = (tags, commands, data, cf) ->
+  util.showCalendar tags, cf, data
+
+
+
 
 
 #
