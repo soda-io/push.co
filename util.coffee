@@ -567,7 +567,18 @@ exports.updateTask = (tags, cf, userData, fn=-> ) ->
 
 
 
-
+#
+# Public: Показать свойства задачи
+#
+exports.inspectTask = (tags, cf, userData, fn=->) ->
+  return fn msg: "укажите задачу" if 0 is tags.length
+  [opts, tags] = _fetchTaskIndex tags
+  [task, num] = _getTask userData, opts
+  if task
+    console.log JSON.stringify task, null, 2
+    fn null, task
+  else
+    fn msg: "задача не найдена"
 
 #
 # Public: Вывести календарь
@@ -667,6 +678,8 @@ exports.printTask = printTask = (task, opts={}) ->
   opts.words.unshift [task.hashtags, "magenta"] # add urls too?
   r.push _colorizeText task.text, opts.words
   console.log r.join ""
+
+
 
 # конец вызовов для задач
 # ----------------------------------------

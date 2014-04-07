@@ -196,6 +196,13 @@ exports.mvTask = (tags) ->
   console.log "переместить задачу в другой каталог"
 
 
+#
+# Public: Посмотреть свойства задачи
+#
+#
+exports.inspectTask = (tags, commands, data, cf) ->
+  util.inspectTask tags, cf, data
+
 # --------------------------------------------------
 # Помощь
 # --------------------------------------------------

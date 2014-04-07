@@ -51,7 +51,7 @@ module.exports =
     rmFolder:
       doc      : "удалить каталог"
       eg       : ["`s rf folder`"]
-      params   : [{id: "id/hash задачи"}]
+      params   : [{id: "id/hash каталога"}]
       alias    : ["rf", "rmf", "remove-folder"]
       procName : "rmFolder"
     updateFolder:
@@ -84,3 +84,10 @@ module.exports =
       params   : [{selection: "cal"}]
       alias    : ["sc", "show-cal", "cal"]
       procName : "showCal"
+    inspectTask:
+      doc      : "посмотреть свойства задачи"
+      eg       : ["`s i id`"]
+      params   : [{id: "id/hash задачи"}]
+      alias    : ["i", "inspect"]
+      procName : "inspectTask"
+
