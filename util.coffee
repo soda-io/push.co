@@ -684,9 +684,9 @@ exports.storeData = (cf, data) ->
 exports.loadData = (cf, fn) ->
   try
     userData = JSON.parse fs.readFileSync cf.dataFile, "utf-8"
-    fn null, userData    
   catch e
     # создать новый файл
     userData = _defaultDataFile cf
     fs.writeFileSync cf.dataFile, JSON.stringify userData, null, 2
-    fn null, userData
+  fn null, userData
+
