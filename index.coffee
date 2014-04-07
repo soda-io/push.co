@@ -40,7 +40,8 @@ util.loadConfig (err, cf) ->
       if cmd?
         commands[cmd].call @, process.argv[3..], docData.commands, data, cf
       else
-        console.error "команда #{process.argv[2].bold} не найдена".red
+        if process.argv[2]?
+          console.error "команда #{process.argv[2].bold} не найдена".red
         commands.help.call @, [], docData.commands
 
 
