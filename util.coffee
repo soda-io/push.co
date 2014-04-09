@@ -149,6 +149,19 @@ statusSymbols =
   "merged"   : symbol: "⚭", color: "magenta", final: yes
   "pushed"   : symbol: "↦", color: "cyan", final: yes
 
+
+#
+# Internal: Начальные и конечные состояния
+#
+initialStates = []
+finalStates   = []
+for k,v of statusSymbols
+  if v.final
+    finalStates.push k
+  else
+    initialStates.push k
+
+
 #
 # Считать минимальные настройки
 #
@@ -587,7 +600,26 @@ exports.moveTask = (tags, cf, userData, fn=->) ->
     return fn msg: "задача не найдена"
 
   fn null, task
-  #console.log "move from #{from}(#{from_hash}) to #{to}(#{to_hash})"  
+
+#
+# Public: Дела на сегодня
+#
+exports.todaysTasks = (tags, cf, userData, fn=-> ) ->
+  for k,v of userData.folders
+    # show folders
+    foundOneTask = no
+    for t,i in userData.tasks[k]
+      if t.state in initialStates
+        unless foundOneTask
+          if v.name is userData.defaultFolder.name
+            console.log "\n# #{v.name}".magenta
+          else
+            console.log "\n# #{v.name}"
+          console.log "----------------------------------------"
+          foundOneTask = yes  
+        printTask t, index:i
+
+
 
 #
 # Public: Обновить состояние задачи
@@ -664,7 +696,8 @@ exports.listTasks = (tags, cf, userData, fn=->) ->
 
 
   for t,i in tasks
-    if search is null and i < 20
+    if search is null and i < 20 and t.state in initialStates
+      
       printTask t, index:i
     else
       try

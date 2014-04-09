@@ -90,4 +90,10 @@ module.exports =
       params   : [{id: "id/hash задачи"}]
       alias    : ["i", "inspect"]
       procName : "inspectTask"
+    todaysTasks:
+      doc      : "дела на сегодня"
+      eg       : ["`s today`"]
+      params   : []
+      alias    : ["today"]
+      procName : "todaysTasks"
     

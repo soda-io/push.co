@@ -199,7 +199,11 @@ exports.mvTask = (tags, commands, data, cf) ->
     else
       util.storeData cf, data
 
-
+#
+# Public: Показать дела на сегодня
+#
+exports.todaysTasks = (tags, commands, data, cf) ->
+  util.todaysTasks tags, cf, data
 
 
 #
