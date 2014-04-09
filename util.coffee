@@ -513,7 +513,7 @@ exports.addTask = (tags, cf, userData, fn=->) ->
   _initTask taskData
   userData.tasks[taskData.folder_hash] ||= []
   if _ensureUnique userData.tasks[taskData.folder_hash], taskData
-    userData.tasks[taskData.folder_hash].push taskData
+    userData.tasks[taskData.folder_hash].unshift taskData
     # todo sort
     fn null, taskData
   else
@@ -589,7 +589,7 @@ exports.moveTask = (tags, cf, userData, fn=->) ->
 
     userData.tasks[to_hash] ||= []
     if _ensureUnique userData.tasks[to_hash], task
-      userData.tasks[to_hash].push task
+      userData.tasks[to_hash].unshift task
       # todo sort
       userData.tasks[from_hash].splice num, 1
     else
