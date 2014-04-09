@@ -28,7 +28,7 @@ exports.switchFolder = (tags, commands, data, cf) ->
     found = no
     for h, f of data.folders
       if fname is f.name
-        data.defaultFolder = hash: f.hash; name: f.name
+        data.defaultFolder = hash: f.hash, name: f.name
         found = yes
     if found
       util.storeData cf, data
@@ -192,8 +192,13 @@ exports.lsTasks = (tags, commands, data, cf) ->
 # Public: Переместить задачу
 #
 #
-exports.mvTask = (tags) ->
-  console.log "переместить задачу в другой каталог"
+exports.mvTask = (tags, commands, data, cf) ->
+  util.moveTask tags, cf, data, (err, task) ->
+    if err
+      console.error err.msg.red
+    else
+      console.log "пробуем сохранить"
+
 
 
 #
