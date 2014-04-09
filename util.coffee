@@ -608,16 +608,17 @@ exports.todaysTasks = (tags, cf, userData, fn=-> ) ->
   for k,v of userData.folders
     # show folders
     foundOneTask = no
-    for t,i in userData.tasks[k]
-      if t.state in initialStates
-        unless foundOneTask
-          if v.name is userData.defaultFolder.name
-            console.log "\n# #{v.name}".magenta
-          else
-            console.log "\n# #{v.name}"
-          console.log "----------------------------------------"
-          foundOneTask = yes  
-        printTask t, index:i
+    if userData.tasks[k]
+      for t,i in userData.tasks[k]
+        if t.state in initialStates
+          unless foundOneTask
+            if v.name is userData.defaultFolder.name
+              console.log "\n# #{v.name}".magenta
+            else
+              console.log "\n# #{v.name}"
+            console.log "----------------------------------------"
+            foundOneTask = yes  
+          printTask t, index:i
 
 
 
