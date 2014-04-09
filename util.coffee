@@ -253,6 +253,16 @@ exports.renameFolder = (cf, data, target, fn=->) ->
 
 
 #
+# Internal: Получить хеш каталога по имени
+#
+#
+_getFolderHash = (name, folders) ->
+  for k,v of folders
+    if name.toLowerCase() is v.name.toLowerCase()
+      return k
+  null
+
+#
 # Public: Удалить каталог
 #
 exports.removeFolder = (cf, data, folder, fn=->) ->
@@ -541,6 +551,43 @@ exports.removeTask = (tags, cf, userData, fn=->) ->
     userData.tasks[userData.defaultFolder.hash].splice num, 1
     return fn null
   fn msg: "задача не найдена"
+
+#
+# Public: Переместить задачу
+#
+#
+exports.moveTask = (tags, cf, userData, fn=->) ->
+  [opts, tags] = _fetchTaskIndex tags
+  [from, to] = tags
+  if "undefined" is typeof from
+    return fn msg: "не указаны каталоги для перемещения"
+  if "undefined" is typeof to
+    [from, to] = [userData.defaultFolder.name, from]
+
+  from_hash = _getFolderHash from, userData.folders
+  to_hash = _getFolderHash to, userData.folders
+  if null in [from_hash, to_hash]
+    return fn msg: "каталог не найден"
+
+  [task, num] = _getTask userData, opts, from_hash
+
+
+  if task
+
+    userData.tasks[to_hash] ||= []
+    if _ensureUnique userData.tasks[to_hash], task
+      userData.tasks[to_hash].push task
+      # todo sort
+      userData.tasks[from_hash].splice num, 1
+    else
+      fn msg: "задача дублируется"
+
+  else
+    console.log "task = #{JSON.stringify task, null, 2}"
+    return fn msg: "задача не найдена"
+
+  fn null, task
+  #console.log "move from #{from}(#{from_hash}) to #{to}(#{to_hash})"  
 
 #
 # Public: Обновить состояние задачи

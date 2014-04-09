@@ -197,7 +197,8 @@ exports.mvTask = (tags, commands, data, cf) ->
     if err
       console.error err.msg.red
     else
-      console.log "пробуем сохранить"
+      util.storeData cf, data
+
 
 
 
