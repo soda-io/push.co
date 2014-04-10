@@ -783,4 +783,3 @@ exports.loadData = (cf, fn) ->
     userData = _defaultDataFile cf
     fs.writeFileSync cf.dataFile, JSON.stringify userData, null, 2
   fn null, userData
-
