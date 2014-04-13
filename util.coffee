@@ -608,17 +608,19 @@ exports.todaysTasks = (tags, cf, userData, fn=-> ) ->
   for k,v of userData.folders
     # show folders
     foundOneTask = no
+    tasks = []
     for t,i in userData.tasks[k]
       if t.state in initialStates
-        unless foundOneTask
-          if v.name is userData.defaultFolder.name
-            console.log "\n# #{v.name}".magenta
-          else
-            console.log "\n# #{v.name}"
-          console.log "----------------------------------------"
-          foundOneTask = yes  
-        printTask t, index:i
-
+        foundOneTask = yes  
+        t.index = i
+        tasks.push t
+    if foundOneTask
+      if v.name is userData.defaultFolder.name
+        console.log "\n# #{v.name}".magenta
+      else
+        console.log "\n# #{v.name}"
+      console.log "----------------------------------------"
+    printTasks tasks
 
 
 #
@@ -695,10 +697,11 @@ exports.listTasks = (tags, cf, userData, fn=->) ->
       search.words.push t      
 
 
+  _tasks = []
   for t,i in tasks
     if search is null and i < 20 and t.state in initialStates
-      
-      printTask t, index:i
+      t.index = i
+      _tasks.push t
     else
       try
         if search.states? and  t.state in search.states
@@ -709,6 +712,8 @@ exports.listTasks = (tags, cf, userData, fn=->) ->
           printTask t, index: i, words: [[search.words, "red"]]   # пометить совпадение
       catch e
         "skip this step"
+
+  printTasks _tasks
 
 #
 # Internal: Подсветить текст
@@ -740,14 +745,38 @@ _colorizeText = (text, words=[]) ->
 
 
 #
+# Public: Вывести задачи в консоль
+#
+printTasks = (tasks, opts={}) ->
+  tasks.sort (a, b) ->
+    if a.priority is b.priority
+      a.updated_at < b.updated_at
+    else
+      a.priority < b.priority
+
+  console.log "tt = #{JSON.stringify tasks, null, 2}"
+  console.log "----------------------------------------"
+  for t,i in tasks
+    opts.index = t.index
+    printTask t, opts
+
+#
 # Public: Вывести задачу в консоль
 #
 exports.printTask = printTask = (task, opts={}) ->
   r = []
+  flags = {}
+  if task.priority > 0
+    flags.p = "!"
+    if task.priority > 2
+      flags.p = "!".red
+  else
+    flags.p = " "
   if statusSymbols[task.state]?
     r.push "#{statusSymbols[task.state].symbol[statusSymbols[task.state].color]} "
   else
     r.push "☉ "
+  r.push flags.p
   unless "undefined" is typeof opts.index
     r.push "#{opts.index}\t"
   else
