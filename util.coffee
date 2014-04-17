@@ -433,11 +433,23 @@ _delegatedTo = (tags) ->
 #
 #
 _getState = (tags) ->
-  [state, tags] = _findAndRemove tags, /^::[a-z]+$/i
+  [state, tags] = _findAndRemove tags, /^::[a-z\d]+$/i
   if state?
     [state[2..].toLowerCase(), tags, yes]
   else
     ["todo", tags, no]
+
+#
+# Internal: Получить каталог
+#  задается как to::work
+#
+#
+_getFolder = (tags) ->
+  [folder, tags] = _findAndRemove tags, /^to::[-a-z\.а-я\d]+$/i
+  if folder is null
+    [null, tags]
+  else
+    [folder[4..], tags]
 
 #
 # Internal: Получить хеш-теги
@@ -507,6 +519,13 @@ exports.addTask = (tags, cf, userData, fn=->) ->
   [taskData.at,       tags]  = _getAtTime       tags
   [taskData.priority, tags]  = _getTaskPriority tags
   [taskData.state,    tags]  = _getState        tags
+  [folder,            tags]  = _getFolder       tags
+  unless folder is null
+    folder_hash = _getFolderHash folder, userData.folders
+    unless folder_hash
+      return fn msg: "каталог #{folder} не найден"
+    taskData.folder_hash = folder_hash
+
   _updateTaskData taskData, tags
   
     #  todo add time_limit
@@ -620,7 +639,7 @@ exports.todaysTasks = (tags, cf, userData, fn=-> ) ->
       else
         console.log "\n# #{v.name}"
       console.log "----------------------------------------"
-    printTasks tasks
+    printTasks tasks, daysForTodo: cf.daysForTodo or 7
 
 
 #
@@ -713,7 +732,7 @@ exports.listTasks = (tags, cf, userData, fn=->) ->
       catch e
         "skip this step"
 
-  printTasks _tasks
+  printTasks _tasks, daysForTodo: cf.daysForTodo or 7
 
 #
 # Internal: Подсветить текст
@@ -749,13 +768,14 @@ _colorizeText = (text, words=[]) ->
 #
 printTasks = (tasks, opts={}) ->
   tasks.sort (a, b) ->
+    return a.priority < b.priority
     if a.priority is b.priority
       a.updated_at < b.updated_at
     else
       a.priority < b.priority
 
-  console.log "tt = #{JSON.stringify tasks, null, 2}"
-  console.log "----------------------------------------"
+  # console.log "tt = #{JSON.stringify tasks, null, 2}"
+  # console.log "----------------------------------------"
   for t,i in tasks
     opts.index = t.index
     printTask t, opts
@@ -781,6 +801,16 @@ exports.printTask = printTask = (task, opts={}) ->
     r.push "#{opts.index}\t"
   else
     r.push " \t"
+
+  # days for todo
+  if opts.daysForTodo?
+    days = parseInt (Date.now() - task.updated_at)/ 86400000
+    if days < .4 * opts.daysForTodo
+      r.push "\t"
+    else if days < 0.9 * opts.daysForTodo
+      r.push "#{days.toString().yellow}\t"
+    else
+      r.push "#{days.toString().red}\t"
 
   # color opts
   opts.words ||= []
