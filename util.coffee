@@ -148,6 +148,7 @@ statusSymbols =
   "fixed"    : symbol: "✪", color: "green", final: yes
   "merged"   : symbol: "⚭", color: "magenta", final: yes
   "pushed"   : symbol: "↦", color: "cyan", final: yes
+  "event"    : symbol: "𝍔", color: "blue", final: "event"
 
 
 #
@@ -156,9 +157,9 @@ statusSymbols =
 initialStates = []
 finalStates   = []
 for k,v of statusSymbols
-  if v.final
+  if v.final is yes
     finalStates.push k
-  else
+  else if v.final is no
     initialStates.push k
 
 
@@ -349,22 +350,29 @@ _getAtTime = (tags) ->
   [at, tags] = _findAndRemove tags, /^at:([-\d\.\:]+|null)$/
   if at?
     at = at[3..]
-    [at, tags, yes]
+    d = new Date
     # этот код - просто заглушка
-    # if /^\d\d$/.test at                     # число
-    #   at = ...
-    # else if /^\d\d\.\d\d$/.test at          # число и месяц
-    #   at = ...
-    # else if /^\d\d\.\d\d\.\d{2,4}$/.test at # число, месяц и год
-    #   at = ...
+    if /^\d\d$/.test at                     # число
+      at = new Date d.getFullYear(), d.getMonth(), parseInt at
+    else if /^\d\d\.\d\d$/.test at          # число и месяц
+      [d,m] = at.split(".").map (x) -> parseInt x
+      m--
+      at = new Date d.getFullYear(), m, d
+    else if /^\d\d\.\d\d\.\d{2,4}$/.test at # число, месяц и год
+      [d, m, y] = at.split(".").map (x) -> parseInt x
+      if y < 99
+        y += 2000
+      m--
+      at = new Date y, m, d
     # else if /^\d\d\.\d\d\.\d{2,4}-\d\d$/.test at # число, месяц, год и час
     #   at = ...
     # else if /^\d\d\.\d\d\.\d{2,4}-\d\d\:\d\d$/.test at # число, месяц, год, час и минута
     #   at = ...
     # else if /^\d\d\.\d\d\.\d{2,4}-\d\d\:\d\d\:\d\d$/.test at # число, месяц, год, час, минута и секунда
     #   at = ...
-    # else
-    #   [null, tags]
+    else
+      return [null, tags, no]
+    [at, tags, yes]
   else
     [null, tags, no]
 
@@ -525,6 +533,10 @@ exports.addTask = (tags, cf, userData, fn=->) ->
     unless folder_hash
       return fn msg: "каталог #{folder} не найден"
     taskData.folder_hash = folder_hash
+
+  # event
+  unless taskData.at is null
+    taskData.state = "event"
 
   _updateTaskData taskData, tags
   
@@ -718,7 +730,7 @@ exports.listTasks = (tags, cf, userData, fn=->) ->
 
   _tasks = []
   for t,i in tasks
-    if search is null and i < 20 and t.state in initialStates
+    if search is null and i < 20 and not (t.state in finalStates)
       t.index = i
       _tasks.push t
     else
@@ -767,16 +779,17 @@ _colorizeText = (text, words=[]) ->
 # Public: Вывести задачи в консоль
 #
 printTasks = (tasks, opts={}) ->
-  tasks.sort (a, b) ->
-    return a.priority < b.priority
-    if a.priority is b.priority
-      a.updated_at < b.updated_at
-    else
-      a.priority < b.priority
+  tasksDict = {}
+  names = []
+  now = Date.now()
+  for t in tasks                # make key, then sort
+    name = "#{-t.priority}#{now - t.updated_at}"
+    tasksDict[name] = t
+    names.push name
+  names.sort()
 
-  # console.log "tt = #{JSON.stringify tasks, null, 2}"
-  # console.log "----------------------------------------"
-  for t,i in tasks
+  for name,i in names
+    t = tasksDict[name]
     opts.index = t.index
     printTask t, opts
 
@@ -802,15 +815,21 @@ exports.printTask = printTask = (task, opts={}) ->
   else
     r.push " \t"
 
-  # days for todo
-  if opts.daysForTodo?
-    days = parseInt (Date.now() - task.updated_at)/ 86400000
-    if days < .4 * opts.daysForTodo
-      r.push "\t"
-    else if days < 0.9 * opts.daysForTodo
-      r.push "#{days.toString().yellow}\t"
-    else
-      r.push "#{days.toString().red}\t"
+  if task.state is "event"
+    lastField = r.pop()
+    r.push lastField.replace "\t", "  "
+    d = new Date task.at
+    r.push "#{d.getDate()}.0#{d.getMonth()+1}.#{d.getFullYear().toString()[2..]}\t".blue
+  else
+    # days for todo
+    if opts.daysForTodo?
+      days = parseInt (Date.now() - task.updated_at)/ 86400000
+      if days < .4 * opts.daysForTodo
+        r.push "\t"
+      else if days < 0.9 * opts.daysForTodo
+        r.push "#{days.toString().yellow}\t"
+      else
+        r.push "#{days.toString().red}\t"
 
   # color opts
   opts.words ||= []
