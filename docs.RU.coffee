@@ -96,4 +96,15 @@ module.exports =
       params   : []
       alias    : ["today"]
       procName : "todaysTasks"
-    
+    toEvent    :
+      doc      : "перевести задачу в событие"
+      eg       : ["`s tte 7 at:12.06.2014`"]
+      params   : []
+      alias    : ["tte", "tast-to-event"]
+      procName : "toEvent"
+    toTask     :
+      doc      : "перевести событие в задачу"
+      eg       : ["`s ett 8`"]
+      params   : []
+      alias    : ["ett", "event-to-task"]
+      procName : "toTask"

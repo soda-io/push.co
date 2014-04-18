@@ -213,6 +213,28 @@ exports.todaysTasks = (tags, commands, data, cf) ->
 exports.inspectTask = (tags, commands, data, cf) ->
   util.inspectTask tags, cf, data
 
+#
+# Public: Перевести задачу в событие
+#
+exports.toEvent = (tags, commands, data, cf) ->
+  util.toEvent tags, cf, data, (err, task) ->
+    if err
+      console.error err.msg.red
+    else
+      util.storeData cf, data
+
+
+#
+# Public: Перевести событие в задачу
+#
+exports.toTask = (tags, commands, data, cf) ->
+  util.toTask tags, cf, data, (err, task) ->
+    if err
+      console.error err.msg.red
+    else
+      util.storeData cf, data
+
+
 # --------------------------------------------------
 # Помощь
 # --------------------------------------------------

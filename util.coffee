@@ -385,7 +385,7 @@ _getRegular = (tags) ->
   unless pattern is null
     number = parseInt pattern[2..-2]
     scale = pattern[-1..]
-    pattern = [scale, number]
+    pattern = [number, scale]
   [pattern, tags]
 
 
@@ -503,7 +503,7 @@ _initTask = (task) ->
   task.created_at     = now
   task.updated_at     = now
   task.times          = []
-  task.regular        = null
+
 
 
 #
@@ -516,6 +516,14 @@ _ensureUnique = (tasks, task) ->
       return no
   yes
 
+
+#
+# Internal: Обновить время изменения задачи
+#
+#
+_touchTaskData = (task) ->
+  task.updated_at        = Date.now()  
+
 #
 # Internal: Обновить данные по задачи из `tags`:
 #
@@ -526,7 +534,8 @@ _updateTaskData = (task, tags) ->
   [task.urls,     tags]  = _getUrls         tags
   [task.mention,  tags]  = _getMentions     tags
   task.text              = tags.join " "
-  task.updated_at        = Date.now()
+  _touchTaskData  task
+
 
 #
 # Public: Добавить новую задачу
@@ -543,7 +552,6 @@ exports.addTask = (tags, cf, userData, fn=->) ->
   [taskData.regular,  tags]  = _getRegular      tags
   [taskData.state,    tags]  = _getState        tags
   [folder,            tags]  = _getFolder       tags
-  console.log "RR = #{taskData.regular}"
   unless folder is null
     folder_hash = _getFolderHash folder, userData.folders
     unless folder_hash
@@ -555,9 +563,9 @@ exports.addTask = (tags, cf, userData, fn=->) ->
     taskData.state = "event"
 
   _updateTaskData taskData, tags
-  
     #  todo add time_limit
   _initTask taskData
+
   userData.tasks[taskData.folder_hash] ||= []
   if _ensureUnique userData.tasks[taskData.folder_hash], taskData
     userData.tasks[taskData.folder_hash].unshift taskData
@@ -652,11 +660,23 @@ exports.moveTask = (tags, cf, userData, fn=->) ->
 # Public: Дела на сегодня
 #
 exports.todaysTasks = (tags, cf, userData, fn=-> ) ->
+  nowDay = new Date()
   for k,v of userData.folders
     # show folders
     foundOneTask = no
     tasks = []
     for t,i in userData.tasks[k] or []
+      if t.regular   # todo fix code
+        reg = t.regular.join ""
+        if reg is "1d"          # every day
+          d = new Date(t.updated_at).getDate()
+          d2 = nowDay.getDate()
+          if d isnt d2
+            t.state = "todo"
+            userData.tasks[k][i] = t
+            storeData cf, userData
+
+
       unless t.state in finalStates
         foundOneTask = yes  
         t.index = i
@@ -688,7 +708,7 @@ exports.updateTask = (tags, cf, userData, fn=-> ) ->
   task.at = at if found
   [state, tags, found] = _getState tags
   if found
-    task.state = state          # todo move to ended tasks
+    task.state = state # todo move to ended tasks
 
   if tags.length > 0
     _updateTaskData task, tags
@@ -697,6 +717,39 @@ exports.updateTask = (tags, cf, userData, fn=-> ) ->
   fn null, task
 
 
+#
+# Public: Перевести задачу в событие
+#
+# `s tte 7 at:12.06.2014`
+#
+exports.toEvent = (tags, cf, userData, fn=-> ) ->
+  return fn msg: "укажите задачу" if 0 is tags.length
+  [opts, tags] = _fetchTaskIndex tags
+  [task, num] = _getTask userData, opts
+  return fn msg: "задача не найдена" if null is task
+  [task.at, tags]  = _getAtTime tags
+  if task.at
+    task.state = "event"
+    _touchTaskData task
+    fn null, task
+  else
+    fn msg: "дата/время не указаны"
+
+
+#
+# Public: Перевести событие в задачу 
+#
+# `s ett 8`
+# 
+exports.toTask = (tags, cf, userData, fn=-> ) ->
+  return fn msg: "укажите задачу" if 0 is tags.length
+  [opts, tags] = _fetchTaskIndex tags
+  [task, num] = _getTask userData, opts
+  return fn msg: "задача не найдена" if null is task
+  task.state = "todo"
+  task.at = null
+  _touchTaskData task
+  fn null, task
 
 #
 # Public: Показать свойства задачи
@@ -839,7 +892,7 @@ exports.printTask = printTask = (task, opts={}) ->
     r.push lastField.replace "\t", "  "
     d = new Date task.at
     r.push "#{d.getDate()}.0#{d.getMonth()+1}.#{d.getFullYear().toString()[2..]}\t".blue
-  else if task.regular
+  else if task.regular          # regular task
     r.push "#{task.regular[0]}#{task.regular[1]}\t".yellow
   else
     # days for todo
