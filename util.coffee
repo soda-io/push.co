@@ -376,6 +376,18 @@ _getAtTime = (tags) ->
   else
     [null, tags, no]
 
+#
+# Internal: tags
+#
+#
+_getRegular = (tags) ->
+  [pattern, tags] = _findAndRemove tags, /^::\d\d?[mwdy]$/i
+  unless pattern is null
+    number = parseInt pattern[2..-2]
+    scale = pattern[-1..]
+    pattern = [scale, number]
+  [pattern, tags]
+
 
 #
 # Internal: Получить упоминания
@@ -491,6 +503,7 @@ _initTask = (task) ->
   task.created_at     = now
   task.updated_at     = now
   task.times          = []
+  task.regular        = null
 
 
 #
@@ -508,7 +521,6 @@ _ensureUnique = (tasks, task) ->
 #
 #   `hashtags`, `mention`, `urls`, `text`
 #
-#
 _updateTaskData = (task, tags) ->
   [task.hashtags, tags]  = _getHashTags     tags
   [task.urls,     tags]  = _getUrls         tags
@@ -519,6 +531,8 @@ _updateTaskData = (task, tags) ->
 #
 # Public: Добавить новую задачу
 #
+# новая задача может быть событием, обычной или регулярной задачей
+#
 exports.addTask = (tags, cf, userData, fn=->) ->
   taskData =
     folder_hash: userData.defaultFolder.hash
@@ -526,8 +540,10 @@ exports.addTask = (tags, cf, userData, fn=->) ->
       
   [taskData.at,       tags]  = _getAtTime       tags
   [taskData.priority, tags]  = _getTaskPriority tags
+  [taskData.regular,  tags]  = _getRegular      tags
   [taskData.state,    tags]  = _getState        tags
   [folder,            tags]  = _getFolder       tags
+  console.log "RR = #{taskData.regular}"
   unless folder is null
     folder_hash = _getFolderHash folder, userData.folders
     unless folder_hash
@@ -640,8 +656,8 @@ exports.todaysTasks = (tags, cf, userData, fn=-> ) ->
     # show folders
     foundOneTask = no
     tasks = []
-    for t,i in userData.tasks[k]
-      if t.state in initialStates
+    for t,i in userData.tasks[k] or []
+      unless t.state in finalStates
         foundOneTask = yes  
         t.index = i
         tasks.push t
@@ -673,8 +689,11 @@ exports.updateTask = (tags, cf, userData, fn=-> ) ->
   [state, tags, found] = _getState tags
   if found
     task.state = state          # todo move to ended tasks
+
   if tags.length > 0
     _updateTaskData task, tags
+
+
   fn null, task
 
 
@@ -820,6 +839,8 @@ exports.printTask = printTask = (task, opts={}) ->
     r.push lastField.replace "\t", "  "
     d = new Date task.at
     r.push "#{d.getDate()}.0#{d.getMonth()+1}.#{d.getFullYear().toString()[2..]}\t".blue
+  else if task.regular
+    r.push "#{task.regular[0]}#{task.regular[1]}\t".yellow
   else
     # days for todo
     if opts.daysForTodo?
