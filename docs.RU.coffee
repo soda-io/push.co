@@ -72,12 +72,12 @@ module.exports =
       params   : [{name: "имя каталога"}]
       alias    : ["sf", "co", "switch-folder"]
       procName : "switchFolder"
-    showStatistics:
+    showStat:
       doc      : "показать статистику"
-      eg       : ["`s ss`"]
+      eg       : ["`s stat`"]
       params   : []
-      alias    : ["ss", "show-stat"]
-      procName : "folderStat"
+      alias    : ["stat", "ss", "show-stat"]
+      procName : "showStat"
     showCalendar:
       doc      : "показать календарь"
       eg       : ["`s cal`"]

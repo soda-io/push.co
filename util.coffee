@@ -51,6 +51,14 @@ _centerString = (str, len) ->
   else
     r
 
+
+#
+# Internal: Дублировать строку несколько раз
+#
+#
+_dup = (str, times) ->
+  ([1..times].map -> str).join ""
+
 #
 # Public: Индекс месяца в имя
 #
@@ -298,6 +306,44 @@ exports.removeFolder = (cf, data, folder, fn=->) ->
     else
       return fn msg: "хеш или имя не указаны", null
   fn msg: "каталог не найден"
+
+
+#
+# Public: Показать статистику
+#
+exports.showStat = (cf, userData) ->
+  days_limit = cf.daysForTodo
+  for k,v of userData.folders
+    tasks         = []
+    todo_count    = 0
+    done_count    = 0
+    events_count  = 0
+    missed_count  = 0
+    tasks         = userData.tasks[k] or []
+    for t,i in tasks
+      if t.state is "event"
+        events_count++
+      else if t.state in initialStates
+        todo_count++
+        days = parseInt (Date.now() - t.updated_at)/ 86400000
+        if days > days_limit
+          missed_count++
+  
+      else if t.state in finalStates
+        done_count++
+    if tasks.length > 0
+      console.log _dup "-", 60
+      console.log "| #{v.name}"
+      console.log _dup "-", 60
+      console.log _dup("#", events_count).blue
+      console.log _dup("#", todo_count-missed_count).yellow + _dup("#", missed_count).red
+      console.log _dup("#", done_count).green
+      console.log "\n"
+      legend = ["событий: #{events_count}".blue, "задач:", "активных: #{todo_count}".yellow, "пропущенных: #{missed_count} #{(100*missed_count/todo_count).toFixed 2}%".red,  "завершенных: #{done_count}".green]
+      console.log legend.join "\n"
+      console.log _dup "-", 60
+      console.log "\n\n"
+
 
 # конец вызовов для каталогов
 # ----------------------------------------

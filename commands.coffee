@@ -92,8 +92,8 @@ exports.rmFolder = (tags, commands, data, cf) ->
 #
 # Public: Показать статистику
 #
-exports.folderStat = (tags) ->
-  console.log "показать статистику задач"
+exports.showStat = (tags, commands, data, cf) ->
+  util.showStat cf, data
 
 # --------------------------------------------------
 # Конфигурация
