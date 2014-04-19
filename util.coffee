@@ -71,13 +71,13 @@ _dup = (str, times) ->
 #
 #
 _getMonthName = (ind) ->
-  "январь:февраль:март:апрель:май:июнь:июль:август:сентябрь:октябрь:ноябрь:декабрь".split(":")[ind] or "???"
+  "ЯНВАРЬ:ФЕВРАЛЬ:МАРТ:АПРЕЛЬ:МАЙ:ИЮНЬ:ИЮЛЬ:АВГУСТ:СЕНТЯБРЬ:ОКТЯБРЬ:НОЯБРЬ:ДЕКАБРЬ".split(":")[ind] or "???"
 
 #
 # Public: Шапка календаря
 #
 _getCalHead = ->
-  "| пн | вт | ср | чт | пт | сб | вс |"
+  "|  пн  |  вт  |  ср  |  чт  |  пт  |  сб  |  вс  |"
 
 #
 # Public: День недели
@@ -106,26 +106,51 @@ _getMaxDay = (date) ->
   day = new Date date.getFullYear(), date.getMonth()+1, 0
   day.getDate()
 
+
+#
+# Internal: Перевести число в код брайля
+#
+#
+_intToDots = (num, color, inverse) ->
+  # символы алфавита Брайля (http://en.wikipedia.org/wiki/Braille_Patterns)
+  #" ⠁⠂⠃⠄⠅⠆⠇⠈⠉⠊⠋⠌⠍⠎⠏⠐⠑⠒⠓⠔⠕⠖⠗⠘⠙⠚⠛⠜⠝⠞⠟⠠⠡⠢⠣⠤⠥⠦⠧⠨⠩⠪⠫⠬⠭⠮⠯⠰⠱⠲⠳⠴⠵⠶⠷⠸⠹⠺⠻⠼⠽⠾⠿"
+  #" ⡀⡄⡆⡇⡏⡟⡿⣿"
+  if num < 9
+    " •⡄⡆⡇⡏⡟⡿⣿"[num][color]
+  else
+    (" ⡀⡁⡂⡃⡄⡅⡆⡇⡈⡉⡊⡋⡌⡍⡎⡏⡐⡑⡒⡓⡔⡕⡖⡗⡘⡙⡚⡛⡜⡝⡞⡟⡠⡡⡢⡣⡤⡥⡦⡧⡨⡩⡪⡫⡬⡭⡮⡯⡰⡱⡲⡳⡴⡵⡶⡷⡸⡹⡺⡻⡼⡽⡾⡿⢀⢁⢂⢃⢄⢅⢆⢇⢈⢉⢊⢋⢌⢍⢎⢏⢐⢑⢒⢓⢔⢕⢖⢗⢘⢙⢚⢛⢜⢝⢞⢟⢠⢡⢢⢣⢤⢥⢦⢧⢨⢩⢪⢫⢬⢭⢮⢯⢰⢱⢲⢳⢴⢵⢶⢷⢸⢹⢺⢻⢼⢽⢾⢿⣀⣁⣂⣃⣄⣅⣆⣇⣈⣉⣊⣋⣌⣍⣎⣏⣐⣑⣒⣓⣔⣕⣖⣗⣘⣙⣚⣛⣜⣝⣞⣟⣠⣡⣢⣣⣤⣥⣦⣧⣨⣩⣪⣫⣬⣭⣮⣯⣰⣱⣲⣳⣴⣵⣶⣷⣸⣹⣺⣻⣼⣽⣾⣿"[num] or "∞")[inverse].inverse
+
+
+
 #
 # Public: Return calendar cell
 #
 #
-_calendarCell = (day, is_today) ->
-  day = if day > 9 then "#{day}" else " #{day}"
-  day = "#{day.magenta.bold}" if is_today
-  " #{day} |"
+_calendarCell = (day, is_today, todo=0, events=0) ->
+  day       = if day > 9 then "#{day}" else " #{day}"
+  day       = "#{day.magenta.bold}" if is_today
+  todo_c    = _intToDots todo, "red", "yellow"
+  events_c  = _intToDots events, "blue", "green"
+  "#{events_c} #{day} #{todo_c}|"
 
 #
 # Public: Отрисовать календарь в консоли
 #
 #
-_drawCalendar = (d) ->
-  cal_str = ["\n"]
-  cal_str.push _centerString "#{_getMonthName d.getMonth()} #{d.getFullYear()}", 40 #
+_drawCalendar = (d, dates) ->
+  _year        = d.getFullYear()
+  _month       = d.getMonth()
+  _month_year  = ".#{_month}.#{_year}"
+  # макс ширина для календаря
+  max_width    = _getCalHead().length
+  # создать шапку
+  cal_str      = [ _dup("_", max_width) ]
+  cal_str.push _centerString "#{_getMonthName _month} #{_year}", max_width
+  cal_str.push _dup "_", max_width
   cal_str.push _getCalHead()
-  first_day = _firstDayOfMonth d
-  today = d.getDate()
-  s = ["|"]
+  first_day    = _firstDayOfMonth d
+  today        = d.getDate()
+  s            = ["|"]
   for j in [0...first_day]
     s.push _calendarCell " "
   _day = 1
@@ -138,13 +163,27 @@ _drawCalendar = (d) ->
   while _day <= max_day
     s = ["|"]
     for j in [0...7]
+      ds      = "#{_day}#{_month_year}"
+      events  = 0
+      todo    = 0
+
       if _day <= max_day
-        s.push _calendarCell _day, _day++ is today
+        if dates[ds]?
+          if dates[ds].events?
+            events = dates[ds].events.length
+          if dates[ds].todo?
+            todo = dates[ds].todo.length
+        s.push _calendarCell _day, _day is today, todo, events
+
       else
         s.push _calendarCell " "
+      _day++
+
     cal_str.push s.join ""
+  cal_str.push _dup "_", max_width
   cal_str.push "\n"
   console.log cal_str.join "\n"
+
 
 
 #
@@ -176,6 +215,33 @@ for k,v of statusSymbols
     finalStates.push k
   else if v.final is no
     initialStates.push k
+
+
+#
+# Internal: Получить todo/events в словаре dates
+#
+# dates:
+#  "DD.MM.YYYY":
+#    events: [...]
+#    todo:   [...]
+#
+#
+_getTodoDates = (tasks) ->
+  dates = {}
+  for t in tasks
+    if t.state is "event"
+      d = new Date t.at
+      ds = "#{d.getDate()}.#{d.getMonth()}.#{d.getFullYear()}"
+      dates[ds] ||= {}
+      dates[ds].events ||= []
+      dates[ds].events.push t
+    else if t.state in initialStates
+      d = new Date t.created_at
+      ds = "#{d.getDate()}.#{d.getMonth()}.#{d.getFullYear()}"
+      dates[ds] ||= {}
+      dates[ds].todo ||= []
+      dates[ds].todo.push t
+  dates
 
 
 #
@@ -354,7 +420,7 @@ exports.showStat = (tags, cf, userData) ->
     legend = [""
               "задач:\t\t#{total_count.toString().bold}\t(100.00%)",
               " активных:\t#{todo_count}\t(#{(100 * todo_count / (todo_count + done_count)).toFixed 2}%)".yellow,
-              "   пропущенных:\t#{missed_count}\t(#{(100 * missed_count / todo_count).toFixed 2}%)".red,
+              "   пропущенных:\t#{missed_count}\t(#{((100 * missed_count / todo_count) or 0).toFixed 2}%)".red,
               " завершённых:\t#{done_count}\t(#{(100 * done_count / (todo_count + done_count)).toFixed 2}%)".green,
               "событий:\t#{events_count}\t(#{(100 * events_count / total_count).toFixed 2}%)".blue,
               ""
@@ -653,6 +719,24 @@ _updateTaskData = (task, tags) ->
 
 
 #
+# Public: Проверить является ли задача повторяющейся,
+#         и если да, проверить/обновить ее состояние
+#
+#
+_updateRegular =  (t, task_index, userData, cf) ->
+  nowDay = new Date()
+  if t.regular   # todo fix code
+    reg = t.regular.join ""
+    if reg in ["1d", "d1"]          # every day
+      d = new Date(t.updated_at).getDate()
+      d2 = nowDay.getDate()
+      if d isnt d2
+        t.state = "todo"
+        userData.tasks[t.folder_hash][task_index] = t
+        storeData cf, userData
+
+
+#
 # Public: Добавить новую задачу
 #
 # новая задача может быть событием, обычной или регулярной задачей
@@ -775,23 +859,14 @@ exports.moveTask = (tags, cf, userData, fn=->) ->
 # Public: Дела на сегодня
 #
 exports.todaysTasks = (tags, cf, userData, fn=-> ) ->
-  nowDay = new Date()
   for k,v of userData.folders
     # show folders
     foundOneTask = no
     tasks = []
     for t,i in userData.tasks[k] or []
-      if t.regular   # todo fix code
-        reg = t.regular.join ""
-        if reg is "1d"          # every day
-          d = new Date(t.updated_at).getDate()
-          d2 = nowDay.getDate()
-          if d isnt d2
-            t.state = "todo"
-            userData.tasks[k][i] = t
-            storeData cf, userData
-
-
+      # сбросить состояние для повторяющихся задач
+      _updateRegular t, i, userData, cf
+ 
       unless t.state in finalStates
         foundOneTask = yes  
         t.index = i
@@ -827,6 +902,8 @@ exports.updateTask = (tags, cf, userData, fn=-> ) ->
 
   if tags.length > 0
     _updateTaskData task, tags
+  else
+    _touchTaskData  task
 
 
   fn null, task
@@ -884,15 +961,22 @@ exports.inspectTask = (tags, cf, userData, fn=->) ->
 #
 #
 exports.showCalendar = (tags, cf, userData, fn=->) ->
-  d = new Date 2014, 2, 5
   d = new Date 
+
+  tasks = []
+  # собрать все задачи
+  for k,v of userData.tasks
+    for t in v
+      tasks.push t
+  dates = _getTodoDates tasks
+
   if tags.length is 0
-    _drawCalendar new Date
+    _drawCalendar new Date(), dates
   else
     if /^\d\d?$/.test tags[0]   # month
       d = new Date
       d.setMonth parseInt(tags[0]) - 1
-      _drawCalendar d
+      _drawCalendar d, dates
 #
 # Public: Показать список задач
 #
@@ -917,6 +1001,7 @@ exports.listTasks = (tags, cf, userData, fn=->) ->
 
   _tasks = []
   for t,i in tasks
+    _updateRegular t, i, userData, cf
     if search is null and i < 20 and not (t.state in finalStates)
       t.index = i
       _tasks.push t
@@ -1035,7 +1120,7 @@ exports.printTask = printTask = (task, opts={}) ->
 #
 # Public: Сохранить данные
 #
-exports.storeData = (cf, data) ->
+exports.storeData = storeData = (cf, data) ->
   fs.writeFileSync cf.dataFile, JSON.stringify data, null, 2
 
 #
