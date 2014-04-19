@@ -76,6 +76,7 @@ module.exports =
       doc      : "показать статистику"
       eg       : ["`s stat`"]
       params   : []
+      opts     : [{"::total": "показать суммарную статистику"}]
       alias    : ["stat", "ss", "show-stat"]
       procName : "showStat"
     showCalendar:

@@ -51,6 +51,13 @@ _centerString = (str, len) ->
   else
     r
 
+#
+# Internal: Получить длину для value, исходя из того,
+#           что длина max_value = max_chars
+#
+_normalize = (value, max_value, max_chars) ->
+  (value * max_chars ) / max_value
+
 
 #
 # Internal: Дублировать строку несколько раз
@@ -311,16 +318,72 @@ exports.removeFolder = (cf, data, folder, fn=->) ->
 #
 # Public: Показать статистику
 #
-exports.showStat = (cf, userData) ->
-  days_limit = cf.daysForTodo
-  for k,v of userData.folders
-    tasks         = []
+exports.showStat = (tags, cf, userData) ->
+  [show_summary, tags] = _findAndRemove tags, /^::total$/i
+  folders_list = []             # список имен каталогов
+  first_date = Date.now()
+  last_date  = 1
+
+  max_width = 60                # максимальная ширина
+  if show_summary
     todo_count    = 0
     done_count    = 0
     events_count  = 0
     missed_count  = 0
+  days_limit = cf.daysForTodo   # дней до просрочки
+
+  # 
+  # вывести статистику (встроенная функция)
+  # ----
+  _show_folder_stat = (after="\n\n") -> 
+    total_count           = todo_count + done_count + events_count
+    st_events_count       = parseInt _normalize events_count, total_count, max_width
+    st_todo_intime_count  = parseInt _normalize todo_count - missed_count, total_count, max_width
+    st_todo_missed_count  = parseInt _normalize  missed_count, total_count, max_width
+# max_width - st_todo_intime_count
+    st_done_count         = parseInt _normalize done_count, total_count, max_width
+
+    console.log _dup("_", max_width).yellow
+    console.log _centerString("СТАТИСТИКА", max_width).yellow
+    console.log _dup("_", max_width).yellow
+
+    console.log _dup("#", st_events_count).blue
+    console.log _dup("#", st_todo_intime_count).yellow + _dup("#", st_todo_missed_count).red
+    console.log _dup("#", st_done_count).green
+    console.log _dup("_", max_width).yellow
+    legend = [""
+              "задач:\t\t#{total_count.toString().bold}\t(100.00%)",
+              " активных:\t#{todo_count}\t(#{(100 * todo_count / (todo_count + done_count)).toFixed 2}%)".yellow,
+              "   пропущенных:\t#{missed_count}\t(#{(100 * missed_count / todo_count).toFixed 2}%)".red,
+              " завершённых:\t#{done_count}\t(#{(100 * done_count / (todo_count + done_count)).toFixed 2}%)".green,
+              "событий:\t#{events_count}\t(#{(100 * events_count / total_count).toFixed 2}%)".blue,
+              ""
+             ]
+    console.log legend.join "\n"
+    console.log after
+    # ----
+
+  for k,v of userData.folders
+
+    if tags.length > 0
+      unless v.name in tags
+        continue
+
+    unless show_summary
+      todo_count    = 0
+      done_count    = 0
+      events_count  = 0
+      missed_count  = 0
+
     tasks         = userData.tasks[k] or []
     for t,i in tasks
+      # временной период
+      if t.created_at < first_date
+        first_date = t.created_at
+      if t.updated_at > last_date
+        last_date = t.updated_at
+
+      # подсчет событий и todo
       if t.state is "event"
         events_count++
       else if t.state in initialStates
@@ -332,18 +395,24 @@ exports.showStat = (cf, userData) ->
       else if t.state in finalStates
         done_count++
     if tasks.length > 0
-      console.log _dup "-", 60
-      console.log "| #{v.name}"
-      console.log _dup "-", 60
-      console.log _dup("#", events_count).blue
-      console.log _dup("#", todo_count-missed_count).yellow + _dup("#", missed_count).red
-      console.log _dup("#", done_count).green
-      console.log "\n"
-      legend = ["событий: #{events_count}".blue, "задач:", "активных: #{todo_count}".yellow, "пропущенных: #{missed_count} #{(100*missed_count/todo_count).toFixed 2}%".red,  "завершенных: #{done_count}".green]
-      console.log legend.join "\n"
-      console.log _dup "-", 60
-      console.log "\n\n"
+      if show_summary
+        folders_list.push v.name
+      else  
+        console.log _dup "-", max_width
+        console.log "| #{v.name}"
+        console.log _dup "-", max_width
+        _show_folder_stat()
 
+
+  if show_summary
+    days = parseInt (last_date - first_date) / 86400000
+    end_of_stat = ["дней:\t\t#{days}",
+                   "задач в день:\t#{(done_count/days).toFixed(2).bold}",
+                   _dup("_", max_width).yellow,
+                   "\nКАТАЛОГИ:\t".bold + folders_list.join(" | ").cyan,
+                   "\n\n"  
+                  ]
+    _show_folder_stat end_of_stat.join "\n"
 
 # конец вызовов для каталогов
 # ----------------------------------------

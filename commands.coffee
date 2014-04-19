@@ -93,7 +93,7 @@ exports.rmFolder = (tags, commands, data, cf) ->
 # Public: Показать статистику
 #
 exports.showStat = (tags, commands, data, cf) ->
-  util.showStat cf, data
+  util.showStat tags, cf, data
 
 # --------------------------------------------------
 # Конфигурация
