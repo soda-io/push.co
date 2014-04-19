@@ -50,9 +50,18 @@
 
 ## == INSTAll ==
 
- 1. **В терминале клонируете репозиторий** 
- 1. **Переходите в нее и набираете `npm install`** 
- 1. **Дальше набираете `. alias.coffee`**
- 1. **Потом нибираете команду `s h`- мануал по задачнику**
- 1. **Пометить задачу как сделанную с помощью команды `s u id::done`**
+ 1. **В терминале** 
+
+```bash
+  git clone git@github.com:soda-io/push.co.git
+  cat <<EOF >> ~/.bash_profile
+  alias "s"="coffee `pwd`/index.coffee"
+  EOF
+  . ~/.bash_profile
+  s h
+```
+ 
+## == USAGE ==
+
+Примеры использования от альфатестеров
  
