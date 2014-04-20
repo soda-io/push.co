@@ -192,7 +192,7 @@ _drawCalendar = (d, dates) ->
 #
 statusSymbols =
   "todo"     : symbol: "☐", color: "red", final: no
-  "frozen"   : symbol: "❄", color: "blue", final: no
+  "frozen"   : symbol: "❄", color: "blue", final: "frozen"
   "question" : symbol: "¿", color: "yellow", final: no
   "idea"     : symbol: "⚗", color: "magenta", final: no
   "bug"      : symbol: "⚒", color: "red", final: no
