@@ -14,32 +14,43 @@
 
 `s ett ID`
 
+## добавлять хэштег (add hashtag)
+
+`s a +important todo`
+
 # Персональные команды
 
-|команды      | обозначения                     |
-|-------------|:--------------------------------|
-|`t`|task/задача/список задач                   |
-|`a`|add/добавить                               |
-|`rm`|delete/удалить                            |
-|`i`|info/информация                            |
-|`u`|update/изменить                              |
-|`::`|(`::todo`, `::question`) состояние задачи |
-|`#`|hashtag (#task)/хэштег                     |
-|`l`|log/ вывод(поиск)                          |
-|`c`|comment/комментарий                        |
-|`0..99`|id task/id задачи                      |
-|`abc..abcdef`|hash task/хеш задачи             |
-|`d`|done/сделано                               |
-|`s`|start/начать                               |
-|`p`|pause/приостановить                        |
-|`dt`|date/дата                                 |
-|`r`|reminder/напоминание                       |
-|`sc`|sync/синхронизация                        |
-|`cal`|calender/календарь                       |
-|`i`|important/важная                           |
-|`cf`|config options/варианты конфигурации      |
-|`fr`|freeze/заморозить                         |
-                             
+|команды      | обозначения                                           |
+|-------------|:------------------------------------------------------|
+|`s`|task/задача/список задач                                         |
+|`a`|add/добавить                                                     |
+|`rm`|delete/удалить                                                  |
+|`i`|information/свойства задач                                       |
+|`u`|update/изменить                                                  |
+|`::`|(`::todo`, `::question`) состояние задачи                       |
+|`+`|hashtag (#task)/хэштег                                           |
+|`l`|log/ вывод(поиск)                                                |
+|`c`|comment/комментарий                                              |
+|`0..99`|id task/id задачи                                            |
+|`abc..abcdef`|hash task/хеш задачи                                   |
+|`d`|done/сделано                                                     |
+|`s`|start/начать                                                     |
+|`p`|pause/приостановить                                              |
+|`dt`|date/дата                                                       |
+|`r`|reminder/напоминание                                             |
+|`fr`|freeze/заморозить                                               |
+|`today`|today tasks/задачи на сегодня                                |
+|`mv`|move the task to another folder/переместить задачу в другой каталог|
+|`uf`|update folder/оновить каталог                                   |
+|`fl`|folder list/список каталогов                                    |
+|`nf`|new folder/создать каталог                                      |
+|`cf`|update/see config / обновить/посмотреть конфигурацию            |
+|`rf`|remove folder/удалить каталог                                   |
+|`sf`|switch to another folder/переключиться на другой каталог        |
+|`stat`|tasks statistics/статистика задачи                            |
+|`sc`|show calendar/показать календарь                                |
+|`tte`|task to event/перенести задачу в событие                       |
+|`ett`|event to task/перенести событие в задачу                       |
 
 
 
