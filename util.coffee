@@ -131,7 +131,7 @@ _calendarCell = (day, is_today, todo=0, events=0) ->
   day       = "#{day.magenta.bold}" if is_today
   todo_c    = _intToDots todo, "red", "yellow"
   events_c  = _intToDots events, "blue", "green"
-  "#{events_c} #{day} #{todo_c}|"
+  "#{events_c} #{day.white} #{todo_c}#{'|'.white}"
 
 #
 # Public: Отрисовать календарь в консоли
@@ -144,13 +144,13 @@ _drawCalendar = (d, dates) ->
   # макс ширина для календаря
   max_width    = _getCalHead().length
   # создать шапку
-  cal_str      = [ _dup("_", max_width) ]
-  cal_str.push _centerString "#{_getMonthName _month} #{_year}", max_width
-  cal_str.push _dup "_", max_width
-  cal_str.push _getCalHead()
+  cal_str      = [ _dup("_", max_width).white ]
+  cal_str.push _centerString("#{_getMonthName _month} #{_year}", max_width).white
+  cal_str.push _dup("_", max_width).white
+  cal_str.push _getCalHead().grey.inverse
   first_day    = _firstDayOfMonth d
   today        = d.getDate()
-  s            = ["|"]
+  s            = ["|".white]
   for j in [0...first_day]
     s.push _calendarCell " "
   _day = 1
@@ -161,7 +161,7 @@ _drawCalendar = (d, dates) ->
   max_day = _getMaxDay d
 
   while _day <= max_day
-    s = ["|"]
+    s = ["|".white]
     for j in [0...7]
       ds      = "#{_day}#{_month_year}"
       events  = 0
@@ -180,7 +180,7 @@ _drawCalendar = (d, dates) ->
       _day++
 
     cal_str.push s.join ""
-  cal_str.push _dup "_", max_width
+  cal_str.push _dup("_", max_width).white
   cal_str.push "\n"
   console.log cal_str.join "\n"
 
