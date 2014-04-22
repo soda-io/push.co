@@ -32,15 +32,15 @@ module.exports =
       procName : "mvTask"
     help:
       doc      : "показать справку"
-      eg       : ["`s help`"]
-      params   : [{section: "раздел справки (имя команды)"}]
+      eg       : ["`s help [command]`"]
+      params   : [{command: "раздел справки (имя команды)"}]
       alias    : ["h", "help"]
       procName : "help"
     listFolders:
       doc      : "список каталогов"
-      eg       : ["`s fl`"]
+      eg       : ["`s b`"]
       params   : []
-      alias    : ["fl", "b", "folders"]
+      alias    : ["b", "fl", "folders"]
       procName : "foldersList"
     newFolder:
       doc      : "создать каталог"
@@ -68,9 +68,9 @@ module.exports =
       procName : "updateConfig"
     switchFolder:
       doc      : "переключиться на другой каталог"
-      eg       : ["`s sf folder-name"]
+      eg       : ["`s co folder-name`"]
       params   : [{name: "имя каталога"}]
-      alias    : ["sf", "co", "switch-folder"]
+      alias    : ["co", "sf", "switch-folder"]
       procName : "switchFolder"
     showStat:
       doc      : "показать статистику"
