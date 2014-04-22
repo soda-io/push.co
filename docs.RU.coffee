@@ -93,9 +93,9 @@ module.exports =
       procName : "inspectTask"
     todaysTasks:
       doc      : "дела на сегодня"
-      eg       : ["`s today`"]
+      eg       : ["`s td`"]
       params   : []
-      alias    : ["today"]
+      alias    : ["td", "today"]
       procName : "todaysTasks"
     toEvent    :
       doc      : "перевести задачу в событие"

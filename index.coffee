@@ -32,17 +32,28 @@ getCommandName = (name) ->
 # Загрузить конфиг
 #
 util.loadConfig (err, cf) ->
-  cmd = getCommandName process.argv[2]
-  if cmd in ["help", "h"]
-    commands[cmd].call @, process.argv[3..], docData.commands
-  else
-    util.loadData cf, (err, data) ->
-      if cmd?
-        commands[cmd].call @, process.argv[3..], docData.commands, data, cf
-      else
-        if process.argv[2]?
-          console.error "команда #{process.argv[2].bold} не найдена".red
-        commands.help.call @, [], docData.commands
+  cmd = process.argv[2]
+  if cmd in ["-v", "--version"]
+    fs = require "fs"
+    try
+      pkg = JSON.parse fs.readFileSync "./package.json", "utf-8"
+      console.log "push.co tracker v#{pkg.version}"
+    catch e
+      console.error "ошибка при чтении настроек пакета".red
+    return 
+
+  cmd = getCommandName cmd
+  switch cmd
+    when "help", "h"
+      commands[cmd].call @, process.argv[3..], docData.commands
+    else
+      util.loadData cf, (err, data) ->
+        if cmd?
+          commands[cmd].call @, process.argv[3..], docData.commands, data, cf
+        else
+          if process.argv[2]?
+            console.error "команда #{process.argv[2].bold} не найдена".red
+          commands.help.call @, [], docData.commands
 
 
 

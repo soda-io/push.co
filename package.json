@@ -1,6 +1,6 @@
 {
   "name": "soda-track",
-  "version": "0.5.2",
+  "version": "0.5.5",
   "description": "Трекер легкий в использовании ",
   "main": "index.coffee",
   "scripts": {
@@ -22,6 +22,6 @@
   ],
   "author": "SODA",
   "license": "MIT",
-  "readmeFilename": "README.md",
+  "readmeFilename": "readme.md",
   "gitHead": "7392860899042ac66879e8388f976fffe24e0aa0"
 }

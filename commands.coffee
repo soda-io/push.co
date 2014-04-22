@@ -256,9 +256,10 @@ exports.showCal = (tags, commands, data, cf) ->
 #
 exports.help = help = (tags, commands) ->
   if 0 is tags.length 
-    s = []
+    s = ["\ns [COMMAND] [ARGS]\n\nCOMMAND:"]
     for k,v of commands
-      s.push " - #{v.alias[0].bold} #{v.doc}"
+      s.push " - #{v.alias[0].bold}\t  #{v.doc.white}"
+    s.push "\n"
     console.log s.join "\n"
   else                          # показать справку по команде
     for k,v of commands
