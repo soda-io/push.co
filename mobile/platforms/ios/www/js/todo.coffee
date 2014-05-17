@@ -16,11 +16,26 @@ class window.Todo
 
   bindEvents: ->
     elem_names = [1..100].map (n) -> "el-#{n}"
-    $("main article .line .content").forEach (elem, i) ->
+    $("main article .line").forEach (line, i) ->
+      elem = $(line).find(".content")[0]
+      actions = []
+      lineOffset = $(line).offset().left
+      $(line).find(".mount .actions .inline").forEach (cmd, i) ->
+        w = $(cmd).offset().width
+        offset = $(cmd).offset().left
+        actions.push off: offset, w: w, action: $(cmd).data "action"
+      console.log "actions = #{JSON.stringify actions, null, 2}"
       $(elem).off()
       $(elem).data "name", elem_names[i]
-      new window.T.ShiftBillet elem, name: elem_names[i] #, callback: (msg, el) ->
-
+      new window.T.ShiftBillet elem, name: elem_names[i], actions: actions,  callback: ->
+        #@lastX, @_w
+        if @lastX > 0
+          for a in actions
+            if a.off+a.w <= @lastX <= a.off + a.w*1.3
+              app.notify null, "action = #{a.action}"
+              break
+        else
+          app.notify null, "влево"
 
   #
   # Public: Load data from local storage

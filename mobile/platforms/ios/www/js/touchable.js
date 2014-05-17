@@ -194,6 +194,9 @@
         this._animTime = opts.animTime || 320;
         this._inertiaTime = opts.inertiaTime || this._animTime;
         this.name = opts.name;
+        this.actions = opts.actions;
+        this.callback = opts.callback || function() {};
+        this._start_offset = opts.startOffset || 30;
       }
 
       ShiftBillet.prototype._setMoveHandler = function() {
@@ -225,9 +228,24 @@
         if (!this._locked) {
           _ref = getXYZTranslate($(this.selector)), this._x0 = _ref[0], this._y0 = _ref[1], _z0 = _ref[2];
         }
-        $(this.selector).animate({
-          translate3d: "" + this._x0 + "px, " + this._y0 + "px, 0"
-        }, 0);
+        if (this.pos0.x < 70) {
+          this._x0 += this._start_offset;
+          $(this.selector).animate({
+            translate3d: "" + this._x0 + "px, " + this._y0 + "px, 0"
+          }, 100, "ease", (function(_this) {
+            return function() {
+              if (!_this._isMoving) {
+                return $(_this.selector).animate({
+                  translate3d: "0, 0, 0"
+                }, 50);
+              }
+            };
+          })(this));
+        } else {
+          $(this.selector).animate({
+            translate3d: "" + this._x0 + "px, " + this._y0 + "px, 0"
+          }, 0);
+        }
         this._time = Date.now();
         this._w0 = $(this.selector).width();
         return ShiftBillet.__super__._onStartMove.call(this, e, this._x0, this._y0);
@@ -265,10 +283,14 @@
           }
         }
         x = round(x);
+        if (x < 0) {
+          x = 0;
+        }
         $(this.selector).animate({
           translate3d: "" + x + "px, " + this._y0 + "px, 0"
         }, this._animTime, "ease-out");
         this._dx = this._dy = 0;
+        this.callback.call(this);
         return ShiftBillet.__super__._onStopMove.call(this);
       };
 

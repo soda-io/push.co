@@ -1,7 +1,8 @@
 #
 # Public: Touchable lib
 #
-#define ["zepto"], ->
+# last update 17.05.2014
+# 
 $ ->
   # 
   {min, max, round, abs} = Math
@@ -134,6 +135,10 @@ $ ->
       @_animTime = opts.animTime or 320
       @_inertiaTime = opts.inertiaTime or @_animTime
       @name = opts.name
+      @actions = opts.actions   # list of actions
+      @callback = opts.callback or ->
+      @_start_offset = opts.startOffset or 30
+  
 
     #
     # Internal: Update move handler
@@ -154,7 +159,6 @@ $ ->
             @_onMove.call @, dx, dy
             
 
-
     #
     # Internal: Start move handler
     #
@@ -163,7 +167,13 @@ $ ->
       @_isMoving = yes
       unless @_locked
         [@_x0, @_y0, _z0] = getXYZTranslate $ @selector
-      $(@selector).animate translate3d: "#{@_x0}px, #{@_y0}px, 0", 0
+      if @pos0.x < 70           # left most
+        @_x0 += @_start_offset
+        $(@selector).animate translate3d: "#{@_x0}px, #{@_y0}px, 0", 100, "ease", =>
+          unless @_isMoving
+            $(@selector).animate translate3d: "0, 0, 0", 50
+      else
+        $(@selector).animate translate3d: "#{@_x0}px, #{@_y0}px, 0", 0
       @_time = Date.now()
       @_w0 = $(@selector).width()
       super e, @_x0, @_y0
@@ -196,8 +206,10 @@ $ ->
         else if x < - @_w0
           x = - @_w0
       x = round x
+      x = 0 if x < 0
       $(@selector).animate translate3d: "#{x}px, #{@_y0}px, 0", @_animTime, "ease-out"
       @_dx = @_dy = 0
+      @callback.call @
       super()
 
   #
@@ -495,7 +507,6 @@ $ ->
       $(@parentContent).off "swipeLeft", => @placePages 1
       $(@parentContent).off "swipeRight", => @placePages -1
       $(@parentContent).off "dblclick", => @placePages 1
-
 
 
     #

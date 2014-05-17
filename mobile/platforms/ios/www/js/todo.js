@@ -29,11 +29,45 @@
       }).apply(this).map(function(n) {
         return "el-" + n;
       });
-      return $("main article .line .content").forEach(function(elem, i) {
+      return $("main article .line").forEach(function(line, i) {
+        var actions, elem, lineOffset;
+        elem = $(line).find(".content")[0];
+        actions = [];
+        lineOffset = $(line).offset().left;
+        $(line).find(".mount .actions .inline").forEach(function(cmd, i) {
+          var offset, w;
+          w = $(cmd).offset().width;
+          offset = $(cmd).offset().left;
+          return actions.push({
+            off: offset,
+            w: w,
+            action: $(cmd).data("action")
+          });
+        });
+        console.log("actions = " + (JSON.stringify(actions, null, 2)));
         $(elem).off();
         $(elem).data("name", elem_names[i]);
         return new window.T.ShiftBillet(elem, {
-          name: elem_names[i]
+          name: elem_names[i],
+          actions: actions,
+          callback: function() {
+            var a, _j, _len, _ref, _results1;
+            if (this.lastX > 0) {
+              _results1 = [];
+              for (_j = 0, _len = actions.length; _j < _len; _j++) {
+                a = actions[_j];
+                if ((a.off + a.w <= (_ref = this.lastX) && _ref <= a.off + a.w * 1.3)) {
+                  app.notify(null, "action = " + a.action);
+                  break;
+                } else {
+                  _results1.push(void 0);
+                }
+              }
+              return _results1;
+            } else {
+              return app.notify(null, "влево");
+            }
+          }
         });
       });
     };
