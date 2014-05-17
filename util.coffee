@@ -198,6 +198,7 @@ statusSymbols =
   "bug"      : symbol: "⚒", color: "red", final: no
   "done"     : symbol: "☑", color: "green", final: yes
   "closed"   : symbol: "☒", color: "grey", final: yes
+  "cancel"   : symbol: "☒", color: "grey", final: "cancel"
   "wontfix"  : symbol: "⚔", color: "grey", final: yes
   "fixed"    : symbol: "✪", color: "green", final: yes
   "merged"   : symbol: "⚭", color: "magenta", final: yes
@@ -210,6 +211,7 @@ statusSymbols =
 #
 initialStates = []
 finalStates   = []
+hiddenStates  =  ["cancel"]
 for k,v of statusSymbols
   if v.final is yes
     finalStates.push k
@@ -1002,7 +1004,7 @@ exports.listTasks = (tags, cf, userData, fn=->) ->
   _tasks = []
   for t,i in tasks
     _updateRegular t, i, userData, cf
-    if search is null and i < 20 and not (t.state in finalStates)
+    if search is null and i < 20 and not (t.state in finalStates) and not (t.state in hiddenStates)
       t.index = i
       _tasks.push t
     else
@@ -1110,7 +1112,6 @@ exports.printTask = printTask = (task, opts={}) ->
   opts.words.unshift [task.hashtags, "magenta"] # add urls too?
   r.push _colorizeText task.text, opts.words
   console.log r.join ""
-
 
 
 # конец вызовов для задач
