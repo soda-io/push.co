@@ -1,0 +1,5 @@
+#!/bin/bash
+
+stylus -u nib  www/css/
+coffee -c www/js/
+swig render www/templates/index.swig > www/index.html 

@@ -1,0 +1,297 @@
+// custom fonts
+@css {
+  @import url(//fonts.googleapis.com/css?family=Ledger&subset=latin,cyrillic);
+  @import url(//fonts.googleapis.com/css?family=PT+Sans+Caption&subset=latin,cyrillic);
+}
+
+@css {
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: 0.2em;
+  text-align: center;
+  opacity: 0.8;
+/* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+/* Animation center compensation - magrins should be symmetric */
+/* remove if not needed */
+  margin-left: 0.2em;
+/* you can be more comfortable with increased icons size */
+/* font-size: 120%; */
+/* Uncomment for 3D effect */
+/* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+}
+
+
+@css {
+  @font-face{
+    font-family:   "Internet of Things";    
+    src:           url("//custom-fonts.s3.amazonaws.com/iot.eot");
+    src:          url("//custom-fonts.s3.amazonaws.com/iot.eot?#iefix") format("embedded-opentype"), url("//custom-fonts.s3.amazonaws.com/iot.woff") format("woff"), url("//custom-fonts.s3.amazonaws.com/iot.ttf") format("truetype"), url("//custom-fonts.s3.amazonaws.com/iot.svg#fontello") format("svg");
+    font-weight:   normal;
+    font-style:  normal;
+  }
+
+// iot fonts 
+  [class^="iot-"]:before, [class*=" iot-"]:before {
+    font-family:                 "Internet of Things";
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal !important;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    speak: none;
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: 0.2em;
+    text-align: center;
+    opacity: 0.8;
+  /* fix buttons height, for twitter bootstrap */
+    line-height: 1em;
+  /* Animation center compensation - magrins should be symmetric */
+  /* remove if not needed */
+    margin-left: 0.2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  }
+
+
+  @font-face{
+    font-family:   "a_LCDNova";
+    src:           url("//custom-fonts.s3.amazonaws.com/LCDNova.eot");
+    src:          url("//custom-fonts.s3.amazonaws.com/LCDNova.eot?#iefix") format("embedded-opentype"), url("//custom-fonts.s3.amazonaws.com/LCDNova.woff") format("woff"), url("//custom-fonts.s3.amazonaws.com/LCDNova.ttf") format("truetype"), url("//custom-fonts.s3.amazonaws.com/LCDNova.svg") format("svg");
+    font-weight:   normal;
+    font-style:  normal;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+}
+
+
+  @font-face{
+    font-family:   "LetsGoDigital";
+    src:           url("//custom-fonts.s3.amazonaws.com/letsgodigital.eot");
+    src:          url("//custom-fonts.s3.amazonaws.com/letsgodigital.eot?#iefix") format("embedded-opentype"), url("//custom-fonts.s3.amazonaws.com/letsgodigital.woff") format("woff"), url("//custom-fonts.s3.amazonaws.com/letsgodigital.ttf") format("truetype"), url("//custom-fonts.s3.amazonaws.com/letsgodigital.svg") format("svg");
+    font-weight:   normal;
+    font-style:  normal;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+}
+
+
+
+
+  @font-face{
+    font-family:   "Arctic";
+    src:           url("//custom-fonts.s3.amazonaws.com/arctic.eot");
+    src:          url("//custom-fonts.s3.amazonaws.com/arctic.eot?#iefix") format("embedded-opentype"), url("//custom-fonts.s3.amazonaws.com/arctic.ttf");
+    font-weight:   normal;
+    font-style:  normal;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+}
+
+  @font-face{
+    font-family:   "Rouble";
+    src:           url("//custom-fonts.s3.amazonaws.com/ALSRubl.eot");
+    src:           url("//custom-fonts.s3.amazonaws.com/ALSRubl.eot?#iefix") format("embedded-opentype"), url("//custom-fonts.s3.amazonaws.com/ALSRubl.woff") format("woff"), url("//custom-fonts.s3.amazonaws.com/ALSRubl.ttf") format("truetype"), url("//custom-fonts.s3.amazonaws.com/ALSRubl.svg") format("svg");
+    font-weight:   normal;
+    font-style:  normal;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+
+
+}
+
+}
+
+
+
+.rouble
+  font-family           Rouble
+
+.arctic-font
+  font-family          Arctic          
+
+.iot-font
+  font-family          "Internet of Things"
+
+
+.iot-raspberry-pi:before
+  content              "v"
+  font-family          "Internet of Things"
+
+.iot-arduino:before
+  content                     "d"
+  font-family          "Internet of Things"
+
+.iot-amplifier:before
+  content                     "p"
+  font-family                 "Internet of Things"
+.iot-3d-printer:before
+  content                     "u"
+  font-family          "Internet of Things"
+
+.iot-kinect:before
+  content                     "s"
+.iot-location:before
+  content                     "m"
+
+
+
+.rub-font
+  font-family          "Rouble"
+
+// rouble icon
+.rubicon:before
+  font-family           "Rouble"
+  content               "e"
+  font-style            normal
+  font-weight           normal
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  speak                 none
+  display               inline-block
+  text-decoration       inherit
+  width                 1em
+  margin-right          0.2em
+  text-align            center
+  opacity               0.8
+  line-height           1em
+  margin-left           0.2em
+  text-shadow           1px 1px 1px rgba(127, 127, 127, 0.3)
+
+
+@font-face
+  font-family   "Satellite"
+  src           url("//custom-fonts.s3.amazonaws.com/Satellite.eot")
+  src           url("//custom-fonts.s3.amazonaws.com/Satellite.eot?#iefix") format("embedded-opentype"), url("//custom-fonts.s3.amazonaws.com/Satellite.woff") format("woff"), url("//custom-fonts.s3.amazonaws.com/Satellite.ttf") format("truetype"), url("//custom-fonts.s3.amazonaws.com/Satellite.svg#fontello") format("svg")
+  font-weight   normal
+  font-style    normal
+
+@font-face
+  font-family   "Distant-Galaxy"
+  src           url("//custom-fonts.s3.amazonaws.com/DISTANT-GALAXY.eot")
+  src           url("//custom-fonts.s3.amazonaws.com/DISTANT-GALAXY.eot?#iefix") format("embedded-opentype"), url("//custom-fonts.s3.amazonaws.com/DISTANT-GALAXY.woff") format("woff"), url("//custom-fonts.s3.amazonaws.com/DISTANT-GALAXY.ttf") format("truetype"), url("//custom-fonts.s3.amazonaws.com/DISTANT-GALAXY.svg#fontello") format("svg")
+  font-weight   normal
+  font-style    normal
+
+
+@font-face
+  font-family   "Gesture Glyph"
+  src           url("//custom-fonts.s3.amazonaws.com/gg.eot")
+  src           url("//custom-fonts.s3.amazonaws.com/gg.eot?#iefix") format("embedded-opentype"), url("//custom-fonts.s3.amazonaws.com/gg.woff") format("woff"), url("//custom-fonts.s3.amazonaws.com/gg.ttf") format("truetype"), url("//custom-fonts.s3.amazonaws.com/gg.svg#fontello") format("svg")
+  font-weight   normal
+  font-style    normal
+
+
+@css {
+[class^="ggicon-"]:before,
+[class*=" ggicon-"]:before {
+  font-family: 'Gesture Glyph';
+  font-style: normal;
+  font-weight: normal;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: 0.2em;
+  text-align: center;
+  opacity: 0.8;
+/* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+/* Animation center compensation - magrins should be symmetric */
+/* remove if not needed */
+  margin-left: 0.2em;
+/* you can be more comfortable with increased icons size */
+/* font-size: 120%; */
+/* Uncomment for 3D effect */
+/* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.ggicon-horizontal-scroll:before { content: 'X'; }
+.ggicon-hold-for-time:before { content: 'a'; }
+.ggicon-move-left-to-right:before { content: 'z'; }
+.ggicon-vertical-scroll:before { content: 'i'; }
+.ggicon-single-touch:before { content: '1';}
+}
+
+@import "font-awesome"
+
+
+@css {
+  @font-face{
+    font-family:   "Furore";    
+    src:           url("//custom-fonts.s3.amazonaws.com/Furore.eot");
+    src:          url("//custom-fonts.s3.amazonaws.com/Furore.eot?#iefix") format("embedded-opentype"), url("//custom-fonts.s3.amazonaws.com/Furore.woff") format("woff"), url("//custom-fonts.s3.amazonaws.com/Furore.ttf") format("truetype"), url("//custom-fonts.s3.amazonaws.com/Furore.svg#fontello") format("svg");
+    font-weight:   normal;
+    font-style:  normal;
+  }
+}
+
+
+// some font settings
+.helvetica
+  font-family                       "Helvetica Neue", Helvetica !important
+
+.verdana
+  font-family                       Verdana
+
+.pt-sans
+  font-family                       "PT Sans"
+
+
+.satellite
+  font-family                       Satellite
+
+.tahoma
+  font-family                         Tahoma
+
+.ledger
+  font-family                         Ledger
+
+.furore
+  font-family			      Furore
+
+.monaco
+  font-family			  Monaco, Helvetica
+
+.sans-caption
+  font-family                         'PT Sans Caption', sans-serif
+
+
+
+.tillitum
+  font-family			 "Tillitum Web"
+ 
+
+.bold
+  font-weight			bold
+

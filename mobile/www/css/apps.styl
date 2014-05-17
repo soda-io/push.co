@@ -1,0 +1,381 @@
+@import "base"
+@import "col"
+
+
+for i in 1..20
+ .z{i}
+   z-index	i
+
+// applications-specific styles
+body
+  height			  100vh
+  background-color		  black
+  radial-gradient 		  #2F4F4F darken(#2F4F4F, 50%)
+  perspective			  1000
+  backface-visibility		  hidden
+
+// notifications window
+.notifications
+  width				  100%
+  z-index			  9999
+  text-align			  center
+
+  .n-wrapper
+    width			  320px
+    padding			  0.3em 0.7em
+    display			  inline-table
+    line-height		  	  2
+    box-sizing              border-box 
+    -moz-box-sizing         border-box 
+    -webkit-box-sizing      border-box	
+
+    .icon, .message
+      display			  table-cell
+    .icon
+      padding-left		  .5em
+      width			  1em
+
+@media only screen and (max-width: 320px)
+  .notifications
+    font-size			18px
+
+#popup
+  position			fixed
+  top				0
+  left				0
+  width			100%
+  height			100%
+  z-index			9000
+  display			table
+
+  .wrapper
+    display			table-cell
+    text-align			center
+    vertical-align		middle
+
+    .content
+      display			inline-block
+
+.avatar
+  sz = 2em
+  vertical-align	middle
+  width			sz
+  height		sz
+  border-radius		unit(sz/2, em)
+  box-sizing              border-box 
+  -moz-box-sizing         border-box 
+  -webkit-box-sizing      border-box 
+  border		  .1em solid white
+
+  .big
+    font-size		150%
+
+.sidebar-left
+  position		absolute
+  top			0
+  z-index		0
+  left			0
+  width		100vw
+  height		100vh
+  max-width		320px
+  font-size		150%
+  overflow		scroll
+  overflow-x		hidden
+  -webkit-overflow-scrolling touch
+  -webkit-user-drag	     none
+  z-index		     10
+
+.sidebar-left, .std
+  font-size		16px
+  nav 
+    margin-bottom	4em
+    .group
+      border-left-style	solid
+      border-left-width	3px
+
+      
+
+
+  header
+    padding		0.5em 1em
+
+  .list .line
+    margin		0 .5em 0 3em
+    border-bottom	1px solid rgba(white, 0.4)
+    line-height		1.5
+
+    &.disabled
+      opacity		0.4
+
+
+    .content
+      border-radius	0.5em
+      padding		0.2em 0.5em
+
+
+      &:hover, &:active
+       background-color	rgba(white, 0.1)
+
+  .icon
+    position		absolute
+    left		10px
+    line-height	1.5
+    width		1.6em
+    text-align		center
+
+
+  .num-value
+    position		absolute
+    right		1.2em
+    
+
+
+input[type="search"]
+  width		90%
+  font-size		100%
+  background-color	transparent
+  border		1px solid white
+  border-radius		1em
+  padding		.5em
+  color			inherit
+
+
+
+.ribn
+  width		100%
+  height		100vh
+  position		absolute
+  left			0
+  top			0
+  overflow-x		hidden
+
+
+article code
+  font-size		180%
+  width		320px
+  box-sizing              border-box 
+  -moz-box-sizing         border-box 
+  -webkit-box-sizing      border-box 
+
+ pre
+   white-space		pre-wrap
+   padding		10px
+
+
+main
+  position		absolute
+  position		static
+  top			0
+  left			0
+  max-width		320px
+  width		100vw
+  height		100vh
+  max-height		568px
+  font-size		150%
+  overflow		scroll
+  overflow-x		hidden
+  -webkit-overflow-scrolling touch
+  radial-gradient 	white ivory
+  radial-gradient 	#2F4F4F darken(#2F4F4F, 50%)
+  display		inline-block  
+
+  header
+    padding		0.5em 1em
+    background-color	black
+    text-align		right
+    font-size		125%    
+    //position		-webkit-sticky
+    //top			0
+
+
+  article
+    min-height		100vh
+    background-color	black
+
+  article .line    
+    line-height	1.8
+    color		rgba(#222, 0.75)
+    background-color	rgba(ivory, 0.9)
+
+    &.br
+      border-bottom	1px dashed rgba(#000, 0.3)
+
+    &.tweet
+      padding		5px 10px 5px 70px
+      font-size	80%
+
+
+      .link
+        color	        niceScarlet !important
+
+      .mention
+        color	        niceMagenta !important
+
+      p.tweet-text
+        white-space	pre-wrap
+        word-wrap	break-word
+        font-family	'Helvetica Neue', Helvetica, Arial, sans-serif
+
+      .avatar
+        width		48px
+        height		48px
+        border-radius	10px
+        float		left
+        margin-top	3px
+        margin-left	-58px
+
+    &.stat // statistics    
+      padding 		 5px 50px 5px 60px
+
+      p 
+        margin		0
+
+      .icon
+        float		  left
+        font-size	  1em
+        width		  2em
+        text-align	  center
+        margin-left	  -2em
+
+      .digit
+        float		  right
+        color		  black
+        width		  3em
+        border-left	  1px dashed grey
+        text-align	  center
+        margin-right	  -2em
+
+
+    .hash-tag
+      color		rgba(niceSteel, 0.8)
+
+
+    &.disabled
+      opacity		0.4
+
+    .mount
+      padding		.5em 1em
+      background-color	black
+      position		absolute
+      z-index		1
+      width		100%
+      height		100%
+      box-sizing              border-box 
+      -moz-box-sizing         border-box 
+      -webkit-box-sizing      border-box 
+
+      .inline
+        display	inline-block
+        text-align	center
+        line-height	0.2
+        margin		0 .5em
+
+      .tip-text
+        font-size	40%
+        font-variant    small-caps
+
+
+      .fa
+        font-size	150%
+        display	block
+
+        &.inactive
+          color	grey !important
+
+
+
+    .content
+      padding		.5em 1em
+      position		relative
+      z-index		2
+      noselection()
+
+      textarea.text
+        background-color	transparent
+        padding		0
+        font-size		inherit
+        color			inherit
+        border			none
+        width			100%
+        transition              all 500ms ease-in-out
+        
+
+
+
+   for i in (1..40)
+     article.magenta-col .line .content:nth-child({i})
+       background-color	 lighten(#D144FF, unit(4.5*i, '%'))
+       
+
+  .sliding-move
+    height			60px
+    line-height		60px
+    width			100%
+    opacity			0.3
+    text-align			center
+    color			#333
+    position			absolute
+    top			0
+    z-index			1100
+
+
+@media only screen and (max-width: 320px)
+  .sidebar-left
+    max-width		     320px
+    width		     320px
+
+
+  .ribn-wrapper
+    width		     320px
+    height		     100vh
+    overflow		     hidden
+
+  input[type="search"]
+    width		90%
+    font-size		70%
+
+
+  main 
+    margin		0
+    float		left
+
+    max-width		320px
+    width		320px
+    article .line .mount
+        font-size  	     80%
+
+        .inline
+          margin		     0 .3em
+
+
+@media only screen and (min-width: 960px)
+  main
+    left		480px
+
+
+  
+
+// ds fix
+span.tapp
+  width	.7em
+  height	.7em
+  border-radius	1em
+  display		inline-block
+  margin		0 .4em
+
+
+
+
+// flex layout
+.flex
+  display	flex
+
+.inline-flex
+  display	inline-flex
+
+// justify-content: flex-start | flex-end | center | space-between | space-around
+// align-items: flex-start | flex-end | center | baseline | stretch
+
+.flex-center
+  justify-content	center
+  align-items		center

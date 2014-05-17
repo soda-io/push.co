@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="io.soda.co.push" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <preference name="AllowInlineMediaPlayback" value="false" />
+  <preference name="AutoHideSplashScreen" value="true" />
+  <preference name="BackupWebStorage" value="cloud" />
+  <preference name="DisallowOverscroll" value="true" />
+  <preference name="EnableViewportScale" value="false" />
+  <preference name="FadeSplashScreen" value="true" />
+  <preference name="FadeSplashScreenDuration" value=".25" />
+  <preference name="KeyboardDisplayRequiresUserAction" value="true" />
+  <preference name="MediaPlaybackRequiresUserAction" value="false" />
+  <preference name="ShowSplashScreenSpinner" value="true" />
+  <preference name="SuppressesIncrementalRendering" value="false" />
+  <preference name="TopActivityIndicator" value="gray" />
+  <preference name="GapBetweenPages" value="0" />
+  <preference name="PageLength" value="0" />
+  <preference name="PaginationBreakingMode" value="page" />
+  <preference name="PaginationMode" value="unpaginated" />
+
+  <icon gap:platform="ios" src="res/icons/ios/icon-29.png" width="29" height="29" />
+  <icon gap:platform="ios" src="res/icons/ios/icon-29-2x.png" width="58" height="58" />
+  <icon gap:platform="ios" src="res/icons/ios/icon-40.png" width="40" height="40" />
+  <icon gap:platform="ios" src="res/icons/ios/icon-40-2x.png" width="80" height="80" />
+  <icon gap:platform="ios" src="res/icons/ios/icon-50.png" width="50" height="50" />
+  <icon gap:platform="ios" src="res/icons/ios/icon-50-2x.png" width="100" height="100" />
+  <icon gap:platform="ios" src="res/icons/ios/icon-57.png" width="57" height="57" />
+  <icon gap:platform="ios" src="res/icons/ios/icon-57-2x.png" width="114" height="114" />  
+  <icon gap:platform="ios" src="res/icons/ios/icon-60.png" width="60" height="60" />
+  <icon gap:platform="ios" src="res/icons/ios/icon-60-2x.png" width="120" height="120" />
+  <icon gap:platform="ios" src="res/icons/ios/icon-72.png" width="72" height="72" />
+  <icon gap:platform="ios" src="res/icons/ios/icon-72-2x.png" width="144" height="144" />
+  <icon gap:platform="ios" src="res/icons/ios/icon-76.png" width="76" height="76" />
+  <icon gap:platform="ios" src="res/icons/ios/icon-76-2x.png" width="152" height="152" />
+
+  <gap:splash gap:platform="android" gap:density="ldpi" src="res/screens/android/screen-ldpi-portrait.png" />
+  <gap:splash gap:platform="android" gap:density="mdpi" src="res/screens/android/screen-mdpi-portrait.png" />
+  <gap:splash gap:platform="android" gap:density="hdpi" src="res/screens/android/screen-hdpi-portrait.png" />
+  <gap:splash gap:platform="android" gap:density="xhdpi" src="res/screens/android/screen-xhdpi-portrait.png" />
+
+  <gap:splash gap:platform="blackberry" src="res/screens/blackberry/screen-225.png" />
+
+  <gap:splash gap:platform="ios" src="res/screens/ios/screen-iphone-portrait-568h-2x.png" width="640" height="1136" />
+  <gap:splash gap:platform="ios" src="res/screens/ios/screen-ipad-landscape-2x.png" width="2048" height="1536" />
+  <gap:splash gap:platform="ios" src="res/screens/ios/screen-ipad-landscape.png" width="1024" height="768" />
+  <gap:splash gap:platform="ios" src="res/screens/ios/screen-ipad-portrait-2x.png" width="1536" height="2048" />
+  <gap:splash gap:platform="ios" src="res/screens/ios/screen-ipad-portrait.png" width="768" height="1024" />
+
+
+  <gap:splash gap:platform="ios" src="res/screens/ios/screen-iphone-portrait.png" width="320" height="480" />
+  <gap:splash gap:platform="ios" src="res/screens/ios/screen-iphone-portrait-2x.png" width="640" height="960" />
+  <gap:splash gap:platform="ios" src="res/screens/ios/screen-ipad-portrait.png" width="768" height="1024" />
+  <gap:splash gap:platform="ios" src="res/screens/ios/screen-ipad-landscape.png" width="1024" height="768" />
+  <gap:splash gap:platform="ios" src="res/screens/ios/screen-ipad-portrait-2x.png" width="1536" height="2048" />
+  <gap:splash gap:platform="ios" src="res/screens/ios/screen-ipad-landscape-2x.png" width="2048" height="1536" />
+
+
+  <gap:splash gap:platform="winphone" src="res/screens/windows-phone/screen-portrait.jpg" />
+
+  <feature name="LocalStorage">
+    <param name="ios-package" value="CDVLocalStorage" />
+  </feature>
+  <feature name="Device">
+    <param name="ios-package" value="CDVDevice" />
+  </feature>
+  <feature name="Console">
+    <param name="ios-package" value="CDVLogger" />
+  </feature>
+  <feature name="Vibration">
+    <param name="ios-package" value="CDVVibration" />
+  </feature>
+
+  <name>push.co</name>
+  <description>
+    A sample Apache Cordova application that responds to the deviceready event.
+  </description>
+  <author email="dev@cordova.apache.org" href="http://cordova.io">
+    Apache Cordova Team
+  </author>
+  <content src="index.html" />
+  <access origin="*" />
+</widget>

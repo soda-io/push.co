@@ -1,0 +1,2710 @@
+@import "base"
+//@import "simple-todo"
+@import "col"
+
+
+.strike
+  text-decoration	line-through
+
+.caps
+  font-variant        small-caps
+
+.progress
+  width                           100%
+  height                          1em
+  background-color                rgba(grey, 0.7)
+  border-radius			  .5em
+
+  .scale
+    height                        1em
+    border-radius		  .5em
+
+// particles
+// 
+.parts
+  display		  inline-table
+  width		  100%
+  box-sizing              border-box 
+  -moz-box-sizing         border-box 
+  -webkit-box-sizing      border-box 
+
+  .part 
+    display		  table-cell
+    text-align		  center
+    vertical-align	  middle
+
+  &.x2
+    .part
+      width	50%
+
+  &.x3
+    .part
+      width	33.33%
+
+  &.x4
+    .part
+      width	25%
+      
+  &.x5
+    .part
+      width	20%
+
+
+
+
+// ------------------------------------------------------------
+// jab
+// ------------------------------------------------------------
+// <div class="jab">
+//   <div class="icon"></div>
+//   <div class="text caps">text</div>
+//   <div class="digit">0</div>
+// </div>
+.jab
+  box-sizing              border-box 
+  -moz-box-sizing         border-box 
+  -webkit-box-sizing      border-box 
+
+  &.free
+   margin		.5em
+
+  .jab-c
+    display		table
+    width		100%
+    line-height		1.2
+    padding		10px
+    font-size		1.8em
+    box-sizing              border-box 
+    -moz-box-sizing         border-box 
+    -webkit-box-sizing      border-box 
+
+  .icon, .text, .digit
+    display		table-cell
+    vertical-align	middle
+
+  .icon
+    width	 2em
+    text-align	 center
+
+  .digit
+    width	 2.5em
+    text-align	 center
+    font-family		 Georgia
+
+  &.small-text
+    .text		
+      font-size		 75%
+    
+
+// zooms
+.scale-x15
+  transform		scale(1.5)
+  display		inline-block
+
+.scale-x2
+  transform		scale(2)
+  display		inline-block
+
+.scale-x25
+  transform		scale(2.5)
+  display		inline-block
+
+.scale-x3
+  transform		scale(3)
+  display		inline-block
+// end of zooms
+
+.invisible
+  visibility			hidden
+
+body.bg
+  background-position	center center
+  background-size       cover
+  background-attachment	fixed
+  background-repeat		no-repeat
+
+
+.vtop
+  vertical-align		top
+
+.nowrap
+  white-space			nowrap
+
+// courses names
+.course-name
+  max-width		45em
+  padding-left		3em
+
+.course-name:before
+  position		absolute
+  font-size		200%
+  content		"-"
+  margin-left		-2em
+  display		inline-block
+
+.course-name.collapsed:before
+  content		"+"
+
+
+// background
+.nice-wp
+  content	      ""
+  background-position center center
+  position            absolute
+  left                0
+  top                 0
+  padding             0
+  margin              0
+  width		      100%
+  height	      100vh
+  background-size       cover
+  z-index               -1
+
+  &.animation
+    transform-origin              50% 50%
+    animation                     bg-in-out    30s infinite
+    backface-hidden()
+
+.content-ws-wp
+  position		absolute
+  top			0
+  left			0
+  margin		0
+  padding		0
+  width			100%
+  height		100vh
+  z-index		1
+  overflow		scroll
+
+
+body.nice-wp
+  min-height		 100%
+  position		 relative
+  background-size	 cover
+  background-position 	 center center
+
+// EOF background
+
+
+// main page 
+.soda-container
+  font-family		Furore, Helvetica
+  .soda-title
+    font-size		800%
+    padding		0 20px
+
+  .soda-subtitle
+    font-size		170%
+    padding		0 20px
+
+.soda-box
+  font-size		163% !important
+
+#signin
+  font-size		200%
+
+@media only screen and (max-width: 480px)
+  #signin
+    font-size		100%
+
+  .soda-container
+    font-size		10px
+
+  .soda-box
+    font-size		9px !important
+
+  .soda-title
+    font-size		450%
+  .soda-subtitle
+    font-size		120%
+
+
+  .soda
+    .title
+      font-size            980%
+    .subtitle
+      font-size		   185%
+
+
+// end of main page
+
+
+
+// code block basics
+code
+  padding		0 0.2em
+  background-color   	#000
+
+// calendar
+.calendar
+  .month, &.month
+    display		   table
+    width		   100%
+    border-collapse	   separate
+    border-spacing	   10px
+
+    .week
+      display		   table-row
+
+      .day
+        display		   table-cell
+        width		   	   14.285%
+        border-top-style	   solid
+        border-top-width	   5px
+        height			   4em
+
+        &.today
+          border-bottom-style	   solid
+          border-bottom-width	   5px
+          border-bottom-color	   black
+
+      &.head
+        .day
+          border			   none
+          height			   1em
+
+
+// end of calendar
+
+
+
+
+@keyframes blink
+  25%
+    opacity                     0
+  50%
+    opacity                     1
+  75%
+    opacity                     0
+
+
+// background
+@keyframes bg-in-out
+  0%
+    transform                   scale(1.15) translate3d(0, 0, 0)
+  25%
+    transform                   scale(1.15) translate3d(0, 0, 0)
+  40%
+    transform                   scale(1.8) translate3d(-50px, 0, 0)
+  55%
+    transform                   scale(1.9) translate3d(-20px, -50px, 0)
+  70%
+    transform                   scale(1.7) translate3d(-60px, -20px, 0)
+  85%
+    transform                   scale(1.4) translate3d(-40px, -30px, 0)
+  100%
+    transform                   scale(1.15) translate3d(0, 0, 0)
+
+
+.opl-wallpaper, .opl-wallpaper-full
+  transform-origin              50% 50%
+  animation                     bg-in-out    30s infinite
+  backface-hidden()
+
+  &.no-animation, &.noanimation
+    animation                   none
+    top                         auto
+    left                        auto
+
+    &:after
+      content			""
+      position			fixed
+      z-index			-1
+      top			0
+      left			0
+      bottom			0
+      right			0
+      background-color		rgba(black, .45)
+
+  &.deep
+    transform                   translateZ(-10px) scale(1.1)
+
+
+.opl-wallpaper-full
+  background-position center center
+  position            absolute
+  left                0
+  top                 0
+  padding             0
+  margin              0
+  background-size       cover
+  z-index               -1
+
+
+
+// .shadowed-milk-[1-6]
+makeShadowText(milk, rgba(#fff, 0.5))
+// .shadowed-grey-[1-6]
+makeShadowText("grey", rgba(grey, 0.7))
+// black
+makeShadowText("black", rgba(#000000, 0.3))
+// .shadowed-green-[1-6]
+makeShadowText("green", rgba(#492, 0.5))
+// .shadowed-purple-[1-6]
+makeShadowText("purple", rgba(#9d00ee, 0.7))
+
+
+
+.tbl
+  display               inline-table
+  width                 100%
+
+.tcell
+  display               table-cell
+
+
+  &.middle
+    vertical-align	middle
+
+.trow
+  display               table-row
+
+.overflow-hidden
+  overflow              hidden
+
+.dear-btn
+  background-color              rgba(#492, 0.2)
+  color                         #fff
+
+  .btn
+    margin                        20px
+    width                       80px
+    height                      80px
+    overflow                    hidden
+    border-radius               10px
+    display                     inline-block
+
+.dear:before
+    font-family          Arctic
+    content              "a"
+    display              inline-block
+
+
+
+.rotating-pans
+  margin-top            50px
+
+
+ .widget
+    position            absolute
+
+  for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+    pan{i}
+      position          absolute
+
+
+  .rot-left, .rot-right
+    margin-top          150px
+    position            fixed
+    right               10px
+    font-size           200%
+    cursor              pointer
+    padding             30px
+    border-radius       20px
+    border              1px solid grey
+
+
+  .rot-left
+    right               auto
+    left                60px
+
+
+.widget
+  width                 320px
+  height                556px
+
+
+
+
+//legennds
+legends
+  display               block
+  position              absolute
+  display               none
+
+  brick
+    width               1em
+    height              1em
+    
+
+// remove then
+color-switch
+  display               none
+
+// mobile dock menu 
+#mobile-dock-icons
+  position                      fixed
+  top                           0
+  left                          0
+  right                         0
+  height                        90px
+  z-index                       9999
+  background-color              rgba(#00bfff, 0.95)
+  color                         #fff
+
+
+
+// fix for ios scroll!
+.square-widget
+  noselection()
+  overflow-y                    scroll
+  -webkit-overflow-scrolling    touch
+  font-family                   "PT Serif", Verdana, Helvetica
+  margin-top			2vh
+
+  & > div, & > section
+    padding-top        10px
+
+  &.round
+    border-radius      5em  
+
+  & > section, & > header, & > footer
+    padding           8px 0px
+    line-height       1.5
+
+    & > div
+      padding         0 30px
+
+
+  & > header
+    font              0.75/1em Tahoma
+    padding           0.7em
+
+
+  & > section 
+    padding           0
+    section-wrapper
+      padding         0 1em
+      display         block
+
+    .hdr
+      font            0.75/1em Helvetica    
+
+
+  .right
+    float             right
+
+  .left
+    float             left
+
+  info
+    font-family       "Internet of Things"
+    position          relative
+    top               -0.4em
+
+.inactive
+  .square-widget
+    info
+      display         none
+
+
+#pellicle
+  position            fixed
+  width               100%
+  height              100%
+  background-color    rgba(white, 0.2)
+  z-index             2
+  -webkit-filter      blur(4px)
+  display             none
+
+
+
+//01FDFF
+  
+billet
+  width                 100%
+  display               table
+  margin		5px 0
+
+  billet-wrapper
+    display             table-row
+    
+
+  .iot-icon
+    font-size           160%
+
+  text, icon, digit
+    display             table-cell
+    vertical-align      middle
+    font-variant    	small-caps
+
+    & > div
+      padding           20px 10px
+      display           inline-block
+
+  text
+    text-align		left
+
+
+  icon 
+    width               2.5em
+    height              1.5em
+    text-align          center
+    font-size           150%
+
+  digit
+    width               2.5em
+    height              1.5em
+    text-align          center
+
+
+
+
+  tooltip-2
+    font-size           40%
+    display             block
+
+
+// graphics and
+// text inside graphics
+
+.flip-horizontal
+  transform             scale(-1, 1)
+
+.flip-vertical
+  transform             scale(1, -1)
+
+
+graphics-billet, text-billet
+  display               table
+  height                6em
+  width                 100%
+
+  .canvas-parent
+    height                10em
+    width                 100%
+
+
+  header, footer
+    height              2em
+    width               2em
+    display             table-row
+    text-align          center
+
+  row-wrapper        
+    display             table-row
+
+  cell-wrapper
+    display             table-cell
+    vertical-align      middle
+    text-align          center
+
+  canvas
+    display             inline-block
+
+  &.h-x1  .canvas-parent
+    height              6em
+
+
+  &.h-x2 .canvas-parent
+    height              5em
+
+  &.h-x3 .canvas-parent
+    height              5em
+
+  &.w-x2
+    display             inline-table
+    width               49%
+
+
+  &.w-x3
+    width               33%
+    display             inline-table
+
+// digits
+.table
+  display               table
+  width                 100%
+
+  .w50
+    width               50%
+
+  .table-row
+    display             table-row
+
+  .table-cell            
+    display             table-cell
+    vertical-align      middle
+    text-align          center
+
+.palatino
+  font-family           Palatino
+
+
+.georgia
+  font-family           Georgia
+
+
+.verdana
+  font-family           Verdana
+
+
+.tahoma
+  font-family           Tahoma
+
+.impact
+  font-family           Impact
+
+.bold
+  font-family
+  
+
+
+.digits-test
+  .dig-s1, .dig-s2, .dig-s3, .dig-s4, .dig-s5
+    font-size           150%
+    padding             0.5em
+    font-family         Impact
+
+  .dig1,   .dig2,   .dig3,   .dig4, .dig5
+    font-size           200%
+    display             inline-block
+    padding             0.2em 0.5em
+    font-family         Impact
+
+  
+
+
+// --------------------------------------------------------------------------------
+// leds
+// --------------------------------------------------------------------------------
+makeLed(color, radius, offs=1em)
+  display            inline-block
+  width              unit(2 * radius, px)
+  height             unit(2 * radius, px)
+  border-radius      unit(radius, px)
+  background-color   color
+  margin             0 unit(radius, px)
+  box-shadow         0 0 offs color
+
+  &.r-offset
+    margin-right     unit(2 * radius, px)
+
+inactiveLed = 0.4
+blueCol = #4D4DFF
+
+.led
+  &.active
+    transition       all 0.2s ease-out
+
+  &.green
+    makeLed            rgba(lime, inactiveLed), 6
+
+  &.yellow
+    makeLed            rgba(yellow, inactiveLed), 6
+
+
+  &.red
+    makeLed            rgba(red, inactiveLed), 6
+
+
+  &.blue
+    makeLed           rgba(blueCol, inactiveLed), 6
+
+  &.transparent
+    makeLed            transparent, 6
+
+  &.active
+
+    &.green
+      makeLed          lime, 6
+
+
+    &.yellow
+      makeLed          yellow, 6
+
+
+    &.red
+      makeLed          red, 6
+
+  
+    &.blue
+      makeLed         blueCol, 6
+
+
+// ----------------------------------------
+//  end of leds
+// ----------------------------------------
+
+
+// glass effects
+genGlassButton(size)
+
+  .btn-glass-{size}
+    position                      relative
+
+  .btn-glass-{size}:after
+    font-size                     unit(size, px)
+    position                      absolute
+    display                       block
+    content                       " "
+    top                           0
+    right                         0
+    left                          0
+    bottom                        0
+    box-shadow                    0 2px 0.5em rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 0.7em rgba(255,255,255,0.2), inset 0 0.7em 1.4em rgba(255,255,255,0.25), inset 0 -1em 2em rgba(0,0,0,0.3)
+
+
+.btn-glass
+  position                      relative
+
+.btn-glass:after
+  font-size                     20px
+  position                      absolute
+  display                       block
+  content                       " "
+  top                           0
+  right                         0
+  left                          0
+  bottom                        0
+  box-shadow                    0 2px 0.5em rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 0.7em rgba(255,255,255,0.2), inset 0 0.7em 1.4em rgba(255,255,255,0.25), inset 0 -1em 2em rgba(0,0,0,0.3)
+
+
+.body
+  genGlassButton 10
+
+  genGlassButton 20
+
+  genGlassButton 30
+
+  genGlassButton 40
+
+
+.glass-skrew
+  position              relative
+
+
+@css {
+  .glass-skrew:after{
+      content: " "; 
+      display: block;
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      border: 1px solid rgba(255, 255, 255, 0.1); border-bottom: 0;
+      -webkit-background-origin: border-box;
+      -moz-background-origin: border;
+      background-origin: border-box;
+      background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255, 255, 255, .15)), to(rgba(0, 0, 0, .25))), -webkit-gradient(linear, left top, right bottom, color-stop(0, rgba(255, 255, 255, 0)), color-stop(0.5, rgba(255, 255, 255, .15)), color-stop(0.501, rgba(255, 255, 255, 0)), color-stop(1, rgba(255, 255, 255, 0)));
+      background: -moz-linear-gradient(top, rgba(255, 255, 255, .15), rgba(0, 0, 0, .25)), -moz-linear-gradient(left top, rgba(255, 255, 255, 0), rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0));
+      background: linear-gradient(top, rgba(255, 255, 255, .15), rgba(0, 0, 0, .25)), linear-gradient(left top, rgba(255, 255, 255, 0), rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0));
+  }
+}
+
+
+
+
+// clocks (from my gist)
+
+clockRisk(size, width, color)
+  negSize = 0 - size - 1px
+  display             block
+  content             ""
+  width               width
+  height              size + 1
+  margin-left         size
+  margin-top          negSize
+  border-top          width solid color
+  position            absolute
+  transform-origin    50% 100%
+  transform           rotate(0deg)
+
+for i in 0 1 2 3 4 5 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+  .hr-{i}
+    transform              rotate(i * 30deg) !important
+
+
+// create clock on css
+clock(size, circleWidth, arrowsWidth, cirlceColor, hourColor, minuteColor)
+  halfSize = size / 2
+  width                  size
+  height                 size
+  display                inline-block
+  border-radius          halfSize
+  border                 circleWidth solid cirlceColor
+  
+  
+
+
+  minuteArrowLen = halfSize - circleWidth
+
+  &:before
+    display             block
+    content             ""
+    width               arrowsWidth
+    height              minuteArrowLen
+    background-color    minuteColor
+    margin-left         minuteArrowLen
+    transform-origin    50% 100%
+    transform           rotate(-10deg)
+    transition          all 1s ease
+
+  hourArrowLen = round(.67 * (halfSize - circleWidth))
+  topMargin    = - hourArrowLen
+  &:after
+    display               block
+    content               ""
+    width                 arrowsWidth
+    height                hourArrowLen
+    background-color      hourColor
+    margin-left           minuteArrowLen
+    margin-top            topMargin
+    transform-origin      50%  100%
+    transform             rotate(10deg)
+    transition            all 1.5s ease
+
+for i in 0 1 2 3 4 5 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+  .h{i}:after
+    transform              rotate(i * 30deg) !important
+
+
+for i in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59
+  .m{i}:before
+    transform              rotate(i * 6deg) !important
+
+
+.clocks
+  clock(35px, 2px, 1px, #9d00ee, lighten(#9d00ee, 20%), ivory)
+
+
+.cyan-clocks
+  clock(20px, 1px, 1px, cyan, lighten(cyan, 20%), ivory)
+
+
+
+section.nopadding
+  padding                      0
+
+#home-screen
+  text-align                   center
+  position                     absolute
+  width                        100%
+  z-index                      9999
+  background-color             rgba(ivory, 0.9)
+
+  .hs-icon
+    c1 = #6a5acd
+    c2 = darken(c1, 30%)       
+    width                     80px
+    height                    80px
+    line-height               60px
+    background                linear-gradient(top, c1 0%, lighten(c1, 20%) 45%, lighten(c1, 10%) 55%, c2 100%)
+    color                     ivory     
+    display                   inline-block
+    font-size                 125%
+    border                    2px solid #ccc
+    padding                   5px 0
+    border-radius             10px
+    box-sizing                border-box 
+    -moz-box-sizing           border-box 
+    -webkit-box-sizing        border-box 
+    text-decoration           none
+
+
+
+// menu types
+// shadowText            1, #9d00ee
+// shadowText            1, #492
+.tile-menu
+  font-weight               700
+  color                     white
+
+
+  .tile-item
+    padding                 2px
+    box-sizing              border-box 
+    -moz-box-sizing         border-box 
+    -webkit-box-sizing      border-box 
+    cursor                  pointer
+
+    & > div
+      background-color      rgba(#9d00ee, 0.3)      
+      height              100%
+
+
+    &.incut > div
+      background-color      rgba(#492, 0.3)
+
+    
+
+
+  
+
+
+
+
+
+.body-wall
+  transform-origin              50% 50%
+  background-size		cover 
+  backface-hidden()
+
+
+
+.opl-wallpaper-big
+  transform-origin              50% 50%
+  animation                     bg-in-out    30s infinite
+  width                         100vw
+  height                        100vh
+  display                       none
+  position            absolute
+  z-index             -9999
+  top                 0
+  left                0
+  padding             0
+  margin              0
+
+  img
+    width                       100vw
+    height                      100vw
+    display                     block
+
+
+.flipped
+  backface-hidden()
+
+
+//  .opl-wallpaper
+//    display                     none !important
+
+// menu settings
+.single-setting
+  background              linear-gradient(top, rgba(white, 0.6), rbga(white, 0.1))
+  line-height                   2em
+  background-color              rgba(white, 0.5)
+  padding                       1em
+  box-sizing              border-box 
+  -moz-box-sizing         border-box 
+  -webkit-box-sizing      border-box 
+
+#overflow-settings-hint
+  position                      absolute
+  z-index                       1000
+  top                           0
+  left                          0
+  transform-translate-3d        1500px, 0, 0
+
+  .menu-hint
+    display                   none
+
+
+#settings, .settings
+  padding                       0
+  noselection()
+
+  .empty-gap
+    background                  transparent
+    padding                     0
+
+  .setting
+    line-height               60px
+    box-sizing                border-box 
+    -moz-box-sizing           border-box 
+    -webkit-box-sizing        border-box
+
+    .setting-val
+      margin                   3px
+      padding                  0 30px
+      box-sizing               border-box 
+      -moz-box-sizing          border-box 
+      -webkit-box-sizing       border-box 
+      height                   98%
+      font-variant             small-caps
+
+
+    &.ready
+      .setting-val         
+        col = #009900
+        col = rgba(#2e8b57, 0.3)
+        col = rgba(#98f5ff, 0.3)
+        background                linear-gradient(top, col 0%, lighten(col, 20%) 100%)
+        font-size                 120%
+        line-height               3em
+
+    &.pending
+      col = #808000
+      background                linear-gradient(top, col 0%, lighten(col, 20%) 100%)
+
+    &.future
+      col = #00ebff
+      background                linear-gradient(top, col 0%, lighten(col, 20%) 100%)
+
+    &.off
+      .setting-val         
+        col = #cccccc
+        col = rgba(#888, 0.7)
+        background                linear-gradient(top, col 0%, lighten(col, 20%) 100%) 
+   
+
+
+
+// mobile - specific UI
+// clear-menu
+
+
+#mobile-button-go-back
+  position                      fixed
+  top                           70px
+  display                       inline-block
+  z-index                       9999
+  opacity                       0
+
+  &.from-right
+    right                       10px  
+
+
+// info panel
+body
+  #info-panel
+    position                        fixed
+
+  #info-panel
+    z-index                       9999
+    color                         white
+    display                       block
+    width                         100%
+    top                           0
+    left                          0
+    text-align                    center
+    font-size                     17px
+    line-height                   20px
+    height                        20px
+
+    & > div
+      height                      20px
+      box-sizing              border-box 
+      -moz-box-sizing         border-box 
+      -webkit-box-sizing      border-box 
+
+    .left-align                   
+      padding-left                20px
+    .right-align
+      padding-right               20px
+
+
+  &.debug
+
+    #debug-mode
+      position                      fixed
+      z-index                       9999
+      color                         white
+      display                       block
+      width                         100%
+      top                           0
+      left                          0
+      text-align                    center
+
+      .debug-icon
+        padding-left                60px
+        font-size                   18px
+        line-height                 20px
+    
+
+.digit
+  font-family                   a_LCDNova, Georgia, Ledger
+  font-weight                   bold
+
+p.digit.right-align
+    display                     block
+    text-align                  right
+    width                       auto
+
+
+#dock
+  display                       none
+
+// flipping cards
+.card
+  &.flipped
+    transform                rotate3d(0,1,0, 180deg)
+    display                  none
+
+    .hiddenbf
+      display                none
+    
+    &.active
+      display                block
+
+
+// thumb
+.thumb
+  background-size            100% auto
+  z-index                    100
+  position                   relative
+  background-position        center
+  background-repeat          no-repeat
+
+    
+a, a:hover, a:visited 
+  color               ivory
+  text-decoration     none
+
+for i in 1 2 3 4 5 6 7 8 9 10
+  .blur{i}
+    -webkit-filter                blur(unit(i,px))
+
+
+.signatureZZ
+  colorNeonText                   lime, 0.7
+
+
+.empty-no-paddig4
+  background                    linear-gradient(left, #00bfff 0%, lighten(#00bfff, 50%) 47%, lighten(#00bfff, 50%) 53%,  lighten(#00bfff, 0%) 100%)
+
+
+// menu
+.main-menu-hint
+  position              fixed
+  top                   22em
+  right                 60px
+  width                 300px
+  z-index               500
+  display               none
+
+
+
+
+.main-menu
+  position              fixed
+  width                 100px
+  height                100px
+  border                6px solid niceRed
+  border-radius         50px
+  box-sizing              border-box 
+  -moz-box-sizing         border-box 
+  -webkit-box-sizing      border-box 
+  right                   -50px
+  top                     20em
+  z-index                 999
+
+  .mi
+    color               ivory
+    position            absolute
+    width               10em
+    text-align          center
+    cursor              pointer
+    height              1.5em
+    line-height         1.5
+    z-index             1000
+    right               0
+
+    &.default
+     background-color   niceRed
+
+    &.active              
+     background-color    #222
+     colorNeonText       niceRed, 0.3
+
+     
+
+  for i in  1 2 3 4 5 6 7
+   .mi:nth-child({i})
+     ib = (i - 0.5) * 2 - 6
+     ir = i + 2
+     tl = 700 + 150*i
+
+     transition          all unit(tl, ms)
+
+
+
+
+  &.collapsed               
+    background-color        transparent
+    .mi
+      margin-right             -21em  !important
+
+// user panel
+.usr-panel-small
+  position                      fixed
+  top                           0
+  right                         0
+  z-index                       999
+  cursor                        pointer
+  transition                    all 500ms
+  &.visible
+   right                        -100px
+
+
+  img.avatar
+    width                       60px
+    height                      auto
+    vertical-align              middle
+
+
+
+.usr-panel
+  position                      fixed
+  top                           0
+  right                         -500px
+  width                         420px     
+  z-index                       1000  
+  font-family                   Helvetica
+  colorSmallNeonText2           #ddd, 0.7
+  background-color              #333
+  border                        1px solid #111
+  transition                    all 500ms
+  padding                       1em 2em
+  box-sizing              border-box 
+  -moz-box-sizing         border-box 
+  -webkit-box-sizing      border-box 
+  
+
+  &.visible
+   right                        0
+
+  img.avatar
+    width                       60px
+    height                      auto
+    vertical-align              middle
+
+
+// end of user panel
+
+
+
+.icon-wide
+  margin                        0 0.2em
+
+.scroll
+  -webkit-overflow-scrolling    touch
+  overflow                      scroll
+
+
+
+// плашки
+.plash
+  background-color              rgba(white, 0.2)
+  height                        2em
+  line-height                   1.7em
+  color                         white
+  display                       table
+  width                         100%
+  margin                        5px
+  vertical-align                middle
+  font-size                     28px
+
+  &.small-font
+    font-size                   22px
+    
+    .icon
+      width                     50px
+
+      img
+        width                   24px
+        height                  24px
+        top                     5px
+
+  &.black
+    background-color              rgba(black, 0.2)
+    color                         black
+
+  &.green
+    background-color              rgba(black, 0.4)
+    color                         #0EFE2D
+
+  img
+    display                      inline
+    width                        32px
+    height                       32px
+    position                     relative
+    top                          7px
+
+  .icon
+    display                     table-cell
+    width                       50px
+    line-height                 1em
+    text-align                  center
+    vertical-align              baseline
+
+  .text
+    display                     table-cell
+    font-size                   135%
+
+
+  &.big
+    font-size                    36px
+
+    .icon
+      width                     50px
+
+      img
+        width                   48px
+        height                  48px
+        top                     10px
+
+  &.big.small-font
+    font-size                    26px
+
+    .icon
+      width                     50px
+
+      img
+        width                   32px
+        height                  32px
+        top                     7px
+
+// eof плашки
+
+// заголовки для графиков
+// h1
+.hdr1
+  line-height			40px
+
+.hdr2
+  line-height			30px
+
+.hdr3
+  line-height			20px
+
+// eof заголовки для графиков
+
+// sc
+.sliding-content
+  absolute                      top left
+  -webkit-overflow-scrolling    touch
+  width                         100%
+  height                        100%
+  overflow                      scroll
+
+
+// menu start
+.menu
+  text-align		center
+  line-height		10px
+
+  ul
+    margin             0 auto
+    text-align          center
+    display		inline-block
+    line-height		50px
+    
+  a
+    float		left
+
+
+  li
+    display             inline-block
+    text-align          center
+    min-width           150px
+    padding             10px 5px
+    font-variant        small-caps
+    border              3px solid transparent
+
+    &:hover
+     color              niceOrange
+     background-color   black
+
+    &.active
+      background-color  niceOrange
+      color		black
+      border-left       2px solid black
+
+    .mtext
+      position          relative
+      top               -0.1em
+
+
+@media only screen and (max-width: 320px)
+  .menu
+    .mtext
+      display		none
+
+    li
+      min-width           50px
+
+      &.active .mtext
+        display		inline
+        font-size	60%
+
+// end of menu
+
+
+
+
+@media only screen and (min-width: 1600px)
+  .widget
+    width                       320px
+    height                      600px
+
+    
+
+@media only screen and (max-width: 320px) and (max-height: 568px) 
+  .widget 
+    width                       320px
+    height                      568px
+
+
+@media only screen and (max-width: 320px)
+
+   .usr-panel
+     width              420px     
+
+   .main-menu
+     top                8em
+     .mi
+       font-size          130%
+
+
+
+     #notification
+       n-wrapper
+        width                   280px
+
+
+
+//printing!
+@media print
+  body				
+    font-size			14px
+
+    h1, h2, h3
+      margin-top		1em
+
+  title
+    display			none
+
+  .menu				
+    display			none
+
+  .noprint, .no-print
+    display			none
+
+  article + article
+    page-break-before		always
+
+
+// три части окна
+// 1 и 3 часть на шикором экране 1/6
+// 2-я - 2/3
+// на высоком экране показываются по очереди
+//
+//
+.three-parts
+  noselection()
+
+  .part-1, .part-2, .part-3
+    display	   inline-block
+    box-sizing              border-box 
+    -moz-box-sizing         border-box 
+    -webkit-box-sizing      border-box 
+
+
+  &.landscape
+    display		table
+
+    .parts-wrapper
+      display		table-row
+
+    .part-1, .part-2, .part-3
+      display	      table-cell
+      vertical-align  top
+
+    .part-1, .part-3
+      width	   25%
+
+    .part-2
+      width	   50%
+
+.dashed-1px-grey
+  border	1px dashed rgba(255, 255, 255, 0.4)
+
+// background size для черточек
+for i in 1 2 3 4 5 6 7 8 9 10
+  .bg-sz-{i}px
+    background-size	unit(i,px)
+
+// lsd digits
+.lsd-digit
+  font-family			"a_LCDNova", Helvetica
+
+// числа - индикаторы 
+.table-digit-graph // число и график
+  display    	        inline-table
+  height		6em
+  width		9em
+  padding		0
+  margin		0
+  font-size		90%
+
+  .digit-content,   .graph-content
+    display		table-row
+    height		4.5em
+    width		9em
+ 
+  .digit-wrapper
+    text-align		center
+    vertical-align	middle
+    font-size		400%
+    display		inline
+    font-family	"a_LCDNova", Helvetica
+    line-height	1.2
+
+  .graph-content
+    height		1.5em
+
+    .graph-wrapper
+      width		9em
+      height		1.5em
+
+
+// dummy jaw
+.dummy
+  display    	        inline-table
+  height		6em
+  width		9em
+  padding		0
+  margin		0
+  font-size		100%
+
+
+  .wl // vertical line (4 lines)
+    display	        table-cell
+    width		9em
+    height		1.5em
+    text-align		center
+    vertical-align	middle
+
+    &.x2
+     height		3em
+
+    &.x3
+     height		4.5em
+
+.dummy
+  display    	        inline
+  height		6em
+  width		9em
+  padding		0
+  margin		0
+  font-size		100%
+  border		1px solid black
+  box-shadow 		none
+
+  &.half
+    display		inline
+    width		4.5em
+    line-height	6em
+
+  & > .dummy
+    border		none
+
+  &.l2
+    width		18em
+
+  .wl // vertical line (4 lines)
+    display	        inline-block
+    float		left
+    width		9em
+    height		1.5em
+    line-height	1.5
+    text-align		center
+    vertical-align	middle
+    box-sizing              border-box 
+    -moz-box-sizing         border-box 
+    -webkit-box-sizing      border-box 
+
+    &.x1
+     height		1.6em
+     line-height	1.5
+
+
+    &.x2
+     height		3em
+     line-height	3
+
+    &.x3
+     height		4.5em
+     line-height	4.5
+
+    &.x4
+     height		6em
+     line-height	6
+
+  .wh
+    display		inline-block
+    float		left
+    width		2.25em
+    height		6em
+    line-height	6
+    text-align		middle
+    box-sizing              border-box 
+    -moz-box-sizing         border-box 
+    -webkit-box-sizing      border-box	
+
+    &.x2
+      width		4.5em
+    &.x3
+      width		6.75em
+    &.x4
+      width		9em
+
+
+.table-digit // число с подписью сбоку
+  display    	        inline-table
+  height		6em
+  width		9em
+  padding		0
+  margin		0
+  font-size		90%
+
+  .digit-content
+    display		table-row
+
+    .digit-wrapper, .caption
+      display		table-cell
+      height		6em
+      width		7em
+      text-align	center
+      vertical-align	middle
+
+      .digit
+        font-size		350%
+        font-family		"a_LCDNova", Helvetica
+
+    .caption
+      width		2em
+      & > span
+        font-size		200%
+
+.indicator-digit
+  height		6em
+  width 		9em
+  padding		0
+  margin		0
+  font-size		90%
+  display		inline-block
+
+  &.title-at-none
+    .digit
+      font-size		500%
+    
+
+  &.rigid
+    height		100%
+    width		100%
+
+    &.no-caption
+      .digit-caption
+        display	none
+
+  .digit
+    line-height		1.25
+    font-size			350%
+    font-family		"a_LCDNova", Helvetica
+    text-align			center    
+
+  .left-caption, .right-caption
+    display			inline-block
+    float			left
+    height			6em
+    background-color		black
+    position			absolute
+    margin-top			-6.3em
+    line-height		7.5
+    width			2.5em
+    text-align			center
+
+    & > span
+      font-size		300%
+
+
+  .right-caption
+    margin-left		auto
+    margin-right		-4.5em
+
+  .digit-caption
+    line-height	.8
+    padding		5px
+    text-align		center
+    height		1em
+
+  .digit-trend
+    position		relative
+    height		1px
+    font-size		80%
+
+    &:after
+      position		relative
+
+
+  &.up .digit-trend:after
+    top		-.75em
+    content		"▲"
+
+  &.down .digit-trend:after
+    top		-.75em
+    content		"▼"
+
+  &.no-caption
+    &.down, &.up
+      .digit-trend:after
+        top		.25em
+
+  &.title-at-top
+    &.no-caption
+      &.down, &.up
+        .digit-trend:after
+          top		.25em
+    &.up, &.down
+      .digit-trend:after
+        top		1.25em
+
+
+
+
+// debug-menu
+  
+
+#debug-pin  // pull down pill
+  position  	      fixed
+  top		      0
+  width	      2em
+  height	      1em
+  left		      50%
+  margin-top	      4em
+  margin-left	      -1em
+  border-radius       0 0 .3em .3em
+  cursor	      pointer
+  z-index	      100
+  text-align	      center
+  transition                        all 500ms
+  noselection()
+
+#debug-menu
+  position		fixed
+  box-sizing              border-box 
+  -moz-box-sizing         border-box 
+  -webkit-box-sizing      border-box 
+  z-index		1000
+  width		100%
+  padding		0 .3em
+  height		4em
+  line-height		4em
+  top			0
+  left			0
+  transition                        all 500ms
+  noselection()
+
+
+  .forks-switcher
+    display		inline-block
+    width		4em
+    
+  .tool
+    display		table-cell
+    vertical-align	middle
+    width		2em
+    float		left
+    cursor		pointer
+    text-align		center
+
+    .thint
+      position		absolute
+      top		6.3em
+      width		2em
+      text-align	center
+      z-index		1
+      line-height	1em
+      transition	all 500ms
+
+  .circle-container
+    line-height	2
+    margin-left	1em
+
+  &:active, &:hover
+    .tool
+       .thint
+         top		2.6em
+
+#console
+  position		fixed
+  z-index		99
+  left			0
+  bottom		0
+  right		0
+  height		6em
+
+  textarea
+    width		100%
+    padding		1em
+    line-height	1.8
+    background-color	transparent
+    border		0
+    border-color	transparent
+    font-family	Monaco, Georgia, Helvetica
+    outline		none
+
+
+
+
+body.no-debug
+  #debug-pin, #debug-menu, #console
+    display	none
+
+
+body.debug-collapsed
+  #debug-pin
+    margin-top	      0
+  #debug-menu
+    top	      -4em
+
+@media only screen and (max-width: 320px)
+  #debug-menu
+    line-height	5em
+    height		5em
+    font-size		120%
+
+    .circle-container
+      line-height	2.5
+
+  #debug-pin
+    margin-top		3em
+
+  body.debug-collapsed
+    #debug-menu
+      top	      -5em
+
+
+// behance like menu
+.bhmenu
+  width		14em
+  height		14em
+  position		fixed
+  z-index		100
+  border-width		2px
+  border-style		solid
+  display		inline-table
+  border-radius	7em
+  top			65%
+  left			50%
+  margin-left		-7em
+  margin-top		-7em
+  overflow		hidden
+
+  .avatar		
+    position		absolute
+    width		3.5em
+    height		3.5em
+    margin-left	1.75em
+    margin-top		-1.75em
+    border-width	4px
+    border-style	solid
+    border-radius	1.8em
+    box-sizing              border-box 
+    -moz-box-sizing         border-box 
+    -webkit-box-sizing      border-box 
+
+  .trow
+    width		100%
+    height		7em
+    vertical-align	middle
+    
+
+    .tcell
+      text-align	center
+      vertical-align	middle
+      width		50%
+
+      &:nth-child(1)
+        border-right-width	2px
+        border-right-style	solid
+
+      &:nth-child(2)
+        border-left-width	2px
+        border-left-style	solid	
+
+    &:nth-child(1)
+     .tcell
+        border-bottom-width	2px
+        border-bottom-style	solid
+
+    &:nth-child(2)
+     .tcell
+        border-top-width	2px 
+        border-top-style	solid
+
+    &.null
+      height		0
+      text-align	center
+
+  &.small
+    width		4em
+    height		4em
+    position		relative
+    z-index		2
+    border-width	2px
+    border-style	solid
+    line-height	1em
+    display		inline-table
+    top		0
+    left		0
+    overflow		hidden
+    border-right	none
+    border-bottom	none
+    margin		0
+    transform          rotate3d(0,0,1, 45deg) scale(1.2)
+    overflow	       visible
+    
+
+    .avatar		
+      position		absolute
+      z-index		2
+      width		1.5em
+      height		1.5em
+      margin-left	.3em
+      margin-top	-.8em
+      border-width	2px
+      border-style	solid
+      border-radius	1em
+      box-sizing              border-box 
+      -moz-box-sizing         border-box 
+      -webkit-box-sizing      border-box 
+      transform          rotate3d(0,0,1, -45deg)
+
+
+    .trow
+      width		100%
+      height		2em
+      vertical-align	middle
+
+
+      .tcell
+        text-align	center
+        vertical-align	middle
+        width		50%
+        box-sizing              border-box 
+        -moz-box-sizing         border-box 
+        -webkit-box-sizing      border-box 	
+        border-width	2px 
+        border-style	solid	
+
+        .elem
+          position		relative	
+          transform          rotate3d(0,0,1, -45deg)
+
+        &.one
+          border-top-left-radius	2em
+
+        &.two
+          border-top-right-radius	2em
+
+        &.three
+          border-bottom-left-radius	2em
+
+        &.four
+          border-bottom-right-radius	2em
+
+
+        &.active
+          transform		scale(1.3)
+
+
+
+      &.null
+        height		0
+        text-align	center
+
+
+// menu positions
+.main-menu-pos
+  position		fixed
+  z-index		100
+  top			65%
+  left			50%
+  margin-left		-7em
+  margin-top		-7em
+  display		none
+  
+  &.collapsed
+    transform		scale(.1)
+    left		0
+
+@media only screen and (max-width: 480px)
+  .main-menu-pos
+    font-size		75%
+    top		75%
+
+body.horizontal-screen .bhmenu-cool.main-menu-pos
+  top		     auto
+  bottom	     2em
+  font-size	     15px
+
+
+.bhmenu-cool
+  width		14em
+  height		14em
+  display		inline-table
+  overflow		hidden
+  line-height		1
+
+  &.rot
+    transform		rotate3d(0,0,1, 45deg)
+
+    .elem, .center-o
+      transform		rotate3d(0,0,1, -45deg)
+
+  .tcell
+    &.one, &.two, &.three, &.four
+      width   	        6.25em
+      height		6.25em	
+      vertical-align	middle
+      text-align	center
+      opacity		.7
+      
+      &:hover
+        opacity	1
+        position	relative
+
+    &.one-test:hover
+        top		1em
+        left		1em
+
+    &.two-test:hover
+        top		1em
+        left		-1em
+
+    &.three-test:hover
+        top		-1em
+        left		1em
+
+    &.four-test:hover
+        top		-1em
+        left		-1em
+
+
+    &.signature
+      text-align	center
+      vertical-align	middle
+
+      .caption
+        font-variant    small-caps
+        width		1.5em	
+        float		left
+        line-height	1.25	
+      
+
+      &.one-signature .caption
+        transform          rotate3d(0,0,1, 135deg)
+
+      &.two-signature .caption, &.three-signature .caption
+        clear		   both
+        width		   6.25em	
+
+
+      &.four-signature .caption
+        transform          rotate3d(0,0,1, 135deg)
+      
+    .elem
+      text-align	center
+
+
+    &.one
+      border-radius	7em 0 1.3em 0
+
+      .elem1
+        padding	.5em 0 0 .5em
+
+    &.two
+      border-radius	0 7em 0 1.3em
+
+      .elem1
+        padding	.5em .5em 0 0
+
+    &.three
+      border-radius	0 1.3em 0 7em
+
+      .elem1
+        padding	0 0 .5em .5em
+
+    &.four
+      border-radius	1.3em 0 7em 0
+
+      .elem1
+        padding	0 .5em .5em 0
+      
+    &.one-signature, &.four-signature
+      width	        1.5em
+      height		6.25em
+
+    &.center-square
+      text-align	center
+      vertical-align	middle
+
+      .name
+        width			6em
+        font-size		45%
+        position		absolute
+        z-index			2
+
+        &.bottom
+          margin-left		-3em
+          margin-top		-2em	
+
+        &.top
+          margin-left		-3em
+          margin-top		-20em	
+
+
+      .center-o
+        neonBorderSmall	lime, 4, .7
+        width			2.5em
+        height			2.5em
+        border-radius		2em
+        position		absolute
+        margin			-1em 0 0 -1em
+        margin			-1.3em 0 0 -0.5em		
+        overflow		hidden
+
+        .avatar
+          width			2.5em
+          height			2.5em
+          border-radius		2em
+
+        &.signin
+          position			fixed
+
+
+  .trow.mid-row
+    height		1.5em
+
+  &.small-sz
+    .tcell
+      &.one, &.two, &.three, &.four
+        width	    	4.5em
+        height		4.5em	
+      &.signature
+        text-align	center
+        vertical-align	middle
+
+        &.three-signature, &.two-signature
+          .caption
+            width		6em
+        .caption
+          font-variant    small-caps
+          width		2.5em	
+          line-height		2.5
+
+          .text
+            transform		scale(2)	  
+            display		inline-block	    
+
+
+      &.center-square
+        .name
+          display		none	
+        .center-o
+          width		3.5em
+          height		3.5em
+          margin		-1.7em 0 0 -.3em
+        .avatar
+          width		3.5em
+          height		3.5em
+
+  &.insert-menu-font
+    font-size			20%
+
+// end of bh menu
+
+#bg-lines
+  position			fixed
+  top				0
+  left				0
+  z-index			50
+
+// height: 6em;
+// width: 9em;
+// padding: .5em 0;
+// margin: .5em 0;
+// font-size: 90%;
+
+
+// sign in with ...
+.signin-panel
+  noselection()
+  width			100%
+  display			table
+  height			100%
+  position			absolute
+  top				-102%
+  box-sizing              border-box 
+  -moz-box-sizing         border-box 
+  -webkit-box-sizing      border-box 
+  transition		  all 500ms
+  z-index		  101
+
+  &.active
+    top		  0
+
+  .tap-elem
+    display		inline-block
+    width		7em
+    padding		.5em
+    border-radius	1em
+    border-width	2px
+    border-style	solid
+
+
+@media only screen and (max-width: 480px)
+  .signin-panel .tap-elem
+    width		5em
+    margin		0 .5em
+
+
+
+// circle footer menu
+.signout
+  position		  absolute
+  top			  3em
+  left			  0
+  width		  8em
+  padding-left		  1.5em
+  cursor		  pointer
+  padding		  .5em
+
+.go-back3
+  position		  absolute
+  top			  0
+  left		  0
+  width		  4em
+  cursor		  pointer
+  padding		  .5em
+
+footer
+  position		fixed
+  width		5em
+  height		5em
+  border-radius	3em
+  top			30%
+  right		-4em
+  box-sizing              border-box 
+  -moz-box-sizing         border-box 
+  -webkit-box-sizing      border-box 
+  bottom		  -5em
+  transition		  all 500ms
+  text-align		  center
+
+  .circle
+    width		  5em
+    height		  5em
+    border-radius	  2.5em
+    border-style	  solid
+    border-width	  5px
+    position		  absolute
+    overflow		  hidden
+    display		  table-cell
+    vertical-align	  middle
+    box-sizing              border-box 
+    -moz-box-sizing         border-box 
+    -webkit-box-sizing      border-box 
+
+
+    .name
+      display		  inline-block
+      line-height	  1.5
+      position		  relative
+      bottom		  3em
+      width		  100%    
+      top		  2em
+    
+
+  ul.links
+    margin	      0
+    padding	      0
+    text-align	      center	
+    list-style	      none
+    display	      inline-block
+
+
+    li
+      position		  absolute
+      margin-left	  0
+      margin-top	  8em
+      transition	  all 900ms
+      width		  8em
+      line-height	  1.5
+      
+      .text
+        font-size	  80%
+
+    .go-back2, .signin, .signout2
+      position		  absolute
+      margin-left	  0
+      margin-top	  8em
+      transition	  all 200ms
+      width		  8em
+      cursor		  pointer
+
+    .signin, .signout2
+      width		  8em
+      text-align	  left
+      text-align	  center
+      
+   &:hover
+     right		  3em
+
+   &.active
+    right		  6em
+
+    div.go-back2
+      margin-top	  -6.5em
+      margin-left	  1em
+
+    div.signin
+      margin-top	  -7em
+      margin-left	  -3em
+
+    div.signout2
+      top		  1em
+      right		  0
+
+    div.signin-extra
+      margin-top	  -5em
+      margin-left	  -9em
+    
+
+    li:nth-child(1)
+      margin-top	  -3em
+      margin-left	  -7em
+
+    li:nth-child(2)
+      margin-top	  -1em
+      margin-left	  -10em
+
+    li:nth-child(3)
+      margin-top	  2em
+      margin-left	  -11em
+
+    li:nth-child(4)
+      margin-top	  -3em
+      margin-left	  -1em
+
+    li:nth-child(5)
+      margin-top	  -1em
+      margin-left	  2em
+
+    li:nth-child(6)
+      margin-top	  2em
+      margin-left	  3em
+
+
+// debugger styles
+#carousel
+  position			fixed
+  top				0
+  left				0
+  bottom			0
+  right			0
+  z-index			1
+  background-color		black
+  text-align			center
+
+  .content
+    margin-top			30vh
+
+  .square-widget
+    clr	= white
+    display			inline-block
+    overflow			hidden
+    position			absolute
+    border-radius		3px
+    neonBorderSmall		clr, 2, .7
+
+    & > section
+      border-radius		3px
+
+    &.one
+      z-index			    1
+    &.two
+      z-index			    3
+    &.three
+      z-index			    2
+
+//      transform-translate-3d        160px, 0, 0
+
+// // footer
+// footer
+//   text-align	      center
+//   margin-top	      4em
+//   z-index	      101
+//   bottom	      0
+//   left		      0
+//   right		      0	
+//   display	      block
+
+//   .center-link
+//     display	      inline-block
+//     padding-top	      .7em
+  
+// ul.footer
+//   margin	      0
+//   padding	      .2em 2em
+//   list-style	      none
+
+//   &.left-side
+//     float	      left
+
+//   &.right-side
+//     float	      right
+
+//   li
+//     display	      inline-block
+//     line-height	      2em
+//     margin-left	      1em
+
+// @media only screen and (max-width: 320px)
+//   footer
+//     font-size		200%
+
+
+//   ul.footer
+//     display	        inline-block
+
+
+
+
+//     &.left-side, &.right-side
+//       float	      none
+
+
+// // end of footer
+// endof circle footer menu
+
+
+.rotate180
+  transform		rotate(180deg)
+
+
+// -----------------------------------------------------------------------------------
+// CONTROLS
+// -----------------------------------------------------------------------------------
+//
+// .first-time - enable first time
+// 
+input.ui.settings
+  background-color		transparent
+  border			none
+  width			100%
+  outline			none
+  selection()
+
+
+
+ON = rgba(niceGreen, .7)
+OFF = rgba(niceRed, .7)
+
+.setting.on
+  background-color    rgba(ON, 0.4)
+
+.setting.off
+  background-color    rgba(OFF, 0.4)
+
+
+.ui.ctrl-on-off
+  display		inline-block
+  font-size		2em
+  .left-ctrl, .right-ctrl, .first-time
+    cursor		pointer
+    display		inline-block
+    width		1.2em
+    height		1.2em
+    border		2px solid white
+    border-radius	.8em
+
+    
+
+
+  & .left-ctrl:hover, .left-ctrl:active
+    background-color	OFF !important
+
+
+    
+  & .right-ctrl:hover, .right-ctrl:active
+    background-color	ON !important
+
+
+// -----------------------------------------
+// background template
+// -----------------------------------------
+hgh = 565px
+.page-and-bg
+  width		100%
+  max-width		320px
+  font-size		18px
+  font-size		16px
+  height		hgh
+  box-sizing              border-box 
+  -moz-box-sizing         border-box 
+  -webkit-box-sizing      border-box 
+
+  .bg
+    position			absolute
+    width			100%
+    max-width		320px
+    height		hgh
+    z-index		1002
+    background-size		cover
+    background-position		center center
+    background-attachment	fixed
+    overflow			hidden
+
+
+  .face
+    width		100%
+    max-width		320px
+    height		hgh
+    overflow-y		scroll
+    position		absolute
+    z-index		1002
+    box-sizing              border-box 
+    -moz-box-sizing         border-box 
+    -webkit-box-sizing      border-box     
+
+  .title
+    font-size		   200%
+    margin-top		   20vh
+    line-height	   1.6
+    text-align		   center
+    font-family	   Furore
+
+  .subtitle
+    font-size		   150%
+    padding		   0 1em
+    text-align		   center
+    position		   relative
+    top		   -.5em    
+    
+
+  .at-bottom
+    position		  absolute
+    bottom		  30px
+    width		  100%
+    padding		  .8em 0 0 0
+    box-sizing              border-box 
+    -moz-box-sizing         border-box 
+    -webkit-box-sizing      border-box	
+
+@media only screen and (max-width: 320px)
+ .page-and-bg
+   height		100%
+   height		100vh
+
+   .bg, .face
+     height		100%
+     height		100vh
+
+
+// ------------------------------------------------------------
+// activity page
+// ------------------------------------------------------------
+
+.page
+  width			100%
+  width			100vw
+  height			100vh
+  box-sizing              border-box 
+  -moz-box-sizing         border-box 
+  -webkit-box-sizing      border-box 
+
+.page-bg, .page-content
+  position			absolute
+  width			100%
+  width			100vw
+  height			100vh
+  background-size		cover
+  background-position		center center
+  background-attachment	fixed
+  overflow			hidden
+  box-sizing              border-box
+  -moz-box-sizing         border-box
+  -webkit-box-sizing      border-box
+
+
+.soda-main .page-bg
+  background-image: url("//wallpaper-cases.s3.amazonaws.com/school-logo-blur.jpg")
+
+.soda-activity .page-bg
+  background-image: url("//soda-media.s3.amazonaws.com/gallery/IMG_0633.jpg")
+
+.soda-stat .page-bg
+  background-image: url("//soda-media.s3.amazonaws.com/gallery/IMG_0740.jpg")
+
+
+.bottom-side
+  position		absolute
+  bottom		0
+  padding		1em 
+  border-top		2px solid
+
+
+// timeline!
+.tl  
+  display	 table
+  
+
+.tl .line 
+  display	 table-row
+  line-height	 5
+  font-size	120%
+  
+.tl .date, .tl .marker, .tl .text 
+  display	 table-cell
+  vertical-align	 middle
+  
+
+.tl .marker 
+    text-align	 center
+    width	 1em
+    position	 relative
+    left	 -2.5%
+  
+
+.tl .date 
+    border-right	 1px solid #4876ff
+    font-size	70%
+    text-align	 center
+    width	 6em
+    position	 relative
+    padding-right	1em
+    margin-right	1em
+    top	 -.25em
+  
+
+.tl .text 
+  font-size	150%
+  margin-left	 1em
+  line-height	 1.2
+    
+
+.circ2 
+  width	 .5cm
+  height	 .5cm
+  display	 inline-block
+  border-radius	 .3cm
+  
+
+.tl
+  display		inline-flex
+  flex-direction 	column
+
+.tl .line
+  align-items		stretch
+
+.tl .text
+  font-size		7vmin
+  padding-left		.7em
+
+.tl .date
+  text-align		right
+
+.tl .circ
+  display		inline-block
+  position		relative
+  left			1.55em
+  width			1em
+  height		1em
+  border-radius		1em
+  top			.3em
+
+
+@media only screen and (max-width: 480px)
+  .tl .date
+    font-size		10px
