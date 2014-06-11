@@ -1,11 +1,23 @@
-/storage/ios-apps/push.co/platforms/android/ant-build/classes.dex : \
-/storage/ios-apps/push.co/platforms/android/ant-build/classes/io/soda/co/push/BuildConfig.class \
-/storage/ios-apps/push.co/platforms/android/ant-build/classes/io/soda/co/push/pushco.class \
-/storage/ios-apps/push.co/platforms/android/ant-build/classes/io/soda/co/push/R$attr.class \
-/storage/ios-apps/push.co/platforms/android/ant-build/classes/io/soda/co/push/R$drawable.class \
-/storage/ios-apps/push.co/platforms/android/ant-build/classes/io/soda/co/push/R$string.class \
-/storage/ios-apps/push.co/platforms/android/ant-build/classes/io/soda/co/push/R$xml.class \
-/storage/ios-apps/push.co/platforms/android/ant-build/classes/io/soda/co/push/R.class \
-/storage/ios-apps/push.co/platforms/android/ant-build/classes/org/apache/cordova/device/Device.class \
-/storage/ios-apps/push.co/platforms/android/ant-build/classes/org/apache/cordova/vibration/Vibration.class \
-/storage/ios-apps/push.co/platforms/android/ant-build/dexedLibs/classes-d6dfbef66c93c616383f97bf0674ec83.jar \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/classes.dex : \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/classes/io/soda/co/push/BuildConfig.class \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/classes/io/soda/co/push/pushco.class \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/classes/io/soda/co/push/R$attr.class \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/classes/io/soda/co/push/R$drawable.class \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/classes/io/soda/co/push/R$string.class \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/classes/io/soda/co/push/R$xml.class \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/classes/io/soda/co/push/R.class \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/classes/org/apache/cordova/batterystatus/BatteryListener$1.class \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/classes/org/apache/cordova/batterystatus/BatteryListener.class \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/classes/org/apache/cordova/contacts/ContactAccessor$WhereOptions.class \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/classes/org/apache/cordova/contacts/ContactAccessor.class \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/classes/org/apache/cordova/contacts/ContactAccessorSdk5.class \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/classes/org/apache/cordova/contacts/ContactManager$1.class \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/classes/org/apache/cordova/contacts/ContactManager$2.class \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/classes/org/apache/cordova/contacts/ContactManager$3.class \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/classes/org/apache/cordova/contacts/ContactManager.class \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/classes/org/apache/cordova/device/Device.class \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/classes/org/apache/cordova/networkinformation/NetworkManager$1.class \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/classes/org/apache/cordova/networkinformation/NetworkManager.class \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/classes/org/apache/cordova/splashscreen/SplashScreen.class \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/classes/org/apache/cordova/vibration/Vibration.class \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/dexedLibs/classes-31fb91aa7aca5efab309f347a15428c8.jar \

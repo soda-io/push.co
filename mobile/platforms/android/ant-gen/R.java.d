@@ -1,14 +1,22 @@
-/storage/ios-apps/push.co/platforms/android/ant-gen/io/soda/co/push/R.java \
- : /storage/ios-apps/push.co/platforms/android/res/drawable/icon.png \
-/storage/ios-apps/push.co/platforms/android/res/drawable-hdpi/icon.png \
-/storage/ios-apps/push.co/platforms/android/res/drawable-ldpi/icon.png \
-/storage/ios-apps/push.co/platforms/android/res/drawable-mdpi/icon.png \
-/storage/ios-apps/push.co/platforms/android/res/drawable-xhdpi/icon.png \
-/storage/ios-apps/push.co/platforms/android/res/values/strings.xml \
-/storage/ios-apps/push.co/platforms/android/res/xml/config.xml \
-/storage/ios-apps/push.co/platforms/android/ant-build/res/drawable/icon.png \
-/storage/ios-apps/push.co/platforms/android/ant-build/res/drawable-hdpi/icon.png \
-/storage/ios-apps/push.co/platforms/android/ant-build/res/drawable-ldpi/icon.png \
-/storage/ios-apps/push.co/platforms/android/ant-build/res/drawable-mdpi/icon.png \
-/storage/ios-apps/push.co/platforms/android/ant-build/res/drawable-xhdpi/icon.png \
-/storage/ios-apps/push.co/platforms/android/ant-build/AndroidManifest.xml \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-gen/io/soda/co/push/R.java \
+ : /storage/storage/node.js/push.co/mobile/platforms/android/res/drawable/icon.png \
+/storage/storage/node.js/push.co/mobile/platforms/android/res/drawable-hdpi/ic_launcher.png \
+/storage/storage/node.js/push.co/mobile/platforms/android/res/drawable-hdpi/icon.png \
+/storage/storage/node.js/push.co/mobile/platforms/android/res/drawable-ldpi/ic_launcher.png \
+/storage/storage/node.js/push.co/mobile/platforms/android/res/drawable-ldpi/icon.png \
+/storage/storage/node.js/push.co/mobile/platforms/android/res/drawable-mdpi/ic_launcher.png \
+/storage/storage/node.js/push.co/mobile/platforms/android/res/drawable-mdpi/icon.png \
+/storage/storage/node.js/push.co/mobile/platforms/android/res/drawable-xhdpi/ic_launcher.png \
+/storage/storage/node.js/push.co/mobile/platforms/android/res/drawable-xhdpi/icon.png \
+/storage/storage/node.js/push.co/mobile/platforms/android/res/values/strings.xml \
+/storage/storage/node.js/push.co/mobile/platforms/android/res/xml/config.xml \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/res/drawable/icon.png \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/res/drawable-hdpi/ic_launcher.png \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/res/drawable-hdpi/icon.png \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/res/drawable-ldpi/ic_launcher.png \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/res/drawable-ldpi/icon.png \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/res/drawable-mdpi/ic_launcher.png \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/res/drawable-mdpi/icon.png \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/res/drawable-xhdpi/ic_launcher.png \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/res/drawable-xhdpi/icon.png \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/AndroidManifest.xml \

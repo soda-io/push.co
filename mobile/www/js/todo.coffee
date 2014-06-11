@@ -10,16 +10,25 @@ class window.Todo
 
   generateElems: ->
     if @templates.todo_list?
-      html = swig.render @templates.todo_list,  locals: tasks: @tasks
-      $("main article").html html
+      console.log "GENERATE ELEMENTs"
+      html = swig.render @templates.todo_list,  locals: tasks: @tasks, color: "orange"
+      $("main .all-content").html html
       @bindEvents()
 
   bindEvents: ->
     elem_names = [1..100].map (n) -> "el-#{n}"
+    console.log "BIND EVENTS"
     $("main article .line").forEach (line, i) ->
+      
       elem = $(line).find(".content")[0]
       actions = []
-      lineOffset = $(line).offset().left
+      # get left position and height
+      offs = $(line).offset()
+      lineOffset = offs.left
+
+      # set mount height
+      $(line).find(".mount").css "height", "#{offs.height}px"
+
       $(line).find(".mount .actions .inline").forEach (cmd, i) ->
         w = $(cmd).offset().width
         offset = $(cmd).offset().left
@@ -42,13 +51,14 @@ class window.Todo
   #
   loadData: ->
     @folders = {}
-    @tasks = {}
     @tasks = [
       "foo"
       "bar"
-      "buzz"
       "fuzz"
-      "melt"
+      "Lorem ipsum, Dolor sit amet, consectetuer adipiscing loreum ipsum edipiscing elit, sed diam
+nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.Loreum ipsum
+edipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
+erat volutpat."
       ]
 
   # https://github.com/paularmstrong/swig/issues/163

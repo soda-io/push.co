@@ -9,8 +9,9 @@ for i in 1..20
 // applications-specific styles
 body
   height			  100vh
-  background-color		  black
+  width		 	  100vw
   radial-gradient 		  #2F4F4F darken(#2F4F4F, 50%)
+  background-color		  black
   perspective			  1000
   backface-visibility		  hidden
 
@@ -167,7 +168,6 @@ main
   position		static
   top			0
   left			0
-  max-width		320px
   width		100vw
   height		100vh
   max-height		568px
@@ -255,20 +255,31 @@ main
 
     .mount
       padding		.5em 1em
-      background-color	black
       position		absolute
       z-index		1
       width		100%
-      height		100%
+      height		1em
+      overflow		hidden
       box-sizing              border-box 
       -moz-box-sizing         border-box 
       -webkit-box-sizing      border-box 
+      display		      flex
+      justify-content	      flex-start
+
+      .actions
+        display		      flex
+        align-items		center
 
       .inline
-        display	inline-block
+        display		inline-flex
+        width		3em
         text-align	center
-        line-height	0.2
+        line-height	0.4
         margin		0 .5em
+        flex-direction	column	 
+
+        & > div
+          display	inline-block 
 
       .tip-text
         font-size	40%
@@ -277,7 +288,7 @@ main
 
       .fa
         font-size	150%
-        display	block
+
 
         &.inactive
           color	grey !important
@@ -288,6 +299,10 @@ main
       padding		.5em 1em
       position		relative
       z-index		2
+      width		100%
+      box-sizing              border-box 
+      -moz-box-sizing         border-box 
+      -webkit-box-sizing      border-box 
       noselection()
 
       textarea.text
@@ -302,11 +317,6 @@ main
 
 
 
-   for i in (1..40)
-     article.magenta-col .line .content:nth-child({i})
-       background-color	 lighten(#D144FF, unit(4.5*i, '%'))
-       
-
   .sliding-move
     height			60px
     line-height		60px
@@ -318,8 +328,69 @@ main
     top			0
     z-index			1100
 
+// ----------------------------------------
+// color schemes
+// ----------------------------------------
+main article
+  .mount
+    background-color		black
+
+  &.magenta .line .content
+    background-color	 lighten(#D144FF, 1%)
+  &.orange .line .content
+    background-color	lighten(#FE7002,  1%)
+
+
+  for i in (1..40)
+    &.magenta .line:nth-child({i}) .content
+      background-color	 lighten(#D144FF, unit(4.5*i, '%'))
+    &.orange .line:nth-child({i}) .content
+      background-color	lighten(#FE7002,  unit(4.5*i, '%'))
+
+
+
+
+
+// 360 PX
+
+@media only screen and (max-width: 360px)
+  .sidebar-left
+    max-width		     360px
+    width		     360px
+
+
+  .ribn-wrapper
+    width		     360px
+    height		     100vh
+    overflow		     hidden
+
+  input[type="search"]
+    width		90%
+    font-size		70%
+
+
+  main 
+    margin		0
+    float		left
+
+    max-width		360px
+    width		360px
+    article .line .mount
+        font-size  	     80%
+
+        .inline
+          margin		     0 .3em
+
+// --------------------------------------------------
+// 320 PX
+// fix for body only for iphone!
+// --------------------------------------------------
 
 @media only screen and (max-width: 320px)
+  body
+    margin-top		     20px
+    background		     black
+
   .sidebar-left
     max-width		     320px
     width		     320px
@@ -347,6 +418,7 @@ main
         .inline
           margin		     0 .3em
 
+// --------------------------------------------------
 
 @media only screen and (min-width: 960px)
   main
@@ -364,5 +436,35 @@ span.tapp
   margin		0 .4em
 
 
+
+
+// flex layout
+.flex
+  display	flex
+
+.inline-flex
+  display	inline-flex
+
+// justify-content: flex-start | flex-end | center | space-between | space-around
+// align-items: flex-start | flex-end | center | baseline | stretch
+
+.flex-center
+  justify-content	center
+  align-items		center
+
+
+// forms
+.form
+  display		  flex
+  justify-content	  center
+  align-items		  center
+  flex-direction	  column
+  align-content           space-around
+  box-sizing              border-box 
+  -moz-box-sizing         border-box 
+  -webkit-box-sizing      border-box 
+  width		  100vw
+  height		  100vh
+  overflow		  scroll
 
 

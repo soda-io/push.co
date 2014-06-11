@@ -687,8 +687,6 @@ _initTask = (task) ->
   task.updated_at     = now
   task.times          = []
 
-
-
 #
 # Internal: Проверить уникальность задачи
 #

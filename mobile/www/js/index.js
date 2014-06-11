@@ -2,7 +2,7 @@
 (function() {
   window.app = {
     initialize: function() {
-      this.bindEvents();
+      return this.bindEvents();
     },
     bindEvents: function() {
       return document.addEventListener("deviceready", this.onDeviceReady, false);
@@ -20,8 +20,7 @@
       }
     },
     receivedEvent: function(id) {
-      app.notify(null, "первый пошел");
-      console.log("Received Event: " + id);
+      return console.log("Received Event: " + id);
     }
   };
 

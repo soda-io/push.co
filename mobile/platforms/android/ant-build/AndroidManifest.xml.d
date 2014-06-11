@@ -1,2 +1,2 @@
-/storage/ios-apps/push.co/platforms/android/ant-build/AndroidManifest.xml : \
-/storage/ios-apps/push.co/platforms/android/AndroidManifest.xml \
+/storage/storage/node.js/push.co/mobile/platforms/android/ant-build/AndroidManifest.xml : \
+/storage/storage/node.js/push.co/mobile/platforms/android/AndroidManifest.xml \

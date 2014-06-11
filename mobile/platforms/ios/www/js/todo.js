@@ -10,12 +10,14 @@
     Todo.prototype.generateElems = function() {
       var html;
       if (this.templates.todo_list != null) {
+        console.log("GENERATE ELEMENTs");
         html = swig.render(this.templates.todo_list, {
           locals: {
-            tasks: this.tasks
+            tasks: this.tasks,
+            color: "orange"
           }
         });
-        $("main article").html(html);
+        $("main .all-content").html(html);
         return this.bindEvents();
       }
     };
@@ -29,11 +31,14 @@
       }).apply(this).map(function(n) {
         return "el-" + n;
       });
+      console.log("BIND EVENTS");
       return $("main article .line").forEach(function(line, i) {
-        var actions, elem, lineOffset;
+        var actions, elem, lineOffset, offs;
         elem = $(line).find(".content")[0];
         actions = [];
-        lineOffset = $(line).offset().left;
+        offs = $(line).offset();
+        lineOffset = offs.left;
+        $(line).find(".mount").css("height", "" + offs.height + "px");
         $(line).find(".mount .actions .inline").forEach(function(cmd, i) {
           var offset, w;
           w = $(cmd).offset().width;
@@ -74,8 +79,7 @@
 
     Todo.prototype.loadData = function() {
       this.folders = {};
-      this.tasks = {};
-      return this.tasks = ["foo", "bar", "buzz", "fuzz", "melt"];
+      return this.tasks = ["foo", "bar", "fuzz", "Lorem ipsum, Dolor sit amet, consectetuer adipiscing loreum ipsum edipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.Loreum ipsum edipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."];
     };
 
     Todo.prototype.loadTemplates = function() {

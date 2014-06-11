@@ -1,13 +1,25 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.soda.co.push" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.soda.co.push" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
     <feature name="App">
         <param name="android-package" value="org.apache.cordova.App" />
     </feature>
+    <feature name="NetworkStatus">
+        <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
+    </feature>
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+    </feature>
+    <feature name="Battery">
+        <param name="android-package" value="org.apache.cordova.batterystatus.BatteryListener" />
+    </feature>
+    <feature name="Contacts">
+        <param name="android-package" value="org.apache.cordova.contacts.ContactManager" />
+    </feature>
     <preference name="AllowInlineMediaPlayback" value="false" />
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="BackupWebStorage" value="cloud" />
-    <preference name="DisallowOverscroll" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
     <preference name="EnableViewportScale" value="false" />
     <preference name="FadeSplashScreen" value="true" />
     <preference name="FadeSplashScreenDuration" value=".25" />
@@ -20,6 +32,38 @@
     <preference name="PageLength" value="0" />
     <preference name="PaginationBreakingMode" value="page" />
     <preference name="PaginationMode" value="unpaginated" />
+    <icon gap:platform="ios" height="29" src="res/icons/ios/icon-29.png" width="29" />
+    <icon gap:platform="ios" height="58" src="res/icons/ios/icon-29-2x.png" width="58" />
+    <icon gap:platform="ios" height="40" src="res/icons/ios/icon-40.png" width="40" />
+    <icon gap:platform="ios" height="80" src="res/icons/ios/icon-40-2x.png" width="80" />
+    <icon gap:platform="ios" height="50" src="res/icons/ios/icon-50.png" width="50" />
+    <icon gap:platform="ios" height="100" src="res/icons/ios/icon-50-2x.png" width="100" />
+    <icon gap:platform="ios" height="57" src="res/icons/ios/icon-57.png" width="57" />
+    <icon gap:platform="ios" height="114" src="res/icons/ios/icon-57-2x.png" width="114" />
+    <icon gap:platform="ios" height="60" src="res/icons/ios/icon-60.png" width="60" />
+    <icon gap:platform="ios" height="120" src="res/icons/ios/icon-60-2x.png" width="120" />
+    <icon gap:platform="ios" height="72" src="res/icons/ios/icon-72.png" width="72" />
+    <icon gap:platform="ios" height="144" src="res/icons/ios/icon-72-2x.png" width="144" />
+    <icon gap:platform="ios" height="76" src="res/icons/ios/icon-76.png" width="76" />
+    <icon gap:platform="ios" height="152" src="res/icons/ios/icon-76-2x.png" width="152" />
+    <icon src="icon.png" />
+    <icon gap:density="ldpi" gap:platform="android" src="res/icons/android/icon-36-ldpi.png" />
+    <icon gap:density="mdpi" gap:platform="android" src="res/icons/android/icon-48-mdpi.png" />
+    <icon gap:density="hdpi" gap:platform="android" src="res/icons/android/icon-72-hdpi.png" />
+    <icon gap:density="xhdpi" gap:platform="android" src="res/icons/android/icon-96-xhdpi.png" />
+    <gap:splash gap:density="ldpi" gap:platform="android" src="res/screens/android/screen-ldpi-portrait.png" />
+    <gap:splash gap:density="mdpi" gap:platform="android" src="res/screens/android/screen-mdpi-portrait.png" />
+    <gap:splash gap:density="hdpi" gap:platform="android" src="res/screens/android/screen-hdpi-portrait.png" />
+    <gap:splash gap:density="xhdpi" gap:platform="android" src="res/screens/android/screen-xhdpi-portrait.png" />
+    <gap:splash gap:platform="blackberry" src="res/screens/blackberry/screen-225.png" />
+    <gap:splash gap:platform="ios" height="1136" src="res/screens/ios/screen-iphone-portrait-568h-2x.png" width="640" />
+    <gap:splash gap:platform="ios" height="480" src="res/screens/ios/screen-iphone-portrait.png" width="320" />
+    <gap:splash gap:platform="ios" height="960" src="res/screens/ios/screen-iphone-portrait-2x.png" width="640" />
+    <gap:splash gap:platform="ios" height="1024" src="res/screens/ios/screen-ipad-portrait.png" width="768" />
+    <gap:splash gap:platform="ios" height="768" src="res/screens/ios/screen-ipad-landscape.png" width="1024" />
+    <gap:splash gap:platform="ios" height="2048" src="res/screens/ios/screen-ipad-portrait-2x.png" width="1536" />
+    <gap:splash gap:platform="ios" height="1536" src="res/screens/ios/screen-ipad-landscape-2x.png" width="2048" />
+    <gap:splash gap:platform="winphone" src="res/screens/windows-phone/screen-portrait.jpg" />
     <feature name="LocalStorage">
         <param name="ios-package" value="CDVLocalStorage" />
     </feature>
@@ -36,23 +80,11 @@
     </feature>
     <name>push.co</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
-    </description>
+    A sample Apache Cordova application that responds to the deviceready event.
+  </description>
     <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
-    </author>
+    Apache Cordova Team
+  </author>
     <content src="index.html" />
     <access origin="*" />
-    <feature name="NetworkStatus">
-        <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
-    </feature>
-    <feature name="SplashScreen">
-        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
-    </feature>
-    <feature name="Battery">
-        <param name="android-package" value="org.apache.cordova.batterystatus.BatteryListener" />
-    </feature>
-    <feature name="Contacts">
-        <param name="android-package" value="org.apache.cordova.contacts.ContactManager" />
-    </feature>
 </widget>

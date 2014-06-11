@@ -40,6 +40,7 @@ window.app =
   # function, we must explicity call 'app.receivedEvent(...);'
   onDeviceReady: ->
     app._n =  new   window.Notifications  ".notifications"
+    #alert "#{window.innerWidth}x#{window.innerHeight}"
     app.receivedEvent "deviceready"
     app._todo = new Todo
     app._todo.generateElems()
@@ -59,4 +60,3 @@ window.app =
 
 
 
-      

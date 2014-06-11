@@ -21,7 +21,6 @@ window.app =
   # Application Constructor
   initialize: ->
     @bindEvents()
-    return
 
 
 
@@ -41,6 +40,7 @@ window.app =
   # function, we must explicity call 'app.receivedEvent(...);'
   onDeviceReady: ->
     app._n =  new   window.Notifications  ".notifications"
+    #alert "#{window.innerWidth}x#{window.innerHeight}"
     app.receivedEvent "deviceready"
     app._todo = new Todo
     app._todo.generateElems()
@@ -55,11 +55,8 @@ window.app =
   
   # Update DOM on a Received Event
   receivedEvent: (id) ->
-    app.notify null, "первый пошел"
-
     console.log "Received Event: " + id
-    return
 
 
 
-      
+

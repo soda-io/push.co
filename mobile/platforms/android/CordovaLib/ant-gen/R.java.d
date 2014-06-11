@@ -1,1 +1,1 @@
- : /storage/ios-apps/push.co/platforms/android/CordovaLib/ant-build/AndroidManifest.xml \
+ : /storage/storage/node.js/push.co/mobile/platforms/android/CordovaLib/ant-build/AndroidManifest.xml \
