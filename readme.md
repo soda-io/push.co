@@ -50,10 +50,14 @@
 
 ## == INSTAll ==
 
+**Для корректной работы требуется `CoffeeScript >= 1.7.1`**
+
  1. **В терминале** 
 
 ```bash
   git clone git@github.com:soda-io/push.co.git
+  cd push.co
+  npm install
   cat <<EOF >> ~/.bash_profile
   alias "s"="coffee `pwd`/index.coffee"
   EOF
