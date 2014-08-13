@@ -55,12 +55,12 @@
  1. **В терминале** 
 
 ```bash
-  git clone git@github.com:soda-io/push.co.git
-  cd push.co
+  git clone git@github.com:soda-io/push.co.git   //скачиваем
+  cd push.co                                     //переходим в push.co
   npm install
-  cat <<EOF >> ~/.bash_profile
+  cat <<EOF >> ~/.bash_profile                   
   alias "s"="coffee `pwd`/index.coffee"
-  EOF
+  EOF                                            //удаляем пробелы перед EOF
   . ~/.bash_profile
   s h
 ```
